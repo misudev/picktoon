@@ -51,6 +51,8 @@ CREATE TABLE IF NOT EXISTS webtoon (
   title VARCHAR(45) NOT NULL,
   author VARCHAR(45) NOT NULL,
   state VARCHAR(45) NOT NULL,
+  see_age VARCHAR(45) NOT NULL DEFAULT '전체관람가',
+  link VARCHAR(255) NOT NULL,
   subscription INT NOT NULL DEFAULT 0,
   description LONGTEXT NULL,
   platform_id INT NOT NULL,
@@ -66,10 +68,10 @@ CREATE TABLE IF NOT EXISTS webtoon (
 -- Table `webtoondb`.`webtoon_state`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS webtoon_state (
-  id INT NOT NULL AUTO_INCREMENT,
-  update_state TINYINT NULL,
+  id BIGINT(20) NOT NULL AUTO_INCREMENT,
+  update_state TINYINT(1) NULL,
   updated_date DATETIME NULL,
-  total_count INT NULL,
+  total_count VARCHAR(255) NULL,
   webtoon_id BIGINT(20) NOT NULL,
   CONSTRAINT fk_webtoon_state_webtoon
   FOREIGN KEY (webtoon_id)
@@ -82,7 +84,7 @@ CREATE TABLE IF NOT EXISTS webtoon_state (
 -- Table `webtoondb`.`webtoon_image`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS webtoon_image (
-  id INT NOT NULL AUTO_INCREMENT,
+  id BIGINT(20) NOT NULL AUTO_INCREMENT,
   mime_type VARCHAR(45) NULL,
   length BIGINT(20) NULL,
   name VARCHAR(45) NULL,
