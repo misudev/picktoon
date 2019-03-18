@@ -37,6 +37,7 @@ insert into keyword (id, keyword_name, ordering) values (7, "개그" , 7);
 insert into keyword (id, keyword_name, ordering) values (8, "대학생" , 8);
 insert into keyword (id, keyword_name, ordering) values (9, "학교" , 9);
 insert into keyword (id, keyword_name, ordering) values (10, "범죄" , 10);
+insert into keyword (id, keyword_name, ordering) values (11, "귀신" , 11);
 
 insert into platform (id, plateform_name) values (1, "네이버");
 insert into platform (id, plateform_name) values (2, "다음");
@@ -70,7 +71,24 @@ insert into webtoon (id, title, author, state, see_age, link, subscription, desc
 values (13, "퀴퀴한 일기", "2B", "연재중", "전체관람가", "http://webtoon.daum.net/webtoon/view/ficnonfic", 155, "사돈 사이가 된 원수지간 남녀, 때마침 모든 걸 되돌릴 수 있는 기회가 눈앞에 찾아오는데!", 2);
 insert into webtoon (id, title, author, state, see_age, link, subscription, description, platform_id)
 values (14, "유사과학 탐구영역", "계란계란", "연재중", "전체관람가", "http://webtoon.daum.net/webtoon/view/PseudoScience", 1, "즈질스럽고 퀴퀴한 언니의 쿰쿰한 일상다반사", 2);
-
+insert into webtoon (id, title, author, state, see_age, link, subscription, description, platform_id)
+values (15, "마음의 소리", "조석", "연재중", "전체관람가", "https://comic.naver.com/webtoon/list.nhn?titleId=20853&weekday=tue",
+        123, "솔직 담백 최강의 개그 만화", 1);
+insert into webtoon (id, title, author, state, see_age, link, subscription, description, platform_id)
+values (16, "대학일기", "자까", "완", "전체관람가", "https://comic.naver.com/webtoon/list.nhn?titleId=679519&weekday=mon",
+        230, "로망이 꽃피는 캠퍼스는 없다. 극사실주의에 기반한 너무나 현실적인 우리의 대학일기", 1);
+insert into webtoon (id, title, author, state, see_age, link, subscription, description, platform_id)
+values (17, "유미의 세포들", "이동건", "연재중", "전체관람가", "https://comic.naver.com/webtoon/list.nhn?titleId=651673",
+        123, "유미는 지금 무슨 생각을 하고 있을까? 그녀의 머릿속에서 바쁘게 움직이는 세포들 이야기!", 1);
+insert into webtoon (id, title, author, state, see_age, link, subscription, description, platform_id)
+values (18, "기기괴괴", "오성대", "연재중", "전체관람가", "https://comic.naver.com/webtoon/list.nhn?titleId=557672",
+        18, "<절벽귀> 오성대 작가의 신작 옴니버스 미스테리 스릴러.기묘하고 괴상한 이야기들.", 1);
+insert into webtoon (id, title, author, state, see_age, link, subscription, description, platform_id)
+values (19, "좀비딸", "이윤창", "연재중", "전체관람가", "https://comic.naver.com/webtoon/list.nhn?titleId=715772&weekday=thu",
+        189, "나의 딸은 좀비다. 이 세상 마지막 남은 유일한 좀비...", 1);
+insert into webtoon (id, title, author, state, see_age, link, subscription, description, platform_id)
+values (20, "신의탑", "SIU", "연재중", "전체관람가", "https://comic.naver.com/webtoon/list.nhn?titleId=183559&weekday=mon",
+        500, "자신의 모든 것이었던 소녀를 쫓아 탑에 들어온 소년 그리고 그런 소년을 시험하는 탑", 1);
 
 insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id) values (1, 0, "2019-03-03 23:59:59", "26화", 1);
 insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id) values (2, 0, "2019-03-04 23:59:59", "126화", 2);
@@ -86,6 +104,18 @@ insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_
 insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id) values (12, 0, "2019-03-03 23:59:59", "234화", 12);
 insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id) values (13, 0, "2019-03-03 23:59:59", "40화", 13);
 insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id) values (14, 0, "2019-03-03 23:59:59", "284화", 14);
+insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id)
+values (15, 1, "2019-03-18 17:51:20", "1161화", 15);
+insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id)
+values (16, 0, "2019-03-17 15:51:20", "290화", 16);
+insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id)
+values (17, 0, "2019-03-15 02:30:30", "362화", 17);
+insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id)
+values (18, 0, "2019-03-14 01:30:30", "254화", 18);
+insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id)
+values (19, 0, "2019-03-16 01:20:30", "30화", 19);
+insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id)
+values (20, 1, "2019-03-18 00:33:30", "3부 2화", 20);
 
 insert into webtoon_genre (webtoon_id, genre_id) values (1,1);
 insert into webtoon_genre (webtoon_id, genre_id) values (1,2);
@@ -110,6 +140,16 @@ insert into webtoon_genre (webtoon_id, genre_id) values (13,9);
 insert into webtoon_genre (webtoon_id, genre_id) values (13,1);
 insert into webtoon_genre (webtoon_id, genre_id) values (14,4);
 insert into webtoon_genre (webtoon_id, genre_id) values (14,5);
+insert into webtoon_genre (webtoon_id, genre_id) values (15, 3);
+insert into webtoon_genre (webtoon_id, genre_id) values (15, 4);
+insert into webtoon_genre (webtoon_id, genre_id) values (16, 3);
+insert into webtoon_genre (webtoon_id, genre_id) values (16, 4);
+insert into webtoon_genre (webtoon_id, genre_id) values (17, 1);
+insert into webtoon_genre (webtoon_id, genre_id) values (18, 7);
+insert into webtoon_genre (webtoon_id, genre_id) values (19, 3);
+insert into webtoon_genre (webtoon_id, genre_id) values (19, 7);
+insert into webtoon_genre (webtoon_id, genre_id) values (20, 5);
+insert into webtoon_genre (webtoon_id, genre_id) values (20, 6);
 
 insert into webtoon_keyword (webtoon_id, keyword_id) values (1,1);
 insert into webtoon_keyword (webtoon_id, keyword_id) values (1,2);
@@ -136,6 +176,13 @@ insert into webtoon_keyword (webtoon_id, keyword_id) values (11,2);
 insert into webtoon_keyword (webtoon_id, keyword_id) values (12,3);
 insert into webtoon_keyword (webtoon_id, keyword_id) values (13,4);
 insert into webtoon_keyword (webtoon_id, keyword_id) values (14,5);
+insert into webtoon_keyword (webtoon_id, keyword_id) values (15, 7);
+insert into webtoon_keyword (webtoon_id, keyword_id) values (16, 7);
+insert into webtoon_keyword (webtoon_id, keyword_id) values (16, 8);
+insert into webtoon_keyword (webtoon_id, keyword_id) values (17, 6);
+insert into webtoon_keyword (webtoon_id, keyword_id) values (18, 11);
+insert into webtoon_keyword (webtoon_id, keyword_id) values (19, 3);
+insert into webtoon_keyword (webtoon_id, keyword_id) values (20, 2);
 
 insert into webtoon_day (webtoon_id, day_id) values (1,1);
 insert into webtoon_day (webtoon_id, day_id) values (2,1);
@@ -151,3 +198,11 @@ insert into webtoon_day (webtoon_id, day_id) values (11,6);
 insert into webtoon_day (webtoon_id, day_id) values (12,6);
 insert into webtoon_day (webtoon_id, day_id) values (13,7);
 insert into webtoon_day (webtoon_id, day_id) values (14,7);
+insert into webtoon_day (webtoon_id, day_id) values (15, 1);
+insert into webtoon_day (webtoon_id, day_id) values (16, 1);
+insert into webtoon_day (webtoon_id, day_id) values (16, 3);
+insert into webtoon_day (webtoon_id, day_id) values (17, 3);
+insert into webtoon_day (webtoon_id, day_id) values (17, 6);
+insert into webtoon_day (webtoon_id, day_id) values (18, 4);
+insert into webtoon_day (webtoon_id, day_id) values (19, 4);
+insert into webtoon_day (webtoon_id, day_id) values (20, 1);
