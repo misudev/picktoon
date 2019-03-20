@@ -2,41 +2,25 @@ package com.project.picktoon.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
 
-//CREATE TABLE IF NOT EXISTS webtoon (
-//        id BIGINT(20) NOT NULL AUTO_INCREMENT,
-//        title VARCHAR(45) NOT NULL,
-//        author VARCHAR(45) NOT NULL,
-//        state VARCHAR(45) NOT NULL,
-//        see_age VARCHAR(45) NOT NULL DEFAULT '전체관람가',
-//        link VARCHAR(255) NOT NULL,
-//        subscription INT NOT NULL DEFAULT 0,
-//        description LONGTEXT NULL,
-//        platform_id INT NOT NULL,
-//        PRIMARY KEY (id),
-//        CONSTRAINT fk_webtoon_platform
-//        FOREIGN KEY (platform_id)
-//        REFERENCES platform (id)
-//        ON DELETE NO ACTION
-//        ON UPDATE NO ACTION);
 
 @Entity
 @Table(name = "webtoon")
 @Setter
 @Getter
+@ToString
 public class Webtoon {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
-    private String author;
 
     @Column(nullable = false)
     private String state;
@@ -64,6 +48,10 @@ public class Webtoon {
             inverseJoinColumns = @JoinColumn(name = "keyword_id", referencedColumnName = "id")
     )
     private List<Keyword> keywords;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 24c1325cc30dd292f83cc64bfc35a551d4d0595f
 
     public Webtoon(){
         seeAge = "전체관람가";

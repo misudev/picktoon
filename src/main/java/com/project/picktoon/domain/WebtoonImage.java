@@ -2,6 +2,7 @@ package com.project.picktoon.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -23,9 +24,10 @@ import javax.persistence.*;
 @Table(name = "webtoon")
 @Setter
 @Getter
+@ToString
 public class WebtoonImage {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 255)
