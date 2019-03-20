@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS role (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS platform (
   id INT NOT NULL AUTO_INCREMENT,
-  plateform_name VARCHAR(45) NOT NULL,
+  platform_name VARCHAR(45) NOT NULL,
   PRIMARY KEY (id));
 
 
@@ -61,7 +61,6 @@ CREATE TABLE IF NOT EXISTS webtoon (
   REFERENCES platform (id)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION);
-
 
 -- -----------------------------------------------------
 -- Table `webtoondb`.`webtoon_state`
@@ -151,11 +150,7 @@ CREATE TABLE IF NOT EXISTS my_webtoon(
 CREATE TABLE IF NOT EXISTS webtoon_keyword (
   webtoon_id BIGINT(20) NOT NULL,
   keyword_id BIGINT(20) NOT NULL,
-<<<<<<< HEAD
   PRIMARY KEY(webtoon_id, keyword_id),
-=======
-  PRIMARY KEY (webtoon_id, keyword_id),
->>>>>>> 24c1325cc30dd292f83cc64bfc35a551d4d0595f
   CONSTRAINT fk_webtoon_keyword_webtoon
   FOREIGN KEY (webtoon_id)
   REFERENCES webtoon (id)
@@ -183,10 +178,6 @@ CREATE TABLE IF NOT EXISTS user_role (
   FOREIGN KEY (role_id)
   REFERENCES role (id)
   ON DELETE CASCADE
-<<<<<<< HEAD
-  ON UPDATE CASCADE);
-=======
   ON UPDATE CASCADE);
 
 
->>>>>>> 24c1325cc30dd292f83cc64bfc35a551d4d0595f

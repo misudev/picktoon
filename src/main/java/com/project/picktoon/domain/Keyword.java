@@ -16,10 +16,10 @@ public class Keyword {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column (name = "keyword_type")
     private int keywordType;
 
-    @Column(length = 45)
+    @Column(length = 45, name = "keyword_value")
     private String keywordValue;
 
     @Column

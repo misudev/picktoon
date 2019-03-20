@@ -20,12 +20,6 @@ public class NewWebtoon {
     private int ordering;
 
     @OneToOne
-<<<<<<< HEAD
     @JoinColumn (name="webtoon_id")
     private Webtoon webtoon;
 }
-=======
-    @JoinColumn(name = "webtoon_id")
-    private Webtoon webtoon;
-}
->>>>>>> 24c1325cc30dd292f83cc64bfc35a551d4d0595f
