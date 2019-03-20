@@ -17,6 +17,7 @@ public class NewWebtoon {
     @Column
     private int ordering;
 
-    @Column(name="webtoon_id")
+    @OneToOne
+    @JoinColumn (name="webtoon_id")
     private Long webtoonId;
 }

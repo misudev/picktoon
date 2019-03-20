@@ -13,4 +13,10 @@ public class MyWebtoon {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "webtoon_id")
+    private Long WebtoonId;
+    @Column
+    private int alarm;
+    @Column(name = "user_id")
+    private Long UserId;
 }

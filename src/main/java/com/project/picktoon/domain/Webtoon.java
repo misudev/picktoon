@@ -59,27 +59,11 @@ public class Webtoon {
 
     @ManyToMany
     @JoinTable(
-            name = "webtoon_genre",
-            joinColumns = @JoinColumn(name = "webtoon_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id")
-    )
-    private List<Genre> genres;
-
-    @ManyToMany
-    @JoinTable(
             name = "webtoon_keyword",
             joinColumns = @JoinColumn(name = "webtoon_id" , referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "keyword_id", referencedColumnName = "id")
     )
-    private List<Genre> keywords;
-
-    @ManyToMany
-    @JoinTable(
-            name = "webtoon_day",
-            joinColumns = @JoinColumn(name = "webtoon_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "day_id", referencedColumnName = "id")
-    )
-    private List<Genre> days;
+    private List<Keyword> keywords;
 
     public Webtoon(){
         seeAge = "전체관람가";
