@@ -49,7 +49,6 @@ CREATE TABLE IF NOT EXISTS platform (
 CREATE TABLE IF NOT EXISTS webtoon (
   id BIGINT(20) NOT NULL AUTO_INCREMENT,
   title VARCHAR(45) NOT NULL,
-  author VARCHAR(45) NOT NULL,
   state VARCHAR(45) NOT NULL,
   see_age VARCHAR(45) NOT NULL DEFAULT '전체관람가',
   link VARCHAR(255) NOT NULL,
@@ -117,9 +116,9 @@ CREATE TABLE IF NOT EXISTS new_webtoon (
 -- Table `webtoondb`.`keyword`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS keyword (
-  id INT NOT NULL AUTO_INCREMENT,
+  id BIGINT(20) NOT NULL AUTO_INCREMENT,
   keyword_value VARCHAR(45) NOT NULL,
-  keyword_type VARCHAR(45) NOT NULL,
+  keyword_type INT NOT NULL,
   ordering INT NULL,
   PRIMARY KEY (id));
 
@@ -128,7 +127,7 @@ CREATE TABLE IF NOT EXISTS keyword (
 -- Table `webtoondb`.`my_webtoon`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS my_webtoon(
-  id INT NOT NULL AUTO_INCREMENT,
+  id BIGINT(20) NOT NULL AUTO_INCREMENT,
   webtoon_id BIGINT(20) NOT NULL,
   alarm TINYINT NULL,
   user_id BIGINT(20) NOT NULL,
@@ -147,11 +146,12 @@ CREATE TABLE IF NOT EXISTS my_webtoon(
 
 
 -- -----------------------------------------------------
--- Table `webtoondb`.`webtoon_has_keyword`
+-- Table `webtoondb`.`webtoon_keyword`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS webtoon_keyword (
   webtoon_id BIGINT(20) NOT NULL,
-  keyword_id INT NOT NULL,
+  keyword_id BIGINT(20) NOT NULL,
+  PRIMARY KEY(webtoon_id, keyword_id),
   CONSTRAINT fk_webtoon_keyword_webtoon
   FOREIGN KEY (webtoon_id)
   REFERENCES webtoon (id)
