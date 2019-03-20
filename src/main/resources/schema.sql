@@ -49,7 +49,6 @@ CREATE TABLE IF NOT EXISTS platform (
 CREATE TABLE IF NOT EXISTS webtoon (
   id BIGINT(20) NOT NULL AUTO_INCREMENT,
   title VARCHAR(45) NOT NULL,
-  author VARCHAR(45) NOT NULL,
   state VARCHAR(45) NOT NULL,
   see_age VARCHAR(45) NOT NULL DEFAULT '전체관람가',
   link VARCHAR(255) NOT NULL,
@@ -114,21 +113,12 @@ CREATE TABLE IF NOT EXISTS new_webtoon (
 
 
 -- -----------------------------------------------------
--- Table `webtoondb`.`genre`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS genre (
-  id INT NOT NULL AUTO_INCREMENT,
-  genre_name VARCHAR(45) NOT NULL,
-  ordering INT NULL,
-  PRIMARY KEY (id));
-
-
--- -----------------------------------------------------
 -- Table `webtoondb`.`keyword`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS keyword (
-  id INT NOT NULL AUTO_INCREMENT,
-  keyword_name VARCHAR(45) NOT NULL,
+  id BIGINT(20) NOT NULL AUTO_INCREMENT,
+  keyword_value VARCHAR(45) NOT NULL,
+  keyword_type INT NOT NULL,
   ordering INT NULL,
   PRIMARY KEY (id));
 
@@ -137,7 +127,7 @@ CREATE TABLE IF NOT EXISTS keyword (
 -- Table `webtoondb`.`my_webtoon`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS my_webtoon(
-  id INT NOT NULL AUTO_INCREMENT,
+  id BIGINT(20) NOT NULL AUTO_INCREMENT,
   webtoon_id BIGINT(20) NOT NULL,
   alarm TINYINT NULL,
   user_id BIGINT(20) NOT NULL,
@@ -154,30 +144,14 @@ CREATE TABLE IF NOT EXISTS my_webtoon(
   ON UPDATE CASCADE);
 
 
--- -----------------------------------------------------
--- Table `webtoondb`.`webtoon_has_genre`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS webtoon_genre (
-  webtoon_id BIGINT(20) NOT NULL,
-  genre_id INT NOT NULL,
-  CONSTRAINT fk_webtoon_has_genre_webtoon
-  FOREIGN KEY (webtoon_id)
-  REFERENCES webtoon (id)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE,
-  CONSTRAINT fk_webtoon_has_genre_genre
-  FOREIGN KEY (genre_id)
-  REFERENCES genre (id)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE);
-
 
 -- -----------------------------------------------------
 -- Table `webtoondb`.`webtoon_has_keyword`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS webtoon_keyword (
   webtoon_id BIGINT(20) NOT NULL,
-  keyword_id INT NOT NULL,
+  keyword_id BIGINT(20) NOT NULL,
+  PRIMARY KEY (webtoon_id, keyword_id),
   CONSTRAINT fk_webtoon_keyword_webtoon
   FOREIGN KEY (webtoon_id)
   REFERENCES webtoon (id)
@@ -208,28 +182,3 @@ CREATE TABLE IF NOT EXISTS user_role (
   ON UPDATE CASCADE);
 
 
--- -----------------------------------------------------
--- Table `webtoondb`.`day`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS day (
-  id INT NOT NULL AUTO_INCREMENT,
-  day_name VARCHAR(45) NOT NULL,
-  PRIMARY KEY (id));
-
-
--- -----------------------------------------------------
--- Table `webtoondb`.`webtoon_day`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS webtoon_day (
-  webtoon_id BIGINT(20) NOT NULL,
-  day_id INT NOT NULL,
-  CONSTRAINT fk_webtoon_day_webtoon1
-  FOREIGN KEY (webtoon_id)
-  REFERENCES webtoon (id)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE,
-  CONSTRAINT fk_webtoon_day_day
-  FOREIGN KEY (day_id)
-  REFERENCES day (id)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE);

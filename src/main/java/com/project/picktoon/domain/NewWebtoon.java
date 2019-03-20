@@ -2,6 +2,7 @@ package com.project.picktoon.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Table(name = "new_webtoon")
 @Setter
 @Getter
+@ToString
 public class NewWebtoon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +19,7 @@ public class NewWebtoon {
     @Column
     private int ordering;
 
-    @Column(name="webtoon_id")
-    private Long webtoonId;
+    @OneToOne
+    @JoinColumn(name = "webtoon_id")
+    private Webtoon webtoon;
 }

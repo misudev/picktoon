@@ -2,6 +2,7 @@ package com.project.picktoon.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Table(name = "platform")
 @Setter
 @Getter
+@ToString
 public class Platform {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
