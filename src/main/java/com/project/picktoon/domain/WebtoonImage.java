@@ -21,7 +21,7 @@ import javax.persistence.*;
 //        ON UPDATE NO ACTION);
 
 @Entity
-@Table(name = "webtoon")
+@Table(name = "webtoon_image")
 @Setter
 @Getter
 @ToString

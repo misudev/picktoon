@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS role (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS platform (
   id INT NOT NULL AUTO_INCREMENT,
-  plateform_name VARCHAR(45) NOT NULL,
+  platform_name VARCHAR(45) NOT NULL,
   PRIMARY KEY (id));
 
 

@@ -17,9 +17,12 @@ public class MyWebtoon {
     private Long id;
 
     @Column
-    private int ordering;
+    private int alarm;
 
-    @OneToOne
+    @Column(name = "user_id")
+    private Long userId;
+
+    @ManyToOne
     @JoinColumn (name="webtoon_id")
-    private Long webtoonId;
+    private Webtoon webtoon;
 }

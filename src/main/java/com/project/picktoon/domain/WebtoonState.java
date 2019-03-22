@@ -9,7 +9,7 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "webtoon")
+@Table(name = "webtoon_state")
 @Setter
 @Getter
 @ToString
@@ -18,17 +18,16 @@ public class WebtoonState {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(name = "update_state")
     private Boolean updateState;
 
-    @Column
-    private Date updateDate;
+    @Column(name = "updated_date")
+    private Date updatedDate;
 
-    @Column
+    @Column(name = "total_count")
     private String totalCount;
 
-    @OneToOne
-    @JoinColumn(name = "webtoon_id")
+    @OneToOne(fetch = FetchType.LAZY)
     private Webtoon webtoon;
 
 }

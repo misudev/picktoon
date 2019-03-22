@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -12,7 +13,6 @@ import java.util.List;
 @Table(name = "webtoon")
 @Setter
 @Getter
-@ToString
 public class Webtoon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,11 @@ public class Webtoon {
     @Column
     private String description;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "webtoon")
+    @JoinColumn(name = "webtoon_id")
+    private WebtoonState webtoonState;
+
+    @ManyToOne(targetEntity=Platform.class, fetch=FetchType.LAZY)
     @JoinColumn(name = "platform_id")
     private Platform platform;
 
@@ -53,7 +57,19 @@ public class Webtoon {
     public Webtoon(){
         seeAge = "전체관람가";
         subscription = 0;
+        keywords = new ArrayList<>();
     }
 
+    @Override
+    public String toString() {
+        return "Webtoon{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", keywords=" + keywords +
+                '}';
+    }
 
+    public void addKeyword(Keyword keyword){
+        keywords.add(keyword);
+    }
 }
