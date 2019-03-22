@@ -9,7 +9,7 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "webtoon")
+@Table(name = "webtoon_state")
 @Setter
 @Getter
 @ToString
@@ -22,13 +22,11 @@ public class WebtoonState {
     private Boolean updateState;
 
     @Column
-    private Date updateDate;
+    private Date updatedDate;
 
     @Column
     private String totalCount;
 
-    @OneToOne
-    @JoinColumn(name = "webtoon_id")
+    @OneToOne(fetch = FetchType.LAZY)
     private Webtoon webtoon;
-
 }

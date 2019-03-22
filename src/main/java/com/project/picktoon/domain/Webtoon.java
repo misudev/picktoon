@@ -2,7 +2,6 @@ package com.project.picktoon.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -39,6 +38,11 @@ public class Webtoon {
     @ManyToOne
     @JoinColumn(name = "platform_id")
     private Platform platform;
+
+    //부모
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "webtoon")
+    @JoinColumn(name = "webtoon_id")
+    private WebtoonState webtoonState;
 
     @ManyToMany
     @JoinTable(

@@ -18,12 +18,11 @@ public class MyWebtoon {
     @Column
     private int alarm;
     @Column(name = "user_id")
-    private Long UserId;
+    private Long userId;
 
-    @Column
-    private int ordering;
-
-    @ManyToOne
-    @JoinColumn (name="webtoon_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn (name="webtoon_id", referencedColumnName = "id")
     private Webtoon webtoon;
+
+
 }

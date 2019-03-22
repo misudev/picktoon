@@ -13,7 +13,6 @@ import java.util.Set;
 @Table(name = "user")
 @Setter
 @Getter
-@ToString
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,5 +33,10 @@ public class User {
 
     public User(){
         roles = new HashSet<>();
+    }
+
+    @Override
+    public String toString() {
+        return "nickName= : " + nickName + "\n" + "passwd : "+ passwd ;
     }
 }
