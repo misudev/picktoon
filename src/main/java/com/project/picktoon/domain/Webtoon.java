@@ -13,6 +13,7 @@ import java.util.List;
 @Table(name = "webtoon")
 @Setter
 @Getter
+@ToString
 public class Webtoon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +39,6 @@ public class Webtoon {
     private String description;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "webtoon")
-    @JoinColumn(name = "webtoon_id")
     private WebtoonState webtoonState;
 
     @ManyToOne(targetEntity=Platform.class, fetch=FetchType.LAZY)
@@ -60,14 +60,6 @@ public class Webtoon {
         keywords = new ArrayList<>();
     }
 
-    @Override
-    public String toString() {
-        return "Webtoon{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", keywords=" + keywords +
-                '}';
-    }
 
     public void addKeyword(Keyword keyword){
         keywords.add(keyword);

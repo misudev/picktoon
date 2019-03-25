@@ -17,7 +17,7 @@ public class MyWebtoon {
     private Long id;
 
     @Column
-    private int alarm;
+    private boolean alarm;
 
     @Column(name = "user_id")
     private Long userId;
@@ -25,4 +25,8 @@ public class MyWebtoon {
     @ManyToOne
     @JoinColumn (name="webtoon_id")
     private Webtoon webtoon;
+
+    public MyWebtoon(){
+        alarm = true;
+    }
 }

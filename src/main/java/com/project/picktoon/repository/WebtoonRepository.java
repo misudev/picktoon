@@ -16,20 +16,16 @@ public interface WebtoonRepository extends JpaRepository<Webtoon, Long>, Webtoon
     @Query(value = "SELECT w FROM Webtoon w ORDER BY w.subscription DESC LIMIT 3", nativeQuery = true)
     public List<Webtoon> getBestWebtoons();
 
-    @Query("SELECT w FROM Webtoon w INNER JOIN FETCH w.platform  LEFT JOIN FETCH w.keywords WHERE w.title = :title")
+    @Query("SELECT w FROM Webtoon w INNER JOIN FETCH w.webtoonState  LEFT JOIN FETCH w.keywords WHERE w.title = :title")
     public Webtoon getWebtoonByTitle(@Param("title")String title);
 
+    // 구독자 증가
+    @Query("UPDATE Webtoon w SET w.subscription = w.subscription + 1 WHERE w.id = :id")
+    public void updateWebtoonSubscriptionPlus(@Param("id")Long id);
 
-    // JPQL
-    // SELECT distinct w FROM Webtoon w INNER JOIN FETCH w.keywords ORDER BY w.id DESC :element in elements(f.elements)
-    // 요일로 조회
-    // SELECT distinct w FROM Webtoon w INNER JOIN FETCH w.keywords WHERE :keyword
-    // 장르으로 검색
-    // SELECT distinct w FROM Item i INNER JOIN FETCH i.category WHERE i.name = :searchStr ORDER BY i.id DESC
-    // 키워드으로 검색
-    // SELECT distinct w FROM Item i INNER JOIN FETCH i.category WHERE i.description =: searchStr ORDER BY i.id DESC
-
-
+    // 구독자 감소
+    @Query("UPDATE Webtoon w SET w.subscription = w.subscription - 1 WHERE w.id = :id")
+    public void updateWebtoonSubscriptionMinus(@Param("id")Long id);
 
 
 }

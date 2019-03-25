@@ -12,7 +12,6 @@ import java.util.Date;
 @Table(name = "webtoon_state")
 @Setter
 @Getter
-@ToString
 public class WebtoonState {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +27,16 @@ public class WebtoonState {
     private String totalCount;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "webtoon_id")
     private Webtoon webtoon;
 
+    @Override
+    public String toString() {
+        return "WebtoonState{" +
+                "id=" + id +
+                ", updateState=" + updateState +
+                ", updatedDate=" + updatedDate +
+                ", totalCount='" + totalCount + '\'' +
+                '}';
+    }
 }
