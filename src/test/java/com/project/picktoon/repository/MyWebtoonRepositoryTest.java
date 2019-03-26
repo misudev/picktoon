@@ -1,6 +1,10 @@
 package com.project.picktoon.repository;
 
 import com.project.picktoon.domain.MyWebtoon;
+<<<<<<< HEAD
+=======
+import org.junit.Assert;
+>>>>>>> 1536989a83e316143dc1b17b62f943ad481ee5c5
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,4 +63,14 @@ public class MyWebtoonRepositoryTest {
 
     }
 
+<<<<<<< HEAD
 }
+=======
+    @Test
+    public void existMyWebtoon() throws Exception{
+        MyWebtoon myWebtoon = myWebtoonRepository.findByUserAndWebtoon(1L, 1L);
+        System.out.println(myWebtoon);
+    }
+
+}
+>>>>>>> 1536989a83e316143dc1b17b62f943ad481ee5c5

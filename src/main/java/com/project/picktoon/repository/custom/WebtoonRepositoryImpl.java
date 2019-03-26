@@ -18,14 +18,23 @@ public class WebtoonRepositoryImpl extends QuerydslRepositorySupport implements 
         QKeyword keyword = QKeyword.keyword;
 
         JPQLQuery<Webtoon>jpqlQuery = from(webtoon).innerJoin(webtoon.platform).fetchJoin()
+<<<<<<< HEAD
                 .innerJoin(webtoon.keywords, keyword).fetchJoin()
                 .distinct();
+=======
+                                        .innerJoin(webtoon.keywords, keyword).fetchJoin()
+                                        .distinct();
+>>>>>>> 1536989a83e316143dc1b17b62f943ad481ee5c5
 
         BooleanBuilder builder = new BooleanBuilder();
 
         if(keywords != null){
             for(SearchKeyword k : keywords){
+<<<<<<< HEAD
                 builder.or(keyword.keywordType.eq(k.getKeyWordType()).and(keyword.keywordValue.eq(k.getKeyWordValue())));
+=======
+                builder.or(keyword.keywordType.eq(k.getKeywordType()).and(keyword.keywordValue.eq(k.getKeywordValue())));
+>>>>>>> 1536989a83e316143dc1b17b62f943ad481ee5c5
             }
             jpqlQuery.where(builder);
 
@@ -40,4 +49,8 @@ public class WebtoonRepositoryImpl extends QuerydslRepositorySupport implements 
 
         return jpqlQuery.fetch();
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1536989a83e316143dc1b17b62f943ad481ee5c5

@@ -30,4 +30,8 @@ public class MyWebtoon {
     public MyWebtoon(){
         alarm = true;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1536989a83e316143dc1b17b62f943ad481ee5c5

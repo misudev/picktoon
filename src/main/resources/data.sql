@@ -107,7 +107,11 @@ values (19, '좀비딸', '연재중', '전체관람가', 'https://comic.naver.co
 insert into webtoon (id, title, state, see_age, link, subscription, description, platform_id)
 values (20, '신의탑', '연재중', '전체관람가', 'https://comic.naver.com/webtoon/list.nhn?titleId=183559&weekday=mon',500, '자신의 모든 것이었던 소녀를 쫓아 탑에 들어온 소년 그리고 그런 소년을 시험하는 탑', 1);
 
+<<<<<<< HEAD
 insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id) values (1, 0, '2019-03-22 23:59:59', '26화', 1);
+=======
+insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id) values (1, 0, '2019-03-03 23:59:59', '26화', 1);
+>>>>>>> 1536989a83e316143dc1b17b62f943ad481ee5c5
 insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id) values (2, 0, '2019-03-04 23:59:59', '126화', 2);
 insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id) values (3, 0, '2019-03-05 23:59:59', '28화', 3);
 insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id) values (4, 1, '2019-03-18 23:59:59', '96화', 4);
@@ -243,6 +247,7 @@ insert into webtoon_keyword (webtoon_id, keyword_id) values (18, 48);
 insert into webtoon_keyword (webtoon_id, keyword_id) values (19, 49);
 insert into webtoon_keyword (webtoon_id, keyword_id) values (20, 50);
 
+<<<<<<< HEAD
 insert into new_webtoon(id, ordering, webtoon_id) values (1, 0, 1);
 insert into new_webtoon(id, ordering, webtoon_id) values (2, 1, 2);
 insert into new_webtoon(id, ordering, webtoon_id) values (3, 2, 3);
@@ -270,3 +275,7 @@ insert into my_webtoon(id, webtoon_id, alarm, user_id) values(2, 7, 1, 1);
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(3, 20, 1, 1);
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(4, 11, 1, 2);
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(5, 4, 0, 2);
+=======
+insert into my_webtoon (user_id, webtoon_id, alarm) values (1, 20, 1);
+insert into my_webtoon (user_id, webtoon_id, alarm) values (1, 19, 0);
+>>>>>>> 1536989a83e316143dc1b17b62f943ad481ee5c5
