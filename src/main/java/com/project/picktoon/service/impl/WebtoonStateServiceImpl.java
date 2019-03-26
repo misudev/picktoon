@@ -15,6 +15,12 @@ public class WebtoonStateServiceImpl implements WebtoonStateService {
     public final WebtoonRepository webtoonRepository;
 
     @Override
+    @Transactional(readOnly = true)
+    public WebtoonState getWebtoonStateById(Long id) {
+        return webtoonStateRepository.findById(id).get();
+    }
+
+    @Override
     @Transactional
     public WebtoonState addWebtoonState(Long webtoonId, WebtoonState webtoonState) {
         webtoonState.setWebtoon(webtoonRepository.getWebtoon(webtoonId));
@@ -24,7 +30,7 @@ public class WebtoonStateServiceImpl implements WebtoonStateService {
     @Override
     @Transactional
     public void updateWebtoonState(WebtoonState webtoonState) {
-        WebtoonState beforeState = webtoonStateRepository.getOne(webtoonState.getId());
+        WebtoonState beforeState = webtoonStateRepository.findById(webtoonState.getId()).get();
         beforeState.setUpdateState(webtoonState.getUpdateState());
         beforeState.setTotalCount(webtoonState.getTotalCount());
         beforeState.setUpdatedDate(webtoonState.getUpdatedDate());

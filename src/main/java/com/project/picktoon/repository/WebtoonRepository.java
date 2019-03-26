@@ -20,10 +20,12 @@ public interface WebtoonRepository extends JpaRepository<Webtoon, Long>, Webtoon
     public Webtoon getWebtoonByTitle(@Param("title")String title);
 
     // 구독자 증가
+    @Modifying(clearAutomatically = true)
     @Query("UPDATE Webtoon w SET w.subscription = w.subscription + 1 WHERE w.id = :id")
     public void updateWebtoonSubscriptionPlus(@Param("id")Long id);
 
     // 구독자 감소
+    @Modifying
     @Query("UPDATE Webtoon w SET w.subscription = w.subscription - 1 WHERE w.id = :id")
     public void updateWebtoonSubscriptionMinus(@Param("id")Long id);
 

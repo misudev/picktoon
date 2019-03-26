@@ -11,10 +11,9 @@ public interface WebtoonService {
     public Webtoon getWebtoonByTitle(String title);
     public Webtoon getWebtoonById(Long id);
     public List<Webtoon> getBestWebtoons();
-
     public Webtoon addWebtoon(Webtoon webtoon);
-
     public void updateWebtoon(Webtoon webtoon);
+    public void deleteWebtoon(Long id);
 
 
 

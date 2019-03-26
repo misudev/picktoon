@@ -242,3 +242,6 @@ insert into webtoon_keyword (webtoon_id, keyword_id) values (17, 47);
 insert into webtoon_keyword (webtoon_id, keyword_id) values (18, 48);
 insert into webtoon_keyword (webtoon_id, keyword_id) values (19, 49);
 insert into webtoon_keyword (webtoon_id, keyword_id) values (20, 50);
+
+insert into my_webtoon (user_id, webtoon_id, alarm) values (1, 20, 1);
+insert into my_webtoon (user_id, webtoon_id, alarm) values (1, 19, 0);

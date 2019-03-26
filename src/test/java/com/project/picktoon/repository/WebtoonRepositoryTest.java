@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
@@ -30,7 +31,15 @@ public class WebtoonRepositoryTest {
 
     @Before
     public void initTest(){
-
+        Webtoon newWebtoon = new Webtoon();
+        newWebtoon.setTitle("테스트 웹툰");
+        newWebtoon.setDescription("테스트 웹툰 입니다.");
+        newWebtoon.setLink("www.naver.com");
+        newWebtoon.setPlatform(platformRepository.getOne(1));
+        newWebtoon.setSeeAge(SeeAge.SEEAGE_ALL);
+        newWebtoon.setState("연재중");
+        newWebtoon.setSubscription(100);
+        webtoonRepository.save(newWebtoon);
 
     }
 
@@ -51,6 +60,7 @@ public class WebtoonRepositoryTest {
         newWebtoon.setPlatform(platformRepository.getOne(1));
         newWebtoon.setSeeAge(SeeAge.SEEAGE_ALL);
         newWebtoon.setState("연재중");
+        newWebtoon.setSubscription(10);
 
         List<Keyword> keywords = new ArrayList<>();
         keywords.add(keywordRepository.getOne(1L));
@@ -67,7 +77,7 @@ public class WebtoonRepositoryTest {
     public void testSaveWebtoon(){
         Webtoon webtoon = new Webtoon();
         webtoon.setId(1L);
-        webtoon.setTitle("테스트 웹툰");
+        webtoon.setTitle("test 웹툰");
         webtoon.setDescription("테스트 웹툰 입니다.");
         webtoon.setLink("www.naver.com");
         webtoon.setPlatform(platformRepository.getOne(1));
@@ -109,6 +119,17 @@ public class WebtoonRepositoryTest {
         List<Webtoon> webtoons  = webtoonRepository.getWebtoons(keywords, "마음의 소리");
         for(Webtoon w : webtoons)
             System.out.println(w);
+    }
+
+    @Test
+    @Rollback(false)
+    public void testUpdate구독(){
+        Webtoon webtoon = webtoonRepository.getWebtoon(21L);
+        System.out.println(webtoon);
+        System.out.println(webtoon.getSubscription());
+        webtoonRepository.updateWebtoonSubscriptionPlus(21L);
+        webtoon = webtoonRepository.getWebtoon(21L);
+        System.out.println(webtoon.getSubscription());
     }
 
 }

@@ -8,6 +8,7 @@ import java.util.List;
 public interface KeywordService {
     public Keyword addKeyword(Keyword keyword);
     public void deleteKeyword(Long keywordId);
+    public Keyword getKeywordById(Long keywordId);
     public List<Keyword> getKeywordsByType(int type);
     public List<Keyword> getBestKeywords (int type, Pageable pageable);
 }

@@ -55,4 +55,10 @@ public class WebtoonServiceImpl implements WebtoonService {
         webtoonRepository.save(webtoon);
 
     }
+
+    @Override
+    @Transactional
+    public void deleteWebtoon(Long id) {
+        webtoonRepository.deleteById(id);
+    }
 }

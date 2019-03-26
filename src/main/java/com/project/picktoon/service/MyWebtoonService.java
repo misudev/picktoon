@@ -9,4 +9,5 @@ public interface MyWebtoonService {
     public void deleteMyWebtoon(Long myWebtoonId);
     public void changeAlarm(Long myWebtoonId);
     public List<MyWebtoon> getMyWebtoons(Long userId, int orderType);
+    public MyWebtoon getMyWebtoonById(Long myWebtoonId);
 }

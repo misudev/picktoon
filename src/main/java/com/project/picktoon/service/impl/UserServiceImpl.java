@@ -12,6 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     public final UserRepository userRepository;
+
+    @Override
+    @Transactional(readOnly = true)
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId).get();
+    }
+
     @Override
     @Transactional(readOnly = true)
     public User getUserByEmail(String email) {
@@ -34,7 +41,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public String changePasswd(Long userId) {
         String passwd = CreatePasswd.temporaryPassword(8);
-        User user = userRepository.getOne(userId);
+        User user = userRepository.findById(userId).get();
         user.setPasswd(passwd);
         return passwd;
     }

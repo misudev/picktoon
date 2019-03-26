@@ -24,6 +24,6 @@ public class WebtoonImageServiceImpl implements WebtoonImageService {
     @Override
     @Transactional(readOnly = true)
     public WebtoonImage getWebtoonImage(Long webtoonImageId) {
-        return webtoonImageRepository.getOne(webtoonImageId);
+        return webtoonImageRepository.findById(webtoonImageId).get();
     }
 }

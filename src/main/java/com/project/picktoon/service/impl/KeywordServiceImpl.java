@@ -16,6 +16,12 @@ public class KeywordServiceImpl implements KeywordService {
     public final KeywordRepository keywordRepository;
 
     @Override
+    @Transactional(readOnly = true)
+    public Keyword getKeywordById(Long keywordId) {
+        return keywordRepository.findById(keywordId).get();
+    }
+
+    @Override
     @Transactional
     public Keyword addKeyword(Keyword keyword) {
         return keywordRepository.save(keyword);
