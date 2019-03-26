@@ -1,3 +1,4 @@
+
 package com.project.picktoon.domain;
 
 import lombok.Getter;
@@ -16,10 +17,10 @@ public class Keyword {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column (name = "keyword_type")
+    @Column
     private int keywordType;
 
-    @Column(length = 45, name = "keyword_value")
+    @Column(length = 45)
     private String keywordValue;
 
     @Column

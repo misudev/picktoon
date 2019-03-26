@@ -6,13 +6,13 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "user")
 @Setter
 @Getter
+@ToString
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,10 +33,5 @@ public class User {
 
     public User(){
         roles = new HashSet<>();
-    }
-
-    @Override
-    public String toString() {
-        return "nickName= : " + nickName + "\n" + "passwd : "+ passwd ;
     }
 }

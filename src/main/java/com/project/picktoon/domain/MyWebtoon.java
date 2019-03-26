@@ -15,14 +15,19 @@ public class MyWebtoon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
-    private int alarm;
-    @Column(name = "user_id")
-    private Long userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn (name="webtoon_id", referencedColumnName = "id")
+    @Column
+    private boolean alarm;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn (name="webtoon_id")
     private Webtoon webtoon;
 
-
+    public MyWebtoon(){
+        alarm = true;
+    }
 }
