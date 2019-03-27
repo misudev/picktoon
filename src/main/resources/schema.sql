@@ -53,6 +53,17 @@ CREATE TABLE IF NOT EXISTS webtoon_image (
   save_file_name VARCHAR(255) NULL,
   PRIMARY KEY (id));
 
+-- -----------------------------------------------------
+-- Table `webtoondb`.`webtoon_state`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS webtoon_state (
+  id BIGINT(20) NOT NULL AUTO_INCREMENT,
+  update_state TINYINT(1) NULL,
+  updated_date DATETIME NULL,
+  total_count VARCHAR(255) NULL,
+  webtoon_id BIGINT(20) NULL,
+  PRIMARY KEY (id));
+
 
 -- -----------------------------------------------------
 -- Table `webtoondb`.`webtoon`
@@ -67,6 +78,7 @@ CREATE TABLE IF NOT EXISTS webtoon (
   description LONGTEXT NULL,
   platform_id INT NOT NULL,
   webtoon_image_id BIGINT(20) NULL,
+  webtoon_state_id BIGINT(20) NULL,
   PRIMARY KEY (id),
   CONSTRAINT fk_webtoon_platform
   FOREIGN KEY (platform_id)
@@ -76,25 +88,14 @@ CREATE TABLE IF NOT EXISTS webtoon (
   CONSTRAINT fk_webtoon_webtoon_image
   FOREIGN KEY (webtoon_image_id)
   REFERENCES webtoon_image (id)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION);
-
-
--- -----------------------------------------------------
--- Table `webtoondb`.`webtoon_state`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS webtoon_state (
-  id BIGINT(20) NOT NULL AUTO_INCREMENT,
-  update_state TINYINT(1) NULL,
-  updated_date DATETIME NULL,
-  total_count VARCHAR(255) NULL,
-  webtoon_id BIGINT(20) NOT NULL,
-  CONSTRAINT fk_webtoon_state_webtoon
-  FOREIGN KEY (webtoon_id)
-  REFERENCES webtoon(id)
   ON DELETE CASCADE
   ON UPDATE CASCADE,
-  PRIMARY KEY (id));
+  CONSTRAINT fk_webtoon_webtoon_state
+  FOREIGN KEY (webtoon_state_id)
+  REFERENCES webtoon_state(id)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE);
+
 
 
 -- -----------------------------------------------------
