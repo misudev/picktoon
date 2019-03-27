@@ -20,7 +20,5 @@ public class Platform {
     private String platformName;
 }
 
-//    @OneToMany(mappedBy = "platform")
-//    private List<Webtoon> webtoons;
 
 

@@ -38,13 +38,21 @@ public class Webtoon {
     @Column
     private String description;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "webtoon")
+    @OneToOne(cascade = CascadeType.ALL )
+    @JoinColumn(name = "webtoon_state_id")
     private WebtoonState webtoonState;
 
-    @ManyToOne(targetEntity=Platform.class, fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "platform_id")
     private Platform platform;
 
+<<<<<<< HEAD
+=======
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "webtoon_image_id")
+    private WebtoonImage webtoonImage;
+
+>>>>>>> 1a23de9e3f7cebfdfb3aed8e777a54fe8b1c2e96
     @ManyToMany
     @JoinTable(
             name = "webtoon_keyword",

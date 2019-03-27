@@ -27,9 +27,4 @@ public class Keyword {
     @Column
     private int ordering;
 
-//    public Keyword(int keywordType, String keywordValue, int ordering) {
-//        this.keywordType = keywordType;
-//        this.keywordValue = keywordValue;
-//        this.ordering = ordering;
-//    }
 }
