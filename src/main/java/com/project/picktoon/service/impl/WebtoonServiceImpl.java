@@ -25,7 +25,7 @@ public class WebtoonServiceImpl implements WebtoonService {
 
     @Override
     @Transactional(readOnly = true)
-    public Webtoon getWebtoonByTitle(String title) {
+    public Webtoon    getWebtoonByTitle(String title) {
         return webtoonRepository.getWebtoonByTitle(title);
     }
 
