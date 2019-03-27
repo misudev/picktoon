@@ -2,7 +2,6 @@ package com.project.picktoon.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -28,7 +27,7 @@ public class WebtoonState {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "webtoon_id")
-    private Webtoon webtoon;
+    private Long webtoonId;
 
     @Override
     public String toString() {
