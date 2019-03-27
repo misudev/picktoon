@@ -12,12 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class WebtoonImageServiceImpl implements WebtoonImageService {
     public final WebtoonImageRepository webtoonImageRepository;
-    public final WebtoonRepository webtoonRepository;
 
     @Override
     @Transactional
-    public WebtoonImage addWebtoonImage(WebtoonImage webtoonImage, Long webtoonId) {
-        webtoonImage.setWebtoon(webtoonRepository.getWebtoon(webtoonId));
+    public WebtoonImage addWebtoonImage(WebtoonImage webtoonImage) {
         return webtoonImageRepository.save(webtoonImage);
     }
 

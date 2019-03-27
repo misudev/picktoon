@@ -25,7 +25,7 @@ public class WebtoonServiceImpl implements WebtoonService {
 
     @Override
     @Transactional(readOnly = true)
-    public Webtoon    getWebtoonByTitle(String title) {
+    public Webtoon getWebtoonByTitle(String title) {
         return webtoonRepository.getWebtoonByTitle(title);
     }
 
@@ -53,7 +53,6 @@ public class WebtoonServiceImpl implements WebtoonService {
     public void updateWebtoon(Webtoon webtoon){
         // 식별자가 존재하면 병합을 수행한다.
         webtoonRepository.save(webtoon);
-
     }
 
     @Override

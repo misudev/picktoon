@@ -45,6 +45,10 @@ public class Webtoon {
     @JoinColumn(name = "platform_id")
     private Platform platform;
 
+    @OneToOne
+    @JoinColumn(name = "webtoon_image_id")
+    private WebtoonImage webtoonImage;
+
     @ManyToMany
     @JoinTable(
             name = "webtoon_keyword",
@@ -52,7 +56,6 @@ public class Webtoon {
             inverseJoinColumns = @JoinColumn(name = "keyword_id", referencedColumnName = "id")
     )
     private List<Keyword> keywords;
-
 
     public Webtoon(){
         seeAge = "전체관람가";

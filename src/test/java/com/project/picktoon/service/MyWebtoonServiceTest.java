@@ -3,20 +3,16 @@ package com.project.picktoon.service;
 import com.project.picktoon.domain.MyWebtoon;
 import com.project.picktoon.service.impl.MyWebtoonServiceImpl;
 import com.project.picktoon.service.impl.WebtoonServiceImpl;
-import com.project.picktoon.util.OrderType;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

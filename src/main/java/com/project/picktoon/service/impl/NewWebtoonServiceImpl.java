@@ -22,8 +22,9 @@ public class NewWebtoonServiceImpl implements NewWebtoonService {
 
     @Override
     @Transactional
-    public NewWebtoon updateNewWebtoon(Long webtoonId, int ordering) {
+    public NewWebtoon updateNewWebtoon(int id, Long webtoonId, int ordering) {
         NewWebtoon newWebtoon = new NewWebtoon();
+        newWebtoon.setId(id);
         newWebtoon.setWebtoon(webtoonRepository.getWebtoon(webtoonId));
         newWebtoon.setOrdering(ordering);
         return newWebtoonRepository.save(newWebtoon);

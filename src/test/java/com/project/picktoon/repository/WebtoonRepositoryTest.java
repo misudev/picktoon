@@ -1,16 +1,10 @@
 package com.project.picktoon.repository;
 
-<<<<<<< HEAD
 import com.project.picktoon.domain.Webtoon;
-=======
 import com.project.picktoon.domain.Keyword;
-import com.project.picktoon.domain.Webtoon;
 import com.project.picktoon.dto.SearchKeyword;
 import com.project.picktoon.util.SeeAge;
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
->>>>>>> 1536989a83e316143dc1b17b62f943ad481ee5c5
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,34 +12,23 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
-<<<<<<< HEAD
 import java.util.List;
-
-
-=======
-
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
->>>>>>> 1536989a83e316143dc1b17b62f943ad481ee5c5
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class WebtoonRepositoryTest {
     @Autowired
     WebtoonRepository webtoonRepository;
-<<<<<<< HEAD
-
-    @Test
-    public void initTest(){
-=======
     @Autowired
     PlatformRepository platformRepository;
     @Autowired
     KeywordRepository keywordRepository;
 
     @Before
-    public void initTest(){
+    public void initTest() {
         Webtoon newWebtoon = new Webtoon();
         newWebtoon.setTitle("테스트 웹툰");
         newWebtoon.setDescription("테스트 웹툰 입니다.");
@@ -55,25 +38,18 @@ public class WebtoonRepositoryTest {
         newWebtoon.setState("연재중");
         newWebtoon.setSubscription(100);
         webtoonRepository.save(newWebtoon);
->>>>>>> 1536989a83e316143dc1b17b62f943ad481ee5c5
 
     }
 
     @Test
-    public void getAlls(){
+    public void getAlls() {
         List<Webtoon> webtoons = webtoonRepository.findAll();
-        for(Webtoon w : webtoons)
-<<<<<<< HEAD
+        for (Webtoon w : webtoons)
             System.out.println(w.toString());
     }
 
-=======
-            System.out.println(w);
-
-    }
-
     @Test
-    public void addWebtoon(){
+    public void addWebtoon() {
         Webtoon newWebtoon = new Webtoon();
         newWebtoon.setTitle("테스트 웹툰");
         newWebtoon.setDescription("테스트 웹툰 입니다.");
@@ -95,7 +71,7 @@ public class WebtoonRepositoryTest {
     }
 
     @Test
-    public void testSaveWebtoon(){
+    public void testSaveWebtoon() {
         Webtoon webtoon = new Webtoon();
         webtoon.setId(1L);
         webtoon.setTitle("test 웹툰");
@@ -111,20 +87,20 @@ public class WebtoonRepositoryTest {
     }
 
     @Test
-    public void testGetWebtoonByTitle(){
+    public void testGetWebtoonByTitle() {
         Webtoon webtoon = webtoonRepository.getWebtoonByTitle("마음의 소리");
         System.out.println(webtoon);
     }
 
     @Test
-    public void testGetBestWebtoon(){
+    public void testGetBestWebtoon() {
         List<Webtoon> webtoons = webtoonRepository.getBestWebtoons();
-        for(Webtoon w : webtoons)
-            System.out.println("best webtoon : "+ w);
+        for (Webtoon w : webtoons)
+            System.out.println("best webtoon : " + w);
     }
 
     @Test
-    public void testSearchWebtoon(){
+    public void testSearchWebtoon() {
 
         SearchKeyword searchKeyword1 = new SearchKeyword();
         SearchKeyword searchKeyword2 = new SearchKeyword();
@@ -136,15 +112,15 @@ public class WebtoonRepositoryTest {
         keywords.add(searchKeyword1);
         keywords.add(searchKeyword2);
 
-       // List<Webtoon> webtoons  = webtoonRepository.getWebtoons(keywords, null);
-        List<Webtoon> webtoons  = webtoonRepository.getWebtoons(keywords, "마음의 소리");
-        for(Webtoon w : webtoons)
+        // List<Webtoon> webtoons  = webtoonRepository.getWebtoons(keywords, null);
+        List<Webtoon> webtoons = webtoonRepository.getWebtoons(keywords, "마음의 소리");
+        for (Webtoon w : webtoons)
             System.out.println(w);
     }
 
     @Test
     @Rollback(false)
-    public void testUpdate구독(){
+    public void testUpdate구독() {
         Webtoon webtoon = webtoonRepository.getWebtoon(21L);
         System.out.println(webtoon);
         System.out.println(webtoon.getSubscription());
@@ -152,6 +128,5 @@ public class WebtoonRepositoryTest {
         webtoon = webtoonRepository.getWebtoon(21L);
         System.out.println(webtoon.getSubscription());
     }
->>>>>>> 1536989a83e316143dc1b17b62f943ad481ee5c5
 
 }

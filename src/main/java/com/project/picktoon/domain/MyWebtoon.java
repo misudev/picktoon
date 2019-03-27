@@ -24,14 +24,10 @@ public class MyWebtoon {
     private User user;
 
     @ManyToOne
-    @JoinColumn (name="webtoon_id")
+    @JoinColumn(name = "webtoon_id")
     private Webtoon webtoon;
 
-    public MyWebtoon(){
+    public MyWebtoon() {
         alarm = true;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 1536989a83e316143dc1b17b62f943ad481ee5c5

@@ -10,7 +10,6 @@ import javax.persistence.*;
 @Table(name = "new_webtoon")
 @Setter
 @Getter
-@ToString
 public class NewWebtoon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +21,13 @@ public class NewWebtoon {
     @OneToOne
     @JoinColumn(name = "webtoon_id")
     private Webtoon webtoon;
+
+    @Override
+    public String toString() {
+        return "NewWebtoon{" +
+                "id=" + id +
+                ", ordering=" + ordering +
+                ", webtoonId=" + webtoon.getId()+
+                '}';
+    }
 }
