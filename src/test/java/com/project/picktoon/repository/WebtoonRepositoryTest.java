@@ -4,6 +4,7 @@ import com.project.picktoon.domain.Webtoon;
 import com.project.picktoon.domain.Keyword;
 import com.project.picktoon.dto.SearchKeyword;
 import com.project.picktoon.util.SeeAge;
+import com.querydsl.core.Tuple;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -112,9 +113,11 @@ public class WebtoonRepositoryTest {
         keywords.add(searchKeyword1);
         keywords.add(searchKeyword2);
 
-        // List<Webtoon> webtoons  = webtoonRepository.getWebtoons(keywords, null);
-        List<Webtoon> webtoons = webtoonRepository.getWebtoons(keywords, "마음의 소리");
-        for (Webtoon w : webtoons)
+        List<Webtoon> webtoons  = webtoonRepository.getWebtoons(keywords, null);
+//        List<Tuple> webtoons = webtoonRepository.getWebtoons(keywords, null);
+//        for (Tuple w : webtoons)
+//            System.out.println(w.get(0, Long.class) + ", " + w.get(1, Long.class));
+        for(Webtoon w : webtoons)
             System.out.println(w);
     }
 
