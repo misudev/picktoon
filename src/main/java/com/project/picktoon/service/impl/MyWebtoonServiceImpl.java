@@ -44,7 +44,7 @@ public class MyWebtoonServiceImpl implements MyWebtoonService {
     @Transactional
     public void changeAlarm(Long myWebtoonId) {
         MyWebtoon myWebtoon = myWebtoonRepository.findById(myWebtoonId).get();
-        myWebtoon.setAlarm(myWebtoon.isAlarm()? false: true);
+        myWebtoon.setAlarm(myWebtoon.getAlarm()? false: true);
 
     }
 

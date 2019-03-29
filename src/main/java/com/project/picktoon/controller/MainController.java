@@ -9,4 +9,10 @@ public class MainController {
     public String start(){
         return "index";
     }
+
+    @GetMapping("/users/join")
+    public String join() {  return "join";}
+
+    @GetMapping("/addwebtoon")
+    public String addwebtoon() {  return "addwebtoon"; }
 }

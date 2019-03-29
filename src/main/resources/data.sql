@@ -107,6 +107,7 @@ values (19, '좀비딸', '연재중', '전체관람가', 'https://comic.naver.co
 insert into webtoon (id, title, state, see_age, link, subscription, description, platform_id)
 values (20, '신의탑', '연재중', '전체관람가', 'https://comic.naver.com/webtoon/list.nhn?titleId=183559&weekday=mon',500, '자신의 모든 것이었던 소녀를 쫓아 탑에 들어온 소년 그리고 그런 소년을 시험하는 탑', 1);
 
+
 insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id) values (1, 0, '2019-03-03 23:59:59', '26화', 1);
 insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id) values (2, 0, '2019-03-04 23:59:59', '126화', 2);
 insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id) values (3, 0, '2019-03-05 23:59:59', '28화', 3);
@@ -128,8 +129,7 @@ insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_
 insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id) values (19, 0, '2019-03-16 01:20:30', '30화', 19);
 insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id) values (20, 1, '2019-03-18 00:33:30', '3부 2화', 20);
 
--------
--------
+
 insert into webtoon_keyword (webtoon_id, keyword_id) values (1, 1);
 insert into webtoon_keyword (webtoon_id, keyword_id) values (2, 1);
 insert into webtoon_keyword (webtoon_id, keyword_id) values (3, 2);
@@ -247,29 +247,10 @@ insert into new_webtoon(id, ordering, webtoon_id) values (1, 0, 1);
 insert into new_webtoon(id, ordering, webtoon_id) values (2, 1, 2);
 insert into new_webtoon(id, ordering, webtoon_id) values (3, 2, 3);
 
-
--- CREATE TABLE IF NOT EXISTS my_webtoon(
---   id BIGINT(20) NOT NULL AUTO_INCREMENT,
---   webtoon_id BIGINT(20) NOT NULL,
---   alarm TINYINT NULL,
---   user_id BIGINT(20) NOT NULL,
---   PRIMARY KEY (id),
---   CONSTRAINT fk_my_webtoon_webtoon
---   FOREIGN KEY (webtoon_id)
---   REFERENCES webtoon (id)
---   ON DELETE CASCADE
---   ON UPDATE CASCADE,
---   CONSTRAINT fk_my_webtoon_user
---   FOREIGN KEY (user_id)
---   REFERENCES user (id)
---   ON DELETE CASCADE
---   ON UPDATE CASCADE);
-
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(1, 1, 0, 1);
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(2, 7, 1, 1);
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(3, 20, 1, 1);
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(4, 11, 1, 2);
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(5, 4, 0, 2);
 
-insert into my_webtoon (user_id, webtoon_id, alarm) values (1, 20, 1);
-insert into my_webtoon (user_id, webtoon_id, alarm) values (1, 19, 0);
+
