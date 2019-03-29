@@ -34,6 +34,7 @@ public class WebtoonRepositoryImpl extends QuerydslRepositorySupport implements 
         JPQLQuery<Webtoon> jpqlQuery = from(webtoon).innerJoin(webtoon.platform)
                 .innerJoin(webtoon.keywords, keyword);
 
+        // or 로 키워드를 포함하고 있는 웹툰들을 조회 한다.
         BooleanBuilder builder = new BooleanBuilder();
         if (keywords != null) {
             for (SearchKeyword k : keywords) {
@@ -42,17 +43,20 @@ public class WebtoonRepositoryImpl extends QuerydslRepositorySupport implements 
             jpqlQuery.where(builder);
         }
 
-
+        // 제목 추가 검색하기
         if (searchStr != null) {
             jpqlQuery.where(webtoon.title.like("%" + searchStr + "%"));
         }
 
+        // 웹툰이 조회된 횟수가 키워드 리스트의 크기와 같은 웹툰의 아이디만 선택한다.
         jpqlQuery.groupBy(webtoon.id);
         jpqlQuery.having(webtoon.count().eq((long)keywords.size()));
 
         List<Tuple> tuples = jpqlQuery.select(webtoon.id, webtoon.count()).fetch();
-        // select * from webtoon where id in (2,15, 16) order by id;
 
+
+        // select * from webtoon where id in (2,15, 16) order by id;
+        // 조회한 웹툰 아이디로 웹툰을 조회한다.
         JPQLQuery<Webtoon> jpqlQuery2 = from(webtoon).innerJoin(webtoon.platform)
                 .innerJoin(webtoon.keywords, keyword).distinct();
 

@@ -138,25 +138,6 @@
                     return false;
                 }
 
-                //중복검사//
-                // $.ajax({
-                //           type:"GET",
-                //           url: "/user2/joinAjax.nhn?m=checkId&id=" + id ,
-                //           success : function(data) {
-                //               var result = data.substr(4);
-
-                //               if (result == "Y") {
-                //                   if (event == "first") {
-                //                       showSuccessMsg(oMsg, "사용 가능한 아이디입니다.");
-                //                   } else {
-                //                       hideMsg(oMsg);
-                //                   }
-                //                   idFlag = true;
-                //               } else {
-                //                   showErrorMsg(oMsg, "이미 사용중이거나 탈퇴한 아이디입니다.");
-                //               }
-                //           }
-                //       });
                 showSuccessMsg(oMsg, "사용 가능한 닉네임입니다."); //임시
                 idFlag = true;//임시
 
