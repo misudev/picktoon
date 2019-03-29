@@ -23,13 +23,13 @@ public class WebtoonRepositoryImpl extends QuerydslRepositorySupport implements 
         QKeyword keyword = QKeyword.keyword;
 
         //  select w.id wid, count(*) c from webtoon w, webtoon_keyword wk, keyword k where
-        //					(wk.keyword_id = k.id and w.id = wk.webtoon_id )
-        //                    and (
+        //				(wk.keyword_id = k.id and w.id = wk.webtoon_id )
+        //               and (
         //						(keyword_value = '월' and keyword_type = '1' )
         //						or (  keyword_value = '코믹' and keyword_type = '2' )
-        //                    )
-        //                    group by w.id
-        //                    having c = 2
+        //               )
+        //               group by w.id
+        //               having c = 2
 
         JPQLQuery<Webtoon> jpqlQuery = from(webtoon).innerJoin(webtoon.platform)
                 .innerJoin(webtoon.keywords, keyword);
