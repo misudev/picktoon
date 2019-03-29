@@ -23,7 +23,7 @@ public class WebtoonStateServiceImpl implements WebtoonStateService {
     @Override
     @Transactional
     public WebtoonState addWebtoonState(Long webtoonId, WebtoonState webtoonState) {
-        webtoonState.setWebtoonId(webtoonId);
+        webtoonState.setWebtoon(webtoonRepository.getWebtoon(webtoonId));
         return webtoonStateRepository.save(webtoonState);
     }
 

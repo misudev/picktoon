@@ -26,8 +26,9 @@ public class WebtoonState {
     @Column(name = "total_count")
     private String totalCount;
 
-    @Column(name = "webtoon_id")
-    private Long webtoonId;
+    @OneToOne
+    @JoinColumn(name = "webtoon_id")
+    private Webtoon webtoon;
 
     @Override
     public String toString() {
