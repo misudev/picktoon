@@ -45,4 +45,10 @@ public class UserServiceImpl implements UserService {
         user.setPasswd(passwd);
         return passwd;
     }
+
+    @Override
+    @Transactional
+    public void updateUser(User user) {
+        userRepository.save(user);
+    }
 }
