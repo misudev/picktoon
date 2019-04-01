@@ -56,9 +56,9 @@ public class MyWebtoonServiceTest {
     @Test
     @Transactional
     public void 알람변경(){
-        boolean before = myWebtoonService.getMyWebtoonById(1L).isAlarm();
+        boolean before = myWebtoonService.getMyWebtoonById(1L).getAlarm();
         myWebtoonService.changeAlarm(1L);
-        Assert.assertNotEquals(before, myWebtoonService.getMyWebtoonById(1L).isAlarm());
+        Assert.assertNotEquals(before, myWebtoonService.getMyWebtoonById(1L).getAlarm());
     }
 
 

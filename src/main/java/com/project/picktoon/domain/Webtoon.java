@@ -46,13 +46,10 @@ public class Webtoon {
     @JoinColumn(name = "platform_id")
     private Platform platform;
 
-<<<<<<< HEAD
-=======
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "webtoon_image_id")
     private WebtoonImage webtoonImage;
 
->>>>>>> 1a23de9e3f7cebfdfb3aed8e777a54fe8b1c2e96
     @ManyToMany
     @JoinTable(
             name = "webtoon_keyword",

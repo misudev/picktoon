@@ -25,12 +25,7 @@ public class WebtoonState {
     @Column(name = "total_count")
     private String totalCount;
 
-<<<<<<< HEAD
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "webtoon_id")
-=======
     @Column(name = "webtoon_id")
->>>>>>> 1a23de9e3f7cebfdfb3aed8e777a54fe8b1c2e96
     private Long webtoonId;
 
     @Override

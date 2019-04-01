@@ -248,28 +248,8 @@ insert into new_webtoon(id, ordering, webtoon_id) values (2, 1, 2);
 insert into new_webtoon(id, ordering, webtoon_id) values (3, 2, 3);
 
 
--- CREATE TABLE IF NOT EXISTS my_webtoon(
---   id BIGINT(20) NOT NULL AUTO_INCREMENT,
---   webtoon_id BIGINT(20) NOT NULL,
---   alarm TINYINT NULL,
---   user_id BIGINT(20) NOT NULL,
---   PRIMARY KEY (id),
---   CONSTRAINT fk_my_webtoon_webtoon
---   FOREIGN KEY (webtoon_id)
---   REFERENCES webtoon (id)
---   ON DELETE CASCADE
---   ON UPDATE CASCADE,
---   CONSTRAINT fk_my_webtoon_user
---   FOREIGN KEY (user_id)
---   REFERENCES user (id)
---   ON DELETE CASCADE
---   ON UPDATE CASCADE);
-
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(1, 1, 0, 1);
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(2, 7, 1, 1);
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(3, 20, 1, 1);
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(4, 11, 1, 2);
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(5, 4, 0, 2);
-
-insert into my_webtoon (user_id, webtoon_id, alarm) values (1, 20, 1);
-insert into my_webtoon (user_id, webtoon_id, alarm) values (1, 19, 0);
