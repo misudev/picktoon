@@ -8,4 +8,5 @@ public interface UserService {
     public User addUser(User user);
     public boolean checkSignUp(String email);
     public String changePasswd(Long userId);
+    public void updateUser(User user);
 }
