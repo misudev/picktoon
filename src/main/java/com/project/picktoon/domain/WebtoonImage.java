@@ -6,19 +6,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
-//CREATE TABLE IF NOT EXISTS webtoon_image (
-//        id BIGINT(20) NOT NULL AUTO_INCREMENT,
-//        mime_type VARCHAR(45) NULL,
-//        length BIGINT(20) NULL,
-//        name VARCHAR(45) NULL,
-//        save_file_name VARCHAR(255) NULL,
-//        webtoon_id BIGINT(20) NOT NULL,
-//        PRIMARY KEY (id),
-//        CONSTRAINT fk_webtoon_image_webtoon
-//        FOREIGN KEY (webtoon_id)
-//        REFERENCES webtoon(id)
-//        ON DELETE NO ACTION
-//        ON UPDATE NO ACTION);
 
 @Entity
 @Table(name = "webtoon_image")
