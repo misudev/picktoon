@@ -55,7 +55,7 @@ public class WebtoonStateServiceTest {
         webtoonState.setUpdateState(true);
         webtoonState.setUpdatedDate(new Date());
         webtoonState.setTotalCount("17화");
-        webtoonState.setWebtoonId(21L);
+        webtoonState.setWebtoon(webtoonService.getWebtoonById(21L));
 
         Assert.assertEquals(webtoonState, webtoonStateService.addWebtoonState(21L, webtoonState));
     }

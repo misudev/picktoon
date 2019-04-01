@@ -128,8 +128,7 @@ insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_
 insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id) values (19, 0, '2019-03-16 01:20:30', '30화', 19);
 insert into webtoon_state (id, update_state, updated_date, total_count, webtoon_id) values (20, 1, '2019-03-18 00:33:30', '3부 2화', 20);
 
--------
--------
+
 insert into webtoon_keyword (webtoon_id, keyword_id) values (1, 1);
 insert into webtoon_keyword (webtoon_id, keyword_id) values (2, 1);
 insert into webtoon_keyword (webtoon_id, keyword_id) values (3, 2);
@@ -247,9 +246,18 @@ insert into new_webtoon(id, ordering, webtoon_id) values (1, 0, 1);
 insert into new_webtoon(id, ordering, webtoon_id) values (2, 1, 2);
 insert into new_webtoon(id, ordering, webtoon_id) values (3, 2, 3);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 31b960b0b9657f3bbd05ed27280a89dd92e9d12f
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(1, 1, 0, 1);
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(2, 7, 1, 1);
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(3, 20, 1, 1);
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(4, 11, 1, 2);
+<<<<<<< HEAD
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(5, 4, 0, 2);
+=======
+insert into my_webtoon(id, webtoon_id, alarm, user_id) values(5, 4, 0, 2);
+
+
+>>>>>>> 31b960b0b9657f3bbd05ed27280a89dd92e9d12f

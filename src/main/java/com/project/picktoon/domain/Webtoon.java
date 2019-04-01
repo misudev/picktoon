@@ -3,6 +3,7 @@ package com.project.picktoon.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -38,8 +39,7 @@ public class Webtoon {
     @Column
     private String description;
 
-    @OneToOne(cascade = CascadeType.ALL )
-    @JoinColumn(name = "webtoon_state_id")
+    @OneToOne(mappedBy = "webtoon", cascade = CascadeType.ALL, orphanRemoval = true)
     private WebtoonState webtoonState;
 
     @ManyToOne

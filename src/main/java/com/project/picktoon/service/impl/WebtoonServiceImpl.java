@@ -3,7 +3,6 @@ package com.project.picktoon.service.impl;
 import com.project.picktoon.domain.Keyword;
 import com.project.picktoon.domain.Webtoon;
 import com.project.picktoon.dto.SearchKeyword;
-import com.project.picktoon.repository.WebtoonImageRepository;
 import com.project.picktoon.repository.WebtoonRepository;
 import com.project.picktoon.service.WebtoonService;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +34,6 @@ public class WebtoonServiceImpl implements WebtoonService {
         return webtoonRepository.getWebtoon(id);
     }
 
-    // 웹툰 상태랑 어떻게?..
     @Override
     @Transactional
     public Webtoon addWebtoon(Webtoon webtoon) {
