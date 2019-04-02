@@ -40,6 +40,10 @@ public class UserApiController {
 
     @PostMapping
     public boolean addUser(@RequestBody JoinUser joinForm){
+        // 이메일 중복일 경우 false
+        if(userService.checkSignUp(joinForm.getEmail()))
+            return false;
+
         // 비밀번호와 비밀번호 재확인이 일치하지 않으면 false
         if(!joinForm.getPassword1().equals(joinForm.getPassword2()))
             return false;

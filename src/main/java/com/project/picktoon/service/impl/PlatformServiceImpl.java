@@ -29,4 +29,10 @@ public class PlatformServiceImpl implements PlatformService {
     public void deletePlatform(int id) {
         platformRepository.deleteById(id);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Platform getPlatformByPlatformName(String name) {
+        return platformRepository.findByPlatformName(name);
+    }
 }
