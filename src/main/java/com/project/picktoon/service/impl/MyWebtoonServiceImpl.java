@@ -53,8 +53,14 @@ public class MyWebtoonServiceImpl implements MyWebtoonService {
     public void deleteMyWebtoon(Long myWebtoonId) {
         Long webtoonId = myWebtoonRepository.getOne(myWebtoonId).getWebtoon().getId();
         myWebtoonRepository.deleteById(myWebtoonId);
+        myWebtoonRepository.flush();
         //구독자수 감소.
         webtoonRepository.updateWebtoonSubscriptionMinus(webtoonId);
+//        MyWebtoon myWebtoon = myWebtoonRepository.findById(myWebtoonId).get();
+//        Long webtoonId = myWebtoon.getWebtoon().getId();
+//        myWebtoonRepository.delete(myWebtoon);
+//        //구독자수 감소.
+//        webtoonRepository.updateWebtoonSubscriptionMinus(webtoonId);
     }
 
     @Override

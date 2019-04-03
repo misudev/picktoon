@@ -71,5 +71,12 @@ public class MyWebtoonServiceTest {
         Assert.assertNotEquals(before, myWebtoonService.getMyWebtoonById(1L).getAlarm());
     }
 
+    @Test
+    @Transactional
+    public void 마이웹툰삭제(){
+        myWebtoonService.deleteMyWebtoon(1L);
+        System.out.println(myWebtoonService.getMyWebtoonById(1L));
+    }
+
 
 }
