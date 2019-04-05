@@ -5,6 +5,7 @@ import com.project.picktoon.domain.Keyword;
 import com.project.picktoon.dto.SearchKeyword;
 import com.project.picktoon.util.SeeAge;
 import com.querydsl.core.Tuple;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -125,6 +126,13 @@ public class WebtoonRepositoryTest {
         webtoonRepository.updateWebtoonSubscriptionPlus(21L);
         webtoon = webtoonRepository.getWebtoon(21L);
         System.out.println(webtoon.getSubscription());
+    }
+
+    @Test
+    @Rollback(false)
+    public void 웹툰_삭제(){
+        webtoonRepository.deleteWebtoonById(1L);
+        Assert.assertEquals(webtoonRepository.getWebtoon(1L),null);
     }
 
 }

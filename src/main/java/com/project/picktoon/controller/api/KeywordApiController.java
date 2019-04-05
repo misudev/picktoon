@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/keyword")
+@RequestMapping("/api/keywords")
 @RequiredArgsConstructor
 public class KeywordApiController {
     private final KeywordService keywordService;
@@ -30,13 +30,13 @@ public class KeywordApiController {
         keywordService.deleteKeyword(keywordId);
     }
 
-    @GetMapping("/keywordtype/{keywordType}")
-    public List<Keyword> getKeywords(@PathVariable("keywordType") int type) {
+    @GetMapping
+    public List<Keyword> getKeywords(@RequestParam(name = "keywordType") int type ) {
         return keywordService.getKeywordsByType(type);
     }
 
-    @GetMapping("/bestkeywords/{keywordType}")
-    public List<Keyword> getBestKeywords(@PathVariable("keywordType")int type){
+    @GetMapping("/bestkeywords")
+    public List<Keyword> getBestKeywords(@RequestParam(name = "keywordType") int type ){
         Pageable pageable = PageRequest.of(0,10);
         return keywordService.getBestKeywords(type, pageable);
     }

@@ -1,5 +1,6 @@
 package com.project.picktoon.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,6 +21,7 @@ public class User {
     @Column(length = 255)
     private String email;
     @Column(length = 255)
+    @JsonIgnore
     private String passwd;
     @Column(name="nickname", length = 45)
     private String nickName;

@@ -54,6 +54,6 @@ public class WebtoonServiceImpl implements WebtoonService {
     @Override
     @Transactional
     public void deleteWebtoon(Long id) {
-        webtoonRepository.deleteById(id);
+        webtoonRepository.deleteWebtoonById(id);
     }
 }

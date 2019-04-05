@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/webtoon")
+@RequestMapping("/api/webtoons")
 @RequiredArgsConstructor
 public class WebtoonApiController {
 

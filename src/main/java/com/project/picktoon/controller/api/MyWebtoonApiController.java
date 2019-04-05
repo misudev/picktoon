@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/mywebtoon")
+@RequestMapping("/api/mywebtoons")
 @RequiredArgsConstructor
 public class MyWebtoonApiController {
     private final MyWebtoonService myWebtoonService;

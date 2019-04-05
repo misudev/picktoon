@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/platform")
+@RequestMapping("/api/platforms")
 @RequiredArgsConstructor
 public class PlatformApiController {
     private final PlatformService platformService;
