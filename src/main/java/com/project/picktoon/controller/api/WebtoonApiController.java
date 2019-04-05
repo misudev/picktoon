@@ -32,7 +32,6 @@ public class WebtoonApiController {
     @GetMapping("/{webtoonId}")
     public WebtoonDto getWebtoon(@PathVariable Long webtoonId){
         Webtoon webtoon = webtoonService.getWebtoonById(webtoonId);
-        WebtoonState webtoonState = webtoonStateService.getWebtoonStateByWebtoonId(webtoonId);
         WebtoonDto webtoonDto = modelMapper.map(webtoon, WebtoonDto.class);
         return webtoonDto;
     }
