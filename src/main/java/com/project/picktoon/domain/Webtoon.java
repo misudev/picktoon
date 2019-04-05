@@ -39,10 +39,10 @@ public class Webtoon {
     @Column
     private String description;
 
-    @OneToOne(mappedBy = "webtoon", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "webtoon", cascade = CascadeType.ALL)
     private WebtoonState webtoonState;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "platform_id")
     private Platform platform;
 

@@ -87,11 +87,6 @@ public class WebtoonRepositoryTest {
         System.out.println(webtoonRepository.getOne(1L));
     }
 
-    @Test
-    public void testGetWebtoonByTitle() {
-        Webtoon webtoon = webtoonRepository.getWebtoonByTitle("마음의 소리");
-        System.out.println(webtoon);
-    }
 
     @Test
     public void testGetBestWebtoon() {
@@ -113,7 +108,7 @@ public class WebtoonRepositoryTest {
         keywords.add(searchKeyword1);
         keywords.add(searchKeyword2);
 
-        List<Webtoon> webtoons  = webtoonRepository.getWebtoons(keywords, null);
+        List<Webtoon> webtoons  = webtoonRepository.getWebtoons(keywords, null, 0, 10);
 //        List<Tuple> webtoons = webtoonRepository.getWebtoons(keywords, null);
 //        for (Tuple w : webtoons)
 //            System.out.println(w.get(0, Long.class) + ", " + w.get(1, Long.class));

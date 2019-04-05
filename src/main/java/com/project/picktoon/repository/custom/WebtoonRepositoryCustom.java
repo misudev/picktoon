@@ -6,5 +6,5 @@ import com.project.picktoon.dto.SearchKeyword;
 import java.util.List;
 
 public interface WebtoonRepositoryCustom {
-    public List<Webtoon> getWebtoons(List<SearchKeyword> keywords, String searchStr);
+    public List<Webtoon> getWebtoons(List<SearchKeyword> keywords, String searchStr, int start, int limit);
 }

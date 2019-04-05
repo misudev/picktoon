@@ -1,5 +1,6 @@
 package com.project.picktoon.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.picktoon.domain.Role;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,6 @@ import java.util.Set;
 @Getter
 @Setter
 public class UserDto {
-    @NotNull
     private Long id;
     @NotNull
     @Size(min=2, max=45)
@@ -22,12 +22,6 @@ public class UserDto {
     private String email;
     @NotNull
     @Size(min=6, max=16)
-    private String password;
-
-    private Set<Role> roles;
-
-    public UserDto(){
-        roles = new HashSet<>();
-    }
+    private String passwd;
 
 }

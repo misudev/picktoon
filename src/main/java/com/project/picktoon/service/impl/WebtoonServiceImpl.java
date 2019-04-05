@@ -18,15 +18,13 @@ public class WebtoonServiceImpl implements WebtoonService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Webtoon> getWebtoons(List<SearchKeyword> keywords, String searchStr) {
-        return webtoonRepository.getWebtoons(keywords,searchStr);
+    public List<Webtoon> getWebtoons(List<SearchKeyword> keywords, String searchStr, int page) {
+        //검색 결과 한 페이지 당 10개의 웹툰을 보여준다.
+        int limit = 10;
+        int start = page * limit - limit;
+        return webtoonRepository.getWebtoons(keywords, searchStr, start, limit);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public Webtoon getWebtoonByTitle(String title) {
-        return webtoonRepository.getWebtoonByTitle(title);
-    }
 
     @Override
     @Transactional(readOnly = true)

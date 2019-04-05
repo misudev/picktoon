@@ -21,6 +21,12 @@ public class WebtoonStateServiceImpl implements WebtoonStateService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public WebtoonState getWebtoonStateByWebtoonId(Long webtoonId) {
+        return webtoonStateRepository.findWebtoonStateByWebtoonId(webtoonId);
+    }
+
+    @Override
     @Transactional
     public WebtoonState addWebtoonState(Long webtoonId, WebtoonState webtoonState) {
         webtoonState.setWebtoon(webtoonRepository.getWebtoon(webtoonId));

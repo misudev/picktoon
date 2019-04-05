@@ -1,6 +1,7 @@
 package com.project.picktoon.service.impl;
 
 import com.project.picktoon.domain.User;
+import com.project.picktoon.repository.RoleRepository;
 import com.project.picktoon.repository.UserRepository;
 import com.project.picktoon.service.UserService;
 import com.project.picktoon.util.CreatePasswd;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     public final UserRepository userRepository;
+    public final RoleRepository roleRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -28,6 +30,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User addUser(User user) {
+        user.addRoles(roleRepository.findByRoleName("USER"));
         return userRepository.save(user);
     }
 
@@ -49,6 +52,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void updateUser(User user) {
-        userRepository.save(user);
+        User updateuser = userRepository.findById(user.getId()).get();
+        updateuser.setNickName(user.getNickName());
+        updateuser.setEmail(user.getEmail());
+        updateuser.setPasswd(user.getPasswd());
+
     }
 }

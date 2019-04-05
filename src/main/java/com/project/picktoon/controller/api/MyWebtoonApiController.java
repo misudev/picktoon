@@ -5,6 +5,7 @@ import com.project.picktoon.dto.AddMyWebtoonDto;
 import com.project.picktoon.dto.MywebtoonDto;
 import com.project.picktoon.service.MyWebtoonService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
@@ -17,32 +18,29 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MyWebtoonApiController {
     private final MyWebtoonService myWebtoonService;
+    private final ModelMapper modelMapper;
 
     //나의 웹툰 목록가져오기
-    //TODO 페이징처리
+    //TODO  페이징처리
+    //TODO  인증 (로그인 정보)
     @GetMapping
     public List<MywebtoonDto> getMyWebtoons(
-            @RequestParam(name = "id") Long id,
+            @RequestParam(name = "id") Long userId,
             @RequestParam(name = "ordertype") int ordertype)
     {
-        List<MyWebtoon> myWebtoonslist = myWebtoonService.getMyWebtoons(id, ordertype);
+        List<MyWebtoon> myWebtoonslist = myWebtoonService.getMyWebtoons(userId, ordertype);
         List<MywebtoonDto> myWebtoons = new ArrayList<>();
 
-        for(MyWebtoon m : myWebtoonslist){
-            MywebtoonDto mywebtoonDto = new MywebtoonDto();
-            mywebtoonDto.setId(m.getId());
-            mywebtoonDto.setAlarm(m.getAlarm());
-            mywebtoonDto.setUserId(m.getUser().getId());
-            mywebtoonDto.setWebtoonId(m.getWebtoon().getId());
-       //     mywebtoonDto.setWebtoonImageId(m.getWebtoon().getWebtoonImage().getId());
-            mywebtoonDto.setWebtoonTitle(m.getWebtoon().getTitle());
+        for(MyWebtoon myWebtoon : myWebtoonslist){
+            MywebtoonDto mywebtoonDto = modelMapper.map(myWebtoon, MywebtoonDto.class);
 
-            Date date = (m.getWebtoon().getWebtoonState().getUpdatedDate());
+            // 최신 업데이트 날짜
+            Date date = (myWebtoon.getWebtoon().getWebtoonState().getUpdatedDate());
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             String dateString = format.format(date);
             mywebtoonDto.setUpdateDate(dateString);
-
-            mywebtoonDto.setTotalCount(m.getWebtoon().getWebtoonState().getTotalCount());
+            // 웹툰 총 횟수
+            mywebtoonDto.setTotalCount(myWebtoon.getWebtoon().getWebtoonState().getTotalCount());
             myWebtoons.add(mywebtoonDto);
         }
         return myWebtoons;

@@ -86,7 +86,7 @@ public class WebtoonServiceTest {
         searchKeywords.add(searchKeyword1);
         searchKeywords.add(searchKeyword2);
 
-        List<Webtoon> webtoons = webtoonService.getWebtoons(searchKeywords, null);
+        List<Webtoon> webtoons = webtoonService.getWebtoons(searchKeywords, null, 1);
 
 //        for(Webtoon w : webtoons)
 //            System.out.println(w);

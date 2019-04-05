@@ -36,6 +36,13 @@ public class WebtoonStateRepositoryTest {
         System.out.println(webtoonState);
     }
 
+
+    @Test
+    public void 웹툰으로_웹툰상태찾기() throws Exception{
+        WebtoonState webtoonState = webtoonStateRepository.findWebtoonStateByWebtoonId(1L);
+        System.out.println(webtoonState);
+    }
+
     @After
     public void tearDown() throws Exception {
     }

@@ -18,7 +18,7 @@ public class WebtoonRepositoryImpl extends QuerydslRepositorySupport implements 
     }
 
     @Override
-    public List<Webtoon> getWebtoons(List<SearchKeyword> keywords, String searchStr) {
+    public List<Webtoon> getWebtoons(List<SearchKeyword> keywords, String searchStr, int start, int limit) {
         QWebtoon webtoon = QWebtoon.webtoon;
         QKeyword keyword = QKeyword.keyword;
 
@@ -33,6 +33,10 @@ public class WebtoonRepositoryImpl extends QuerydslRepositorySupport implements 
 
         JPQLQuery<Webtoon> jpqlQuery = from(webtoon).innerJoin(webtoon.platform)
                 .innerJoin(webtoon.keywords, keyword);
+
+        //키워드가 없는 경우 모든 웹툰을 조회해서 리턴한다.
+//        if(keywords.isEmpty())
+//            return jpqlQuery.offset(start).limit(limit).distinct().fetch();
 
         // or 로 키워드를 포함하고 있는 웹툰들을 조회 한다.
         BooleanBuilder builder = new BooleanBuilder();
@@ -61,6 +65,8 @@ public class WebtoonRepositoryImpl extends QuerydslRepositorySupport implements 
                 .innerJoin(webtoon.keywords, keyword).distinct();
 
         jpqlQuery2.where(webtoon.id.in(tuplesToIds(tuples)));
+        // 가져올 범위
+        jpqlQuery2.offset(start).limit(limit);
         return jpqlQuery2.fetch();
     }
 
@@ -71,6 +77,5 @@ public class WebtoonRepositoryImpl extends QuerydslRepositorySupport implements 
         return webtoonIds;
 
     }
-
 
 }

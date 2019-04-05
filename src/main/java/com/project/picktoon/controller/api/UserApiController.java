@@ -5,32 +5,26 @@ import com.project.picktoon.dto.JoinUser;
 import com.project.picktoon.dto.UserDto;
 import com.project.picktoon.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserApiController {
     private final UserService userService;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/{userId}")
     public UserDto getUser(@PathVariable("userId") Long userId){
-        UserDto userDto = new UserDto();
-        User user = userService.getUserById(userId);
-        userDto.setId(user.getId());
-        userDto.setEmail(user.getEmail());
-        userDto.setNickName(user.getNickName());
-        userDto.setPassword(user.getPasswd());
-        userDto.setRoles(user.getRoles());
+        UserDto userDto = modelMapper.map(userService.getUserById(userId), UserDto.class);
         return userDto;
     }
 
-//    @GetMapping("/{email}")
-//    public User getUser(@PathVariable("email")String email){
-//        return userService.getUserByEmail(email);
-//    }
 
     @GetMapping("/check/{email}")
     public boolean checkSignUp(@PathVariable("email")String email){
@@ -39,7 +33,7 @@ public class UserApiController {
 
 
     @PostMapping
-    public boolean addUser(@RequestBody JoinUser joinForm){
+    public boolean addUser(@Valid @RequestBody JoinUser joinForm){
         // 이메일 중복일 경우 false
         if(userService.checkSignUp(joinForm.getEmail()))
             return false;
@@ -64,20 +58,19 @@ public class UserApiController {
     @PutMapping("/findpw/{userId}")
     public void changePasswd(@PathVariable("userId")Long userId){
         String changedPasswd = userService.changePasswd(userId);
-        // 바뀐 패스워드를 이메일로 보내준다. (추가 ** )
+        // TODO  바뀐 패스워드를 이메일로 보내준다.
 
     }
 
     @PutMapping
-    public boolean updateUser(@RequestBody UserDto updateUser){
-        User user = new User();
-        user.setId(updateUser.getId());
-        user.setNickName(updateUser.getNickName());
-        user.setEmail(updateUser.getEmail());
-        user.setRoles(updateUser.getRoles());
+    public boolean updateUser(@Valid @RequestBody UserDto updateUser){
+        if(updateUser.getId() == null)
+            return false;
+
+        User user = modelMapper.map(updateUser, User.class);
         // 비밀번호 암호화
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        user.setPasswd(passwordEncoder.encode(updateUser.getPassword()));
+        user.setPasswd(passwordEncoder.encode(updateUser.getPasswd()));
         // 유저 정보 수정.
         userService.updateUser(user);
         return true;
