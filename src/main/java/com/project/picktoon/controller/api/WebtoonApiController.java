@@ -9,11 +9,15 @@ import com.project.picktoon.service.WebtoonService;
 import com.project.picktoon.service.WebtoonStateService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,39 +34,58 @@ public class WebtoonApiController {
 
     // 웹툰 id로 가져오기 (상세정보 포함)
     @GetMapping("/{webtoonId}")
-    public WebtoonDto getWebtoon(@PathVariable Long webtoonId){
+    public ResponseEntity<WebtoonDto> getWebtoon(@PathVariable Long webtoonId){
         Webtoon webtoon = webtoonService.getWebtoonById(webtoonId);
+        if(webtoon == null)
+            return new ResponseEntity<WebtoonDto>(HttpStatus.NO_CONTENT);
+
         WebtoonDto webtoonDto = modelMapper.map(webtoon, WebtoonDto.class);
-        return webtoonDto;
+        return new ResponseEntity<>(webtoonDto, HttpStatus.OK);
     }
     // 웹툰 추가하기
     @PostMapping
-    public void addWebtoon(@Valid @RequestBody WebtoonForm webtoonForm){
+    public ResponseEntity<WebtoonDto> addWebtoon(@Valid @RequestBody WebtoonForm webtoonForm, BindingResult bindingResult){
+        if(bindingResult.hasErrors())
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
         Webtoon webtoon = modelMapper.map(webtoonForm, Webtoon.class);
         webtoon.setId(null);
         webtoon.setWebtoonState(webtoonStateService.getWebtoonStateById(webtoonForm.getWebtoonStateId()));
         webtoon.setPlatform(platformService.getPlatformById(webtoonForm.getPlatformId()));
-        webtoonService.addWebtoon(webtoon);
+        Webtoon addWebtoon = webtoonService.addWebtoon(webtoon);
+        WebtoonDto webtoonDto = modelMapper.map(addWebtoon, WebtoonDto.class);
+        return new ResponseEntity<>(webtoonDto, HttpStatus.CREATED);
     }
 
     //웹툰 수정하기
     @PutMapping
-    public void updateWebtoon(@Valid @RequestBody WebtoonForm webtoonForm){
+    public ResponseEntity<Result> updateWebtoon(@Valid @RequestBody WebtoonForm webtoonForm, BindingResult bindingResult){
+        if(bindingResult.hasErrors())
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if(!webtoonService.existWebtoonById(webtoonForm.getId()))
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
         Webtoon webtoon = modelMapper.map(webtoonForm, Webtoon.class);
         webtoon.setWebtoonState(webtoonStateService.getWebtoonStateById(webtoonForm.getWebtoonStateId()));
         webtoon.setPlatform(platformService.getPlatformById(webtoonForm.getPlatformId()));
         webtoonService.updateWebtoon(webtoon);
+
+        return new ResponseEntity<>(new Result("SUCCESS"), HttpStatus.OK);
     }
 
     //웹툰 삭제하기
     @DeleteMapping("/{webtoonId}")
-    public void deleteWebtoon(@PathVariable Long webtoonId){
+    public ResponseEntity deleteWebtoon(@PathVariable Long webtoonId){
+        if(!webtoonService.existWebtoonById(webtoonId))
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+
         webtoonService.deleteWebtoon(webtoonId);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     //웹툰 검색
     @GetMapping("/search")
-    public List<SearchWebtoonDto> searchWebtoons(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
+    public ResponseEntity<List<SearchWebtoonDto>> searchWebtoons(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
                                            @RequestParam(name = "key1", required = false) String[] keywords1,
                                            @RequestParam(name = "key2", required = false) String[] keywords2,
                                            @RequestParam(name = "key3", required = false) String[] keywords3,
@@ -80,13 +103,10 @@ public class WebtoonApiController {
             searchKeywords.addAll(convertToSearchKeyword(4,keywords4));
 
         List<Webtoon> webtoons =  webtoonService.getWebtoons(searchKeywords, searchStr, page);
-        List<SearchWebtoonDto> results = new ArrayList<>();
 
-        for(Webtoon webtoon : webtoons){
-            SearchWebtoonDto searchWebtoonDto = modelMapper.map(webtoon, SearchWebtoonDto.class);
-            results.add(searchWebtoonDto);
-        }
-        return results;
+        Type listType = new TypeToken<List<SearchWebtoonDto>>(){}.getType();
+        List<SearchWebtoonDto> results = modelMapper.map(webtoons, listType);
+        return new ResponseEntity<>(results, HttpStatus.OK);
     }
 
     private List<SearchKeyword> convertToSearchKeyword(int keywordType, String[] keywords){
@@ -99,6 +119,5 @@ public class WebtoonApiController {
         }
         return result;
     }
-
 
 }

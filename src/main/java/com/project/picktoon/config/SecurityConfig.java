@@ -2,8 +2,10 @@ package com.project.picktoon.config;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -15,13 +17,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // 아예 인가처리를 하지 않는 (무시하는 URL설정) - 이미지 or css, javascript
     @Override
     public void configure(WebSecurity web) throws Exception {
-
-//    PathRequest.toStaticResources().atCommonLocations()
-//    CSS(new String[]{"/css/**"}),
-//    JAVA_SCRIPT(new String[]{"/js/**"}),
-//    IMAGES(new String[]{"/images/**"}),
-//    WEB_JARS(new String[]{"/webjars/**"}),
-//    FAVICON(new String[]{"/**/favicon.ico"});
         web.ignoring()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                 .requestMatchers(new AntPathRequestMatcher("/**.html"))

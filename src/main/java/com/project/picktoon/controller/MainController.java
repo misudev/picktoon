@@ -14,9 +14,6 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/users/join")
-    public String join() {
-        return "join";}
 
     @GetMapping("/addwebtoon")
     public String addwebtoon() {  return "addwebtoon"; }

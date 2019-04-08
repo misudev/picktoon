@@ -4,10 +4,21 @@ header {
     padding : 0.7em;
     text-align: center;
     font-size: 3vw;
-    }
-.join_content{
-    padding: 0px 12px;
 }
+
+.login_form{
+    border : none;
+    padding-top: 30%;
+}
+
+.input_int{
+    width: 95%;
+    border :none;
+    background: #fff;
+    font-size: 1.2em;
+    height: 100%;
+}
+
 
 .input_row {
     position: relative;
@@ -17,34 +28,20 @@ header {
     border: solid 1px #dadada;
 
 }
+.input_row_focus{
+
+}
+.input_box{
+    display: block;
+    overflow: hidden;
+}
+
 .error_msg {
     padding-left: 2%;
     font-size: 10pt;
     line-height: 16px;
     margin: -2px 0 12px;
     color: #ff1616;
-}
-
-.join_title{
-    padding-left: 5px;
-    margin-bottom: 5px;
-    font-size: 12pt;
-}
-.btn_area{
-
-    padding-top: 20px;
-}
-
-.join_input_row{
-    position: relative;
-    height: 29px;
-    margin: 0 0 9px;
-    padding: 10px 35px 10px 15px;
-    border: solid 1px #dadada;
-}
-
-.green{
-    color: green !important;
 }
 
 .btn-main {
@@ -56,7 +53,23 @@ header {
     font-size: 1.4em;
 }
 
-.btn_area{
-
+.find_info{
+    font-size: 12pt;
+    line-height: 14px;
     padding-top: 20px;
+    text-align: center;
+    color: #8e8e8e;
+    border-top: 1px solid #e4e4e5;
+}
+.find_info a{
+    text-decoration: none;
+    color: #8e8e8e;
+}
+
+.bar{
+    display: inline-block;
+    width: 1px;
+    height: 13px;
+    text-indent: -999em;
+    background: #e4e4e5;
 }

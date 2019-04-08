@@ -33,6 +33,8 @@ public interface WebtoonRepository extends JpaRepository<Webtoon, Long>, Webtoon
     @Query("DELETE FROM Webtoon w WHERE w.id = :id")
     public void deleteWebtoonById(@Param("id")Long id);
 
+    public boolean existsById(Long id);
+
 
 
 }

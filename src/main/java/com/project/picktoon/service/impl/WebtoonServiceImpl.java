@@ -56,4 +56,10 @@ public class WebtoonServiceImpl implements WebtoonService {
     public void deleteWebtoon(Long id) {
         webtoonRepository.deleteWebtoonById(id);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existWebtoonById(Long id) {
+        return webtoonRepository.existsById(id);
+    }
 }

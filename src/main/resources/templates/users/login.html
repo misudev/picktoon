@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>LOGIN</title>
+    <link href="/css/login.css" rel = "stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
+</head>
+<body>
+<header>
+    <div>
+        <h1>LOGIN</h1>
+    </div>
+</header>
+
+<article >
+    <!-- <form method = "post" action ="" > -->
+    <form>
+        <fieldset class = "login_form">
+            <div class= "input_row" id = "id_area">
+						<span class = "input_box">
+							<input type="text" id="id" name="id" class = "input_int" placeholder="이메일">
+						</span>
+            </div>
+            <div class = "error_msg" id = "err_empty_id" style = "display:none;">
+                이메일을 입력해주세요.
+            </div>
+            <div class ="input_row" id = "pw_area">
+						<span class = "input_box">
+							<input type="password" id="pw" name="pw" class = "input_int" placeholder = "비밀번호" >
+						</span>
+            </div>
+            <div class = "error_msg" id = "err_empty_pw" style = "display:none;">
+                비밀번호를 입력해주세요.
+            </div>
+            <!-- <input id = "btnLogin" type="submit" title = "로그인" alt = "로그인" value = "로그인"  class = "btn-main"> -->
+            <button id = "btnLogin" title="로그인" alt = "로그인" value = "로그인"  class = "btn-main">로그인</button>
+        </fieldset>
+    </form>
+    <div class="find_info">
+
+        <a href="findPw.html">비밀번호 찾기</a>
+        <span class = "bar">|</span>
+        <a href="join.html">회원가입</a>
+    </div>
+
+
+</article>
+<footer >
+
+</footer>
+<script type="text/javascript">
+
+    $("#btnLogin").on('click',function(){
+
+        login();
+    });
+
+    $(".input_int").on('focus',function(){
+        $(this).parents(".input_row").css("border-color","#1AAB8A");
+
+    });
+    $(".input_int").on('blur',function(){
+        $(this).parents(".input_row").css("border-color","#dadada");
+    });
+
+    function login(){
+        console.log("login..");
+        if(!checkValue()){
+            console.log("no value.")
+            return;}
+    }
+
+    function checkValue(){
+        //console.log("confirmAterSubmit..");
+        var id = $("#id").val();
+        var oMsg = $("#err_empty_id");
+        var pw = $("#pw").val();
+
+        console.log("id" + id + "    pw:"+pw);
+
+        if(id == ""){
+            $("#err_empty_id").show();
+            //$("#err_empty_pw").hide();
+            id.focus();
+            return false;
+        }else if(pw == ""){
+            $("#err_empty_pw").show();
+            //$("#err_empty_id").hide();
+            pw.focus();
+            return false;
+        }
+
+        //유효성검사
+        var isEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var isHan = /[ㄱ-ㅎ가-힣]/g;
+        if (!isEmail.test(id) || isHan.test(id)) {
+            showErrorMsg(oMsg,"이메일 주소를 다시 확인해주세요.");
+            return false;
+        }
+
+        return true;
+
+    }
+
+
+
+
+</script>
+</body>
+</html>
