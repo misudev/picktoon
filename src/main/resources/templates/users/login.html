@@ -15,11 +15,11 @@
 
 <article >
     <!-- <form method = "post" action ="" > -->
-    <form>
+    <form action="/users/login" method="post">
         <fieldset class = "login_form">
             <div class= "input_row" id = "id_area">
 						<span class = "input_box">
-							<input type="text" id="id" name="id" class = "input_int" placeholder="이메일">
+							<input type="text" id="id" name="email" class = "input_int" placeholder="이메일">
 						</span>
             </div>
             <div class = "error_msg" id = "err_empty_id" style = "display:none;">
@@ -27,21 +27,21 @@
             </div>
             <div class ="input_row" id = "pw_area">
 						<span class = "input_box">
-							<input type="password" id="pw" name="pw" class = "input_int" placeholder = "비밀번호" >
+							<input type="password" id="pw" name="password" class = "input_int" placeholder = "비밀번호" >
 						</span>
             </div>
             <div class = "error_msg" id = "err_empty_pw" style = "display:none;">
                 비밀번호를 입력해주세요.
             </div>
             <!-- <input id = "btnLogin" type="submit" title = "로그인" alt = "로그인" value = "로그인"  class = "btn-main"> -->
-            <button id = "btnLogin" title="로그인" alt = "로그인" value = "로그인"  class = "btn-main">로그인</button>
+            <button id = "btnLogin" title="로그인" alt = "로그인" value = "로그인"  class = "btn-main" type="submit">로그인</button>
         </fieldset>
     </form>
     <div class="find_info">
 
-        <a href="findPw.html">비밀번호 찾기</a>
+        <a href="/users/findpw">비밀번호 찾기</a>
         <span class = "bar">|</span>
-        <a href="join.html">회원가입</a>
+        <a href="/users/join">회원가입</a>
     </div>
 
 
@@ -52,7 +52,6 @@
 <script type="text/javascript">
 
     $("#btnLogin").on('click',function(){
-
         login();
     });
 
@@ -64,11 +63,14 @@
         $(this).parents(".input_row").css("border-color","#dadada");
     });
 
+
+
     function login(){
         console.log("login..");
         if(!checkValue()){
             console.log("no value.")
             return;}
+
     }
 
     function checkValue(){
