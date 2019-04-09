@@ -14,7 +14,14 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/main")
+    public String main(){
+        return "index";
+    }
 
     @GetMapping("/addwebtoon")
     public String addwebtoon() {  return "addwebtoon"; }
+
+    @GetMapping("/webtoons/search")
+    public String searchWebtoon() { return "webtoons/searchlist";}
 }

@@ -1,6 +1,7 @@
 package com.project.picktoon.controller.api;
 
 import com.project.picktoon.domain.User;
+import com.project.picktoon.dto.CheckEmail;
 import com.project.picktoon.dto.JoinUser;
 import com.project.picktoon.dto.Result;
 import com.project.picktoon.dto.UserDto;
@@ -35,11 +36,11 @@ public class UserApiController {
     }
 
 
-    @GetMapping("/check/{email}")
-    public ResponseEntity<Result> checkSignUp(@PathVariable("email")String email){
+    @PostMapping("/check")
+    public ResponseEntity<Result> checkSignUp(@RequestBody CheckEmail checkEmail){
         Result result = new Result();
         // 이미 존재하는 이메일인 경우
-        if(userService.checkSignUp(email)){
+        if(userService.checkSignUp(checkEmail.getEmail())){
             result.setResult("TRUE");
         }else{
             result.setResult("FALSE");

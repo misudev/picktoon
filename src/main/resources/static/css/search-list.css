@@ -1,0 +1,39 @@
+html body {
+  height: 100vh;
+  line-height: 1.25em;}
+header {
+    border-bottom: 1px solid gray;
+    padding : 1em;
+    text-align: center;
+    font-size: 24px;
+    color: #585858;
+    }
+
+#result-list{
+  padding: 1px;
+}
+.result-row{
+    border-bottom: 1px solid #E6E6E6;
+    height: 72px;
+    padding: 15px 24px;
+    list-style: none;
+}
+.webtoon_image{
+    height: 50px;
+    width: 65px;
+    float: left;
+    padding-top: 10px;
+    margin-right: 12px;
+}
+.webtoon-detail{
+  float: left;
+}
+.webtoon-count{
+  font-size: 14px;
+  padding-right: 8px;
+  color: #585858;
+}
+.webtoon-date{
+  font-size: 14px;
+  color: #585858;
+}
