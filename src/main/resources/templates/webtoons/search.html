@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>웹툰찾기</title>
+
+	<script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<style>
+		element.style {
+		}
+		.p-3 {
+			padding: 1rem!important;
+		}
+		.mb-3{
+			margin-bottom: 1rem!important;
+		}
+		.shadow-sm {
+			box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+		}
+		.d-flex {
+			display: -ms-flexbox!important;
+			display: flex!important;
+		}
+		.border-bottom {
+			border-bottom: 1px solid #dee2e6!important;
+		}
+		.bg-white {
+			background-color: #fff!important;
+		}
+
+		.form-group{
+			width : 100%;
+			text-align: center;
+			/*  border : 1px solid black; */
+
+		}
+
+		.btn-primary  {
+			border-radius: 10em;
+			margin : 3.5px;
+			background-color: lightblue;
+			border-color: lightblue;
+			color: #fff;
+		}
+
+		.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary {
+			color: #fff;
+			background-color: cadetblue ;
+			border-color: lightskyblue;
+		}
+
+		h5{
+			font-size : 20px;
+			text-align : center;
+			/*  border : 1px solid red; */
+			margin : 10px;
+			padding : 10px;
+		}
+
+		.btn-group-toggle{
+			width : 90%;
+			/*       border : 1px solid red; */
+			margin : 0 auto;
+		}
+		.btn-primary{
+			font-size: 10px;
+		}
+
+		div[id="webtoon-search"]{
+			margin-top : 50px;
+			margin-bottom : 50px;
+		}
+		.btn-info{
+			margin-left : 10px;
+		}
+	</style>
+</head>
+<body>
+<header>
+	<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+		<h3 class="my-0 mr-md-auto font-weight-normal">PICKTOON </h3>
+	</div>
+</header>
+
+<form action="/api/webtoons/search">
+
+	<section class="form-group">
+		<h5> 요일 </h5>
+		<div class="btn-group-toggle" data-toggle="buttons" id="daykeywords">
+			<!-- 요일 출력-->
+		</div>
+	</section>
+
+	<script>
+
+
+		$.ajax({
+			url: 'api/keywords?keywordType=1',
+			method: 'GET',
+			async: true,
+			ContentType: "application/json",
+			success: function (keyword) {
+				console.log("검색 성공");
+				for(var i = 0; i < 7; i++) {
+					var keywords = $('<label class="btn btn-primary">' +
+							'<input type="checkbox" name="key1" autocomplete="off" value="'+ keyword[i].keywordValue+ '">' + keyword[i].keywordValue +
+							'</label>');
+					keywords.appendTo($('#daykeywords'));
+				}
+			},
+			error: function (err) {
+				console.log(err.toString());
+			}
+		});
+
+	</script>
+
+	<section class="form-group">
+		<h5> 장르 </h5>
+		<div class="btn-group-toggle" data-toggle="buttons" id="genrekeywords">
+			<!-- 장르 출력-->
+		</div>
+	</section>
+
+	<script>
+
+
+		$.ajax({
+			url: 'api/keywords?keywordType=2',
+			method: 'GET',
+			async: true,
+			ContentType: "application/json",
+			success: function (keyword) {
+				console.log("검색 성공");
+				for(var i = 0; i < keyword.length; i++) {
+					var keywords = $('<label class="btn btn-primary">' +
+							'<input type="checkbox" name="key2" autocomplete="off" value="'+ keyword[i].keywordValue+ '">' + keyword[i].keywordValue +
+							'</label>');
+					keywords.appendTo($('#genrekeywords'));
+				}
+			},
+			error: function (err) {
+				console.log(err.toString());
+			}
+		});
+
+	</script>
+
+	<section class="form-group">
+		<h5> 키워드 </h5>
+		<div class="btn-group-toggle" data-toggle="buttons" id="bestkeywords">
+			<!-- 키워드 출력-->
+		</div>
+	</section>
+
+	<script>
+
+
+		$.ajax({
+			url: 'api/keywords/bestkeywords?keywordType=4',
+			method: 'GET',
+			async: true,
+			ContentType: "application/json",
+			success: function (keyword) {
+				console.log("검색 성공");
+				for(var i = 0; i < keyword.length; i++) {
+					// var enc = keyword[i].keywordValue;
+					// $('input[name=key4]').attr('value',enc);
+
+					var keywords = $('<label class="btn btn-primary">' +
+							'<input type="checkbox" name="key4" autocomplete="off" value="'+ keyword[i].keywordValue+ '">' + keyword[i].keywordValue +
+							'</label>');
+					keywords.appendTo($('#bestkeywords'));
+				}
+			},
+			error: function (err) {
+				console.log(err.toString());
+			}
+		});
+
+	</script>
+
+	<div class="container" id="webtoon-search">
+		<div class="row justify-content-center">
+			<input type="text" name="searchStr" class="form-control col-6" placeholder="내용을 입력하세요">
+			<button type="submit" class="btn btn-info col-2">검색</button>
+		</div>
+	</div>
+</form>
+
+
+</body>
+</html>
