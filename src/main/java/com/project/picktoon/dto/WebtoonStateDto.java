@@ -9,6 +9,6 @@ import java.util.Date;
 @Setter
 public class WebtoonStateDto {
     private Boolean updateState;
-    private Date updatedDate;
+    private String updatedDate; //String으로 수정..
     private String totalCount;
 }
