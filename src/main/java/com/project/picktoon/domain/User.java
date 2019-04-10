@@ -1,9 +1,7 @@
 package com.project.picktoon.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,6 +12,9 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
+@Builder
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

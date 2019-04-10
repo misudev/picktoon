@@ -2,8 +2,7 @@ package com.project.picktoon.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.picktoon.domain.Role;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -12,6 +11,9 @@ import java.util.Set;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDto {
     private Long id;
     @NotNull
