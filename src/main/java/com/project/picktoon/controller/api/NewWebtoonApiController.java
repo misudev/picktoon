@@ -5,6 +5,8 @@ import com.project.picktoon.dto.NewWebtoonDto;
 import com.project.picktoon.service.NewWebtoonService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ public class NewWebtoonApiController {
     private final ModelMapper modelMapper;
 
     @GetMapping
-    public List<NewWebtoonDto> getNewWebtoon(){
+    public ResponseEntity<List<NewWebtoonDto>> getNewWebtoon(){
         List<NewWebtoon> newWebtoonlist = newWebtoonService.getNewWebtoons();
         List<NewWebtoonDto> newWebtoons = new ArrayList<>();
 
@@ -28,11 +30,12 @@ public class NewWebtoonApiController {
 //            newWebtoonDto.setWebtoonImageId(newWebtoon.getWebtoon().getWebtoonImage().getId());
                 newWebtoons.add(newWebtoonDto);
             }
-        return newWebtoons;
+        return new ResponseEntity<>(newWebtoons, HttpStatus.OK);
     }
 
     @PutMapping
-    public void updateNewWebtoon(@RequestBody NewWebtoonDto updateNewWebtoon){
+    public ResponseEntity updateNewWebtoon(@RequestBody NewWebtoonDto updateNewWebtoon){
         newWebtoonService.updateNewWebtoon(updateNewWebtoon.getId(), updateNewWebtoon.getWebtoonId(), updateNewWebtoon.getOrdering());
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
