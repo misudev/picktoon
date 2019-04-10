@@ -34,10 +34,10 @@
                     var webtoonRow = $('<li class="result-row">' +
                         '<img src="" alt="이미지" class="webtoon_image">' +
                         '<div class="webtoon-detail">' +
-                            '<p><b>'+resp[i].title+'</b></p>'+
+                            '<p class="webtoon-title"><b>'+resp[i].title+'</b></p>'+
                             '<span class="webtoon-count">'+resp[i].webtoonState.totalCount+'</span>'+
                             '<span class="webtoon-date">'+resp[i].webtoonState.updatedDate+'</span>'+
-                        '</div>');
+                        '</div>'+'</li>');
                     webtoonRow.appendTo($('#result-list'));
                 }
             },

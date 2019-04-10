@@ -1,13 +1,15 @@
 package com.project.picktoon.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class WebtoonForm {
     //웹툰 정보
     private Long id;

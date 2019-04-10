@@ -1,7 +1,6 @@
 package com.project.picktoon.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,6 +10,9 @@ import java.util.Date;
 @Table(name = "webtoon_state")
 @Setter
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class WebtoonState {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

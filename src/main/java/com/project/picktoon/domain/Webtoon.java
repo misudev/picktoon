@@ -1,8 +1,6 @@
 package com.project.picktoon.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -14,7 +12,9 @@ import java.util.List;
 @Table(name = "webtoon")
 @Setter
 @Getter
+@Builder
 @ToString
+@AllArgsConstructor
 public class Webtoon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
