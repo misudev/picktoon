@@ -77,11 +77,11 @@ values (4, '왕 그리고 황제', '연재중', '전체관람가', 'http://webto
 insert into webtoon (id, title, state, see_age, link, subscription, description, platform_id, update_state, updated_date, total_count)
 values (5, '노인의 집', '연재중', '전체관람가', 'http://webtoon.daum.net/webtoon/view/HeavensSoul', 200, '매우 규칙적이고 성실하게 삶을 허비하는 노인의 집에 한 아이가 들어왔다.', 2, 1, '2019-03-18 23:59:59', '46화');
 insert into webtoon (id, title, state, see_age, link, subscription, description, platform_id, update_state, updated_date, total_count)
-values (6, '헤븐즈 소울', '연재중', '전체관람가', 'http://webtoon.daum.net/webtoon/view/HeavensSoul', 1000, '괴생명체 크리쳐의 공격에 맞서는 소녀들의 이야기', 2, '2019-03-18 23:59:59', '94화');
+values (6, '헤븐즈 소울', '연재중', '전체관람가', 'http://webtoon.daum.net/webtoon/view/HeavensSoul', 1000, '괴생명체 크리쳐의 공격에 맞서는 소녀들의 이야기', 2, 1, '2019-03-18 23:59:59', '94화');
 insert into webtoon (id, title, state, see_age, link, subscription, description, platform_id, update_state, updated_date, total_count)
-values (7, '프레너미', '연재중', '전체관람가', 'http://webtoon.daum.net/webtoon/view/Frenemy', 3000, '거만한 천재 소년과 심약한 은둔 고수와의 만남, 재능과 노력만으론 최고가 될 수 없다!', 2, '2019-03-18 23:59:59', '47화');
+values (7, '프레너미', '연재중', '전체관람가', 'http://webtoon.daum.net/webtoon/view/Frenemy', 3000, '거만한 천재 소년과 심약한 은둔 고수와의 만남, 재능과 노력만으론 최고가 될 수 없다!', 2, 0, '2019-03-18 23:59:59', '47화');
 insert into webtoon (id, title, state, see_age, link, subscription, description, platform_id, update_state, updated_date, total_count)
-values (8, '이웃잔혹사', '연재중', '전체관람가', 'http://webtoon.daum.net/webtoon/view/neighbordeath', 11, '복권 당첨금을 둘러싸고 이웃 간에 벌어지는 잔혹 드라마', 2, '2019-03-18 23:59:59', '14화');
+values (8, '이웃잔혹사', '연재중', '전체관람가', 'http://webtoon.daum.net/webtoon/view/neighbordeath', 11, '복권 당첨금을 둘러싸고 이웃 간에 벌어지는 잔혹 드라마', 2, 1, '2019-03-18 23:59:59', '14화');
 insert into webtoon (id, title, state, see_age, link, subscription, description, platform_id, update_state, updated_date, total_count)
 values (9, '우리 남매의 일상은', '연재중', '전체관람가', 'http://webtoon.daum.net/webtoon/view/brothersister', 155, '대한민국 어디에나 있을법한 남매들의 화려한 일상!', 2, 0, '2019-03-03 23:59:59', '8화');
 insert into webtoon (id, title, state, see_age, link, subscription, description, platform_id, update_state, updated_date, total_count)
@@ -231,5 +231,3 @@ insert into my_webtoon(id, webtoon_id, alarm, user_id) values(3, 20, 1, 1);
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(4, 11, 1, 2);
 
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(5, 4, 0, 2);
-
-
