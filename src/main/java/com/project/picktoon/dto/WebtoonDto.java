@@ -1,6 +1,9 @@
 package com.project.picktoon.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
@@ -9,6 +12,8 @@ import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class WebtoonDto {
     //웹툰 정보
     private Long id;
@@ -19,10 +24,13 @@ public class WebtoonDto {
     private int subscription;
     private String description;
     private String platformName;
-    private Long webtoonImageId;
-    private Long webtoonStateId;
+    //private Long webtoonImageId;
+
+    private Boolean updateState;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date updatedDate;
+    private String totalCount;
+
     private List<KeywordDto> keywords;
-    //웹툰 상태 정보
-    private WebtoonStateDto webtoonState;
 
 }

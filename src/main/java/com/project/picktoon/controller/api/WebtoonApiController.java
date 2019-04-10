@@ -1,12 +1,10 @@
 package com.project.picktoon.controller.api;
 
 import com.project.picktoon.domain.Webtoon;
-import com.project.picktoon.domain.WebtoonState;
 import com.project.picktoon.dto.*;
 import com.project.picktoon.service.PlatformService;
 import com.project.picktoon.service.WebtoonImageService;
 import com.project.picktoon.service.WebtoonService;
-import com.project.picktoon.service.WebtoonStateService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -27,7 +25,6 @@ public class WebtoonApiController {
 
     private final WebtoonService webtoonService;
     private final WebtoonImageService webtoonImageService;
-    private final WebtoonStateService webtoonStateService;
     private final PlatformService platformService;
     private final ModelMapper modelMapper;
 
@@ -49,10 +46,9 @@ public class WebtoonApiController {
 
         Webtoon webtoon = modelMapper.map(webtoonForm, Webtoon.class);
         webtoon.setId(null);
-        webtoon.setWebtoonState(webtoonStateService.getWebtoonStateById(webtoonForm.getWebtoonStateId()));
         webtoon.setPlatform(platformService.getPlatformById(webtoonForm.getPlatformId()));
-        Webtoon addWebtoon = webtoonService.addWebtoon(webtoon);
-        WebtoonDto webtoonDto = modelMapper.map(addWebtoon, WebtoonDto.class);
+        webtoon = webtoonService.addWebtoon(webtoon);
+        WebtoonDto webtoonDto = modelMapper.map(webtoon, WebtoonDto.class);
         return new ResponseEntity<>(webtoonDto, HttpStatus.CREATED);
     }
 
@@ -65,7 +61,6 @@ public class WebtoonApiController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         Webtoon webtoon = modelMapper.map(webtoonForm, Webtoon.class);
-        webtoon.setWebtoonState(webtoonStateService.getWebtoonStateById(webtoonForm.getWebtoonStateId()));
         webtoon.setPlatform(platformService.getPlatformById(webtoonForm.getPlatformId()));
         webtoonService.updateWebtoon(webtoon);
 

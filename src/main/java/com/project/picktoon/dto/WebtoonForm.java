@@ -3,6 +3,7 @@ package com.project.picktoon.dto;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -26,7 +27,12 @@ public class WebtoonForm {
     private String description;
     @NotNull
     private int platformId;
+
     private Long webtoonImageId;
-    private Long webtoonStateId;
+
+    private Boolean updateState;
+    private Date updatedDate;
+    private String totalCount;
+
     private List<KeywordDto> keywords;
 }

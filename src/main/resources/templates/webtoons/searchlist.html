@@ -35,8 +35,8 @@
                         '<img src="" alt="이미지" class="webtoon_image">' +
                         '<div class="webtoon-detail">' +
                             '<p class="webtoon-title"><b>'+resp[i].title+'</b></p>'+
-                            '<span class="webtoon-count">'+resp[i].webtoonState.totalCount+'</span>'+
-                            '<span class="webtoon-date">'+resp[i].webtoonState.updatedDate+'</span>'+
+                            '<span class="webtoon-count">'+resp[i].totalCount+'</span>'+
+                            '<span class="webtoon-date">'+resp[i].updatedDate+'</span>'+
                         '</div>'+'</li>');
                     webtoonRow.appendTo($('#result-list'));
                 }

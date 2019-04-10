@@ -33,15 +33,15 @@ public class MyWebtoonApiController {
 
         for(MyWebtoon myWebtoon : myWebtoonslist){
             MywebtoonDto mywebtoonDto = modelMapper.map(myWebtoon, MywebtoonDto.class);
-
-            // 최신 업데이트 날짜
-            Date date = (myWebtoon.getWebtoon().getWebtoonState().getUpdatedDate());
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            String dateString = format.format(date);
-            mywebtoonDto.setUpdateDate(dateString);
-            // 웹툰 총 횟수
-            mywebtoonDto.setTotalCount(myWebtoon.getWebtoon().getWebtoonState().getTotalCount());
-            myWebtoons.add(mywebtoonDto);
+//
+//            // 최신 업데이트 날짜
+//            Date date = (myWebtoon.getWebtoon().getWebtoonState().getUpdatedDate());
+//            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//            String dateString = format.format(date);
+//            mywebtoonDto.setUpdateDate(dateString);
+//            // 웹툰 총 횟수
+//            mywebtoonDto.setTotalCount(myWebtoon.getWebtoon().getWebtoonState().getTotalCount());
+//            myWebtoons.add(mywebtoonDto);
         }
         return myWebtoons;
     }

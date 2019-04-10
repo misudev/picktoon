@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Builder
 @ToString
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Webtoon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,8 +41,14 @@ public class Webtoon {
     @Column
     private String description;
 
-    @OneToOne(mappedBy = "webtoon", cascade = CascadeType.ALL)
-    private WebtoonState webtoonState;
+    @Column(name = "update_state")
+    private Boolean updateState;
+
+    @Column(name = "updated_date")
+    private Date updatedDate;
+
+    @Column(name = "total_count")
+    private String totalCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "platform_id")

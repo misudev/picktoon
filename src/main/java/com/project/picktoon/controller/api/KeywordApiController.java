@@ -5,6 +5,8 @@ import com.project.picktoon.service.KeywordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,29 +18,41 @@ public class KeywordApiController {
     private final KeywordService keywordService;
 
     @GetMapping("/{keywordId}")
-    public Keyword getKeyword(@PathVariable("keywordId")Long id){
-        return keywordService.getKeywordById(id);
+    public ResponseEntity<Keyword> getKeyword(@PathVariable("keywordId")Long id){
+        Keyword keyword = keywordService.getKeywordById(id);
+        return new ResponseEntity<>(keyword, HttpStatus.OK);
     }
 
     @PostMapping
-    public void addKeyword(@RequestBody Keyword keyword){
-        keywordService.addKeyword(keyword);
+    public ResponseEntity<Keyword> addKeyword(@RequestBody Keyword keyword){
+        Keyword addKeyword = keywordService.addKeyword(keyword);
+        return new ResponseEntity<>(addKeyword, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{keywordId}")
-    public void deleteKeyword(@PathVariable("keywordId") Long keywordId){
+    public ResponseEntity deleteKeyword(@PathVariable("keywordId") Long keywordId){
+        if(keywordService.getKeywordById(keywordId)==null)
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+
         keywordService.deleteKeyword(keywordId);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping
-    public List<Keyword> getKeywords(@RequestParam(name = "keywordType") int type ) {
-        return keywordService.getKeywordsByType(type);
+    public ResponseEntity<List<Keyword>> getKeywords(@RequestParam(name = "keywordType") int type ) {
+        List<Keyword> keywords =  keywordService.getKeywordsByType(type);
+        if(keywords.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(keywords, HttpStatus.OK);
     }
 
     @GetMapping("/bestkeywords")
-    public List<Keyword> getBestKeywords(@RequestParam(name = "keywordType") int type ){
+    public ResponseEntity<List<Keyword>> getBestKeywords(@RequestParam(name = "keywordType") int type ){
         Pageable pageable = PageRequest.of(0,10);
-        return keywordService.getBestKeywords(type, pageable);
+        List<Keyword> keywords =  keywordService.getBestKeywords(type, pageable);
+        if(keywords.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(keywords, HttpStatus.OK);
     }
 }
 

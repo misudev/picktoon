@@ -1,8 +1,10 @@
 package com.project.picktoon.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -13,5 +15,9 @@ public class SearchWebtoonDto {
     private String seeAge;
     private Long webtoonImageId;
     private List<KeywordDto> keywords;
-    private WebtoonStateDto webtoonState;
+
+    private Boolean updateState;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date updatedDate;
+    private String totalCount;
 }

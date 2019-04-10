@@ -22,11 +22,11 @@ public interface MyWebtoonRepository extends JpaRepository<MyWebtoon, Long> {
     public List<MyWebtoon> getMyWebToonsByTitleDesc(@Param("userId")Long userId);
 
     //업데이트 오름차순 (오래된순)
-    @Query("SELECT m FROM MyWebtoon m INNER JOIN FETCH m.webtoon INNER JOIN FETCH m.user WHERE m.user.id = :userId ORDER BY m.webtoon.webtoonState.updatedDate")
+    @Query("SELECT m FROM MyWebtoon m INNER JOIN FETCH m.webtoon INNER JOIN FETCH m.user WHERE m.user.id = :userId ORDER BY m.webtoon.updatedDate")
     public List<MyWebtoon> getMyWebToonsByOldest(@Param("userId")Long userId);
 
     //업데이트 내림차순 (최신순)
-    @Query("SELECT m FROM MyWebtoon m INNER JOIN FETCH m.webtoon INNER JOIN FETCH m.user  WHERE m.user.id = :userId ORDER BY m.webtoon.webtoonState.updatedDate DESC")
+    @Query("SELECT m FROM MyWebtoon m INNER JOIN FETCH m.webtoon INNER JOIN FETCH m.user  WHERE m.user.id = :userId ORDER BY m.webtoon.updatedDate DESC")
     public List<MyWebtoon> getMyWebToonsByUpdate(@Param("userId")Long userID);
 
     @Modifying
