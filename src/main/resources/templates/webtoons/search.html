@@ -87,7 +87,7 @@
 	</div>
 </header>
 
-<form action="/api/webtoons/search">
+<form action="/webtoons/search">
 
 	<section class="form-group">
 		<h5> 요일 </h5>
@@ -100,7 +100,7 @@
 
 
 		$.ajax({
-			url: 'api/keywords?keywordType=1',
+			url: '/api/keywords?keywordType=1',
 			method: 'GET',
 			async: true,
 			ContentType: "application/json",
@@ -131,7 +131,7 @@
 
 
 		$.ajax({
-			url: 'api/keywords?keywordType=2',
+			url: '/api/keywords?keywordType=2',
 			method: 'GET',
 			async: true,
 			ContentType: "application/json",
@@ -162,7 +162,7 @@
 
 
 		$.ajax({
-			url: 'api/keywords/bestkeywords?keywordType=4',
+			url: '/api/keywords/bestkeywords?keywordType=4',
 			method: 'GET',
 			async: true,
 			ContentType: "application/json",

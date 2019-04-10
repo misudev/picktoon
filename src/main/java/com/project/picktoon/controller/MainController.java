@@ -21,7 +21,4 @@ public class MainController {
 
     @GetMapping("/addwebtoon")
     public String addwebtoon() {  return "addwebtoon"; }
-
-    @GetMapping("/webtoons/search")
-    public String searchWebtoon() { return "webtoons/searchlist";}
 }
