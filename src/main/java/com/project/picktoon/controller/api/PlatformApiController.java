@@ -32,10 +32,10 @@ public class PlatformApiController {
     }
 
     @DeleteMapping("/{platformId}")
-    public ResponseEntity<Platform> deletePlatform(@PathVariable("platformId") int id){
+    public ResponseEntity deletePlatform(@PathVariable("platformId") int id){
         if(platformService.getPlatformById(id)==null)
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         platformService.deletePlatform(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

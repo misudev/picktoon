@@ -1,6 +1,7 @@
 package com.project.picktoon.repository;
 
 import com.project.picktoon.domain.User;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,11 @@ public class UserRepositoryTest {
     public void getUserByEmail() throws Exception{
         User user = userRepository.getUserByEmail("mimi@naver.com");
         System.out.println(user);
+    }
+
+    @Test
+    public void existsByEmail() throws Exception{
+        Assert.assertEquals(true, userRepository.existsByEmail("test@naver.com"));
     }
 
 //    @Test

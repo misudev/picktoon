@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Platform {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -54,8 +54,16 @@
 			border-color: lightskyblue;
 		}
 
-		h5{
-			font-size : 20px;
+		h1{
+			font-size : 200%;
+			text-align : center;
+			/*  border : 1px solid red; */
+			margin : 10px;
+			padding : 10px;
+		}
+
+		h3{
+			font-size : 130%;
 			text-align : center;
 			/*  border : 1px solid red; */
 			margin : 10px;
@@ -83,14 +91,14 @@
 <body>
 <header>
 	<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-		<h3 class="my-0 mr-md-auto font-weight-normal">PICKTOON </h3>
+		<h1 class="my-0 mr-md-auto font-weight-normal">PICKTOON </h1>
 	</div>
 </header>
 
 <form action="/webtoons/search">
 
 	<section class="form-group">
-		<h5> 요일 </h5>
+		<h3> 요일 </h3>
 		<div class="btn-group-toggle" data-toggle="buttons" id="daykeywords">
 			<!-- 요일 출력-->
 		</div>
@@ -121,7 +129,7 @@
 	</script>
 
 	<section class="form-group">
-		<h5> 장르 </h5>
+		<h3> 장르 </h3>
 		<div class="btn-group-toggle" data-toggle="buttons" id="genrekeywords">
 			<!-- 장르 출력-->
 		</div>
@@ -152,7 +160,7 @@
 	</script>
 
 	<section class="form-group">
-		<h5> 키워드 </h5>
+		<h3> 키워드 </h3>
 		<div class="btn-group-toggle" data-toggle="buttons" id="bestkeywords">
 			<!-- 키워드 출력-->
 		</div>

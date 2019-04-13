@@ -1,12 +1,86 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PICKTOON</title>
+
+    <script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        element.style {
+        }
+        .p-3 {
+            padding: 1rem!important;
+        }
+        .mb-3{
+            margin-bottom: 1rem!important;
+        }
+        .shadow-sm {
+            box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+        }
+        .d-flex {
+            display: -ms-flexbox!important;
+            display: flex!important;
+        }
+        .border-bottom {
+            border-bottom: 1px solid #dee2e6!important;
+        }
+        .bg-white {
+            background-color: #fff!important;
+        }
+
+        .form-group{
+            width : 100%;
+            text-align: center;
+            /*  border : 1px solid black; */
+
+        }
+
+        .btn-primary  {
+            border-radius: 10em;
+            margin : 3.5px;
+            background-color: lightblue;
+            border-color: lightblue;
+            color: #fff;
+        }
+
+        .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary {
+            color: #fff;
+            background-color: cadetblue ;
+            border-color: lightskyblue;
+        }
+
+        h1{
+            font-size : 200%;
+            text-align : center;
+            /*  border : 1px solid red; */
+            margin : 10px;
+            padding : 10px;
+        }
+
+        h3{
+            font-size : 130%;
+            text-align : center;
+            /*  border : 1px solid red; */
+            margin : 10px;
+            padding : 10px;
+        }
+
+
+    </style>
 </head>
 <body>
-<h1>메인화면</h1>
+<header>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h1 class="my-0 mr-md-auto font-weight-normal">PICKTOON</h1>
+    </div>
+</header>
+
+
 
 </body>
 </html>

@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = {UserApiController.class}, includeFilters = @ComponentScan.Filter(classes = {EnableWebSecurity.class}))
@@ -38,6 +38,54 @@ public class UserApiControllerTest {
 
     @MockBean
     private UserService userService;
+
+    @Test
+    @WithMockUser(username = "테스터2", authorities = {"ROLE_USER"})
+    public void getUser() throws Exception {
+
+        User user = User.builder()
+                .id(3L)
+                .email("test2@gmail.com")
+                .nickName("테스터2")
+                .passwd("123456")
+                .build();
+
+        Mockito.when(userService.getUserById(3L)).thenReturn(user);
+
+        mockMvc.perform(get("/api/users/3")
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @Test
+    public void checkSignUp() throws Exception {
+
+        User user = User.builder()
+                .id(3L)
+                .email("test4@gmail.com")
+                .nickName("테스터2")
+                .passwd("123456")
+                .build();
+
+        CheckEmail checkEmail = CheckEmail.builder()
+                .email("test4@gmail.com")
+                .build();
+
+        Mockito.when(userService.addUser(user)).thenReturn(user);
+        Mockito.when(userService.checkSignUp(user.getEmail())).thenReturn(true);
+
+        mockMvc.perform(post("/api/users/check")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .content(objectMapper.writeValueAsString(checkEmail))
+        )
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.jsonPath("result").value("TRUE")) //response에 result가 있으며 값이 TRUE인가?
+                .andExpect(status().isOk());
+    }
 
     @Test
     public void addUser() throws Exception {
@@ -68,63 +116,11 @@ public class UserApiControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("nickName").exists());
     }
 
-    @Test
-    @WithMockUser(username = "테스터2", authorities = {"ROLE_USER"})
-    public void getUser() throws Exception {
-
-        User user = User.builder()
-                .id(3L)
-                .email("test2@gmail.com")
-                .nickName("테스터2")
-                .passwd("123456")
-                .build();
-
-        Mockito.when(userService.getUserById(3L)).thenReturn(user);
-
-
-        mockMvc.perform(get("/api/users/3")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk())
-                .andDo(print());
-    }
-
-    @Test
-    public void checkSignUp() throws Exception {
-
-        CheckEmail checkEmail = CheckEmail.builder()
-                .email("test1@naver.com")
-                .build();
-
-        Mockito.when(userService.checkSignUp("test@naver.com")).thenReturn(false);
-
-    }
-
-//    @PutMapping
-//    public ResponseEntity<Result> updateUser(@Valid @RequestBody UserDto updateUser, BindingResult bindingResult){
-//        if(updateUser.getId() == null)
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        if(bindingResult.hasErrors())
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//
-//        User user = modelMapper.map(updateUser, User.class);
-//        // 비밀번호 암호화
-//        user.setPasswd(passwordEncoder.encode(updateUser.getPasswd()));
-//        // 유저 정보 수정.
-//        userService.updateUser(user);
-//        Result result = new Result("SUCCESS");
-//        return new ResponseEntity<>(result, HttpStatus.OK);
-//    }
+    //TODO : findpw 구현 후 테스트
 
     @Test
     public void updateUser() throws Exception{
 
-        UserDto userDto = UserDto.builder()
-                .id(3L)
-                .email("test2@gmail.com")
-                .nickName("테스터2")
-                .passwd("123456")
-                .build();
-
         User user = User.builder()
                 .id(3L)
                 .email("test2@gmail.com")
@@ -132,17 +128,24 @@ public class UserApiControllerTest {
                 .passwd("123456")
                 .build();
 
-        mockMvc.perform(put("/api/users/{id}",3L)
+        UserDto userDto = UserDto.builder()
+                .id(user.getId())
+                .email("test3@gmail.com")
+                .nickName("테스터3")
+                .passwd(user.getPasswd())
+                .build();
+
+        Mockito.when(userService.addUser(user)).thenReturn(user);
+        Mockito.when(userService.getUserById(userDto.getId())).thenReturn(user);
+
+        mockMvc.perform(put("/api/users")
+                .with(csrf())
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(objectMapper.writeValueAsString(userDto))
         )
-                .andDo(print());
-
-
-
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.jsonPath("result").value("SUCCESS"))
+                .andExpect(status().isOk());
     }
-
-
-
 }
