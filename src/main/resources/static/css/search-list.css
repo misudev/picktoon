@@ -42,3 +42,12 @@ header {
   font-size: 14px;
   color: #585858;
 }
+
+/* 마이 웹툰 */
+.alarm{
+    height: 40px;
+    width: 40px;
+    float: right;
+    margin-top: 5px;
+}
+

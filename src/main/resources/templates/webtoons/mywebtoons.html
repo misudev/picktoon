@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link href="/css/search-list.css" rel = "stylesheet">
+    <script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+<body>
+<header>
+    <div>
+        my webtoon
+    </div>
+</header>
+<article>
+    <ul id = "result-list">
+        <!-- 마이 웹툰 출력 -->
+    </ul>
+</article>
+<!--<div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a>
+    is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"
+                      title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>-->
+<script>
+
+    $.ajax({
+        url: '/api/mywebtoons',
+        method: 'get',
+        async: true,
+        contentType: "application/json",
+        success: function (resp) {
+            console.log("마이 웹툰 조회 성공");
+            for(var i = 0; i < resp.length; i++) {
+                var webtoonRow = $('<li class="result-row">' +
+                    '<img src="" alt="이미지" class="webtoon_image">' +
+                    '<div class="webtoon-detail">' +
+                    '<p class="webtoon-title"><b>'+resp[i].webtoonTitle+'</b></p>'+
+                    '<span class="webtoon-count">'+resp[i].webtoonTotalCount+'</span>'+
+                    '<span class="webtoon-date">'+resp[i].webtoonUpdatedDate+'</span>'+
+                    '</div>'+
+                    '<img src="/icon/'+alarmcheck(resp[i].alarm)+'" alt="알람" class="alarm">'+
+
+                    '</li>');
+                webtoonRow.appendTo($('#result-list'));
+            }
+        },
+        error: function (err) {
+            console.log(err.toString());
+        }
+    });
+    
+    function alarmcheck(alarm) {
+        if (alarm == false) {
+            return "alarm-clock-off.svg";
+        } else {
+            return "alarm-clock-on.svg";
+        }
+        
+    }
+</script>
+</body>
+</html>

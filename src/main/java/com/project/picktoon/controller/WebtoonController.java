@@ -16,4 +16,7 @@ public class WebtoonController {
 
     @GetMapping("/search")
     public String searchWebtoon() { return "webtoons/searchlist";}
+
+    @GetMapping("/mywebtoons")
+    public String myWebtoon() { return "webtoons/mywebtoons";}
 }

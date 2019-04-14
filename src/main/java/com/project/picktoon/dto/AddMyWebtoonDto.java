@@ -9,7 +9,5 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class AddMyWebtoonDto {
     @NotNull
-    private Long userId;
-    @NotNull
     private Long webtoonId;
 }
