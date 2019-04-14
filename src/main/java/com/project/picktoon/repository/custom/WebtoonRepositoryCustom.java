@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface WebtoonRepositoryCustom {
     public List<Webtoon> getWebtoons(List<SearchKeyword> keywords, String searchStr, int start, int limit);
+    public Long getWebtoonsCount(List<SearchKeyword> keywords, String searchStr);
 }
