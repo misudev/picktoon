@@ -3,6 +3,7 @@ package com.project.picktoon.controller.api;
 import com.project.picktoon.domain.MyWebtoon;
 import com.project.picktoon.domain.User;
 import com.project.picktoon.dto.AddMyWebtoonDto;
+import com.project.picktoon.dto.ChangeAlarm;
 import com.project.picktoon.dto.MywebtoonDto;
 import com.project.picktoon.service.MyWebtoonService;
 import com.project.picktoon.service.UserService;
@@ -29,13 +30,11 @@ public class MyWebtoonApiController {
     //나의 웹툰 목록가져오기
     //TODO  페이징처리
     @GetMapping
-    public ResponseEntity<List<MywebtoonDto>> getMyWebtoons(
-            @RequestParam(name = "ordertype", required = false) Optional<Integer> ordertype, Principal principal)
-    {
+    public ResponseEntity<List<MywebtoonDto>> getMyWebtoons(@RequestParam(name = "ordertype", required = false, defaultValue = "1") int ordertype, Principal principal) {
         String email = principal.getName();
         User user = userService.getUserByEmail(email);
-
-        List<MyWebtoon> myWebtoonslist = myWebtoonService.getMyWebtoons(user.getId(),ordertype.orElse(1));
+        System.out.println(ordertype);
+        List<MyWebtoon> myWebtoonslist = myWebtoonService.getMyWebtoons(user.getId(), ordertype);
 
         Type listType = new TypeToken<List<MywebtoonDto>>(){}.getType();
         List<MywebtoonDto> myWebtoons = modelMapper.map(myWebtoonslist, listType);
@@ -45,8 +44,8 @@ public class MyWebtoonApiController {
 
     //알람 수정하기
     @PutMapping
-    public ResponseEntity changeAlarm(@RequestBody Long mywebtoonid){
-        myWebtoonService.changeAlarm(mywebtoonid);
+    public ResponseEntity changeAlarm(@RequestBody ChangeAlarm changeAlarm){
+        myWebtoonService.changeAlarm(changeAlarm.getMywebtoonid());
         return new ResponseEntity(HttpStatus.OK);
     }
 

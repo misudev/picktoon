@@ -2,8 +2,10 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
+    <link href="/webjars/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/search-list.css" rel = "stylesheet">
     <script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
+    <!--https://github.com/CodeSeven/toastr-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 <body>
@@ -13,24 +15,42 @@
     </div>
 </header>
 <article>
+    <div class="select-row">
+        <div class="form-group">
+            <select class="form-control" id="order-select">
+                <option value="1">제목 (오름차순)</option>
+                <option value="2">제목 (내림차순)</option>
+                <option value="3">업데이트 (최신순)</option>
+                <option value="4">업데이트 (오래된순)</option>
+            </select>
+        </div>
+        <a href="" id="edit" >편집</a>
+    </div>
     <ul id = "result-list">
         <!-- 마이 웹툰 출력 -->
     </ul>
+    <div class='error' style='display:none'></div>
 </article>
 <!--<div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a>
     is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"
                       title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>-->
 <script>
+    var mywebtoonsIds = [];
+    //  인코딩된 url --> 다시 한글로 변환
+    var decodeURI = decodeURI(document.location.href);
+    // 파라미터 가져오기..
+    var params = decodeURI.split("?");
 
     $.ajax({
-        url: '/api/mywebtoons',
+        url: '/api/mywebtoons?'+params[1],
         method: 'get',
         async: true,
         contentType: "application/json",
         success: function (resp) {
             console.log("마이 웹툰 조회 성공");
+
             for(var i = 0; i < resp.length; i++) {
-                var webtoonRow = $('<li class="result-row">' +
+                var webtoonRow = $('<li class="result-row mywebtoon-row">' +
                     '<img src="" alt="이미지" class="webtoon_image">' +
                     '<div class="webtoon-detail">' +
                     '<p class="webtoon-title"><b>'+resp[i].webtoonTitle+'</b></p>'+
@@ -38,9 +58,9 @@
                     '<span class="webtoon-date">'+resp[i].webtoonUpdatedDate+'</span>'+
                     '</div>'+
                     '<img src="/icon/'+alarmcheck(resp[i].alarm)+'" alt="알람" class="alarm">'+
-
                     '</li>');
                 webtoonRow.appendTo($('#result-list'));
+                mywebtoonsIds.push(resp[i].id);
             }
         },
         error: function (err) {
@@ -56,6 +76,51 @@
         }
         
     }
+
+    $(document).on('click','.alarm',function () {
+        var element = $(this);
+        var index = $('.alarm').index(this);
+        var id = mywebtoonsIds[index];
+        var JSONObject = {'mywebtoonid': id};
+
+        $.ajax({
+            url: '/api/mywebtoons',
+            method: 'put',
+            async: true,
+            data: JSON.stringify(JSONObject),
+            contentType: "application/json",
+            success: function (resp) {
+                console.log("알람 변경 성공");
+                var src = $(element).attr('src');
+
+                if (src == "/icon/alarm-clock-off.svg") {
+                    $(element).attr('src', '/icon/alarm-clock-on.svg');
+                    $('.error').text("알림 설정 완료");
+                    $('.error').fadeIn(200).delay(500).fadeOut(200);
+
+                } else {
+                    $(element).attr('src', '/icon/alarm-clock-off.svg');
+                    $('.error').text("알림 설정 해제");
+                    $('.error').fadeIn(200).delay(500).fadeOut(200);
+                }
+            },
+            error: function (err) {
+                console.log(err.toString());
+            }
+        });
+
+    });
+
+    $('#order-select').change(function () {
+        var order = $('#order-select option:selected').val();
+        window.location.href = "/webtoons/mywebtoons?ordertype="+order;
+    });
+
+
+
+
+
+
 </script>
 </body>
 </html>

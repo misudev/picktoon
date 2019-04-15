@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PlatformServiceImpl implements PlatformService {
@@ -34,5 +36,11 @@ public class PlatformServiceImpl implements PlatformService {
     @Transactional(readOnly = true)
     public Platform getPlatformByPlatformName(String name) {
         return platformRepository.findByPlatformName(name);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Platform> getAllPlatforms() {
+        return platformRepository.findAll();
     }
 }
