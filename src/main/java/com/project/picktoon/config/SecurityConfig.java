@@ -1,5 +1,6 @@
 package com.project.picktoon.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -7,12 +8,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 // spring security 설정 파일은 보통
 // WebSecurityConfigurerAdapter 를 상속받아서 만든다.
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    public AuthenticationSuccessHandler loginSuccessHandler;
+
 
     // 아예 인가처리를 하지 않는 (무시하는 URL설정) - 이미지 or css, javascript
     @Override
@@ -32,7 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll().and()
                 .authorizeRequests() // 인가에 대한 설정
                 .antMatchers("/addwebtoon").permitAll()
-                .antMatchers("/webtoons/**").permitAll()
+                .antMatchers("/webtoons/search").permitAll()
+                .antMatchers("/webtoons/searchform").permitAll()
                 .antMatchers("/users/join").permitAll()
                 .antMatchers("/users/welcome").permitAll()
                 .antMatchers("/users/login").permitAll()
@@ -48,7 +55,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .failureUrl("/users/login?fail=true")
-                .defaultSuccessUrl("/main", true).and().csrf().ignoringAntMatchers("/**");
+                .successHandler(loginSuccessHandler)    // 로그인 후 처리...
+                //.defaultSuccessUrl("/main", true)
+                .and()
+                .csrf().ignoringAntMatchers("/**");
         //api 사용시 csrf문제..
     }
 }
