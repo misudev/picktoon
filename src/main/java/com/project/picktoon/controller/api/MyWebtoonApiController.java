@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Type;
 import java.security.Principal;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +34,7 @@ public class MyWebtoonApiController {
     {
         String email = principal.getName();
         User user = userService.getUserByEmail(email);
-        
+
         List<MyWebtoon> myWebtoonslist = myWebtoonService.getMyWebtoons(user.getId(),ordertype.orElse(1));
 
         Type listType = new TypeToken<List<MywebtoonDto>>(){}.getType();
