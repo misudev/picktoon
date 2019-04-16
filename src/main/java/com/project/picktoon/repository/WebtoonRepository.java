@@ -10,10 +10,10 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface WebtoonRepository extends JpaRepository<Webtoon, Long>, WebtoonRepositoryCustom {
-    @Query("SELECt w FROM Webtoon w INNER JOIN FETCH w.platform  LEFT JOIN FETCH w.keywords WHERE w.id =:id")
+    @Query("SELECT w FROM Webtoon w INNER JOIN FETCH w.platform  LEFT JOIN FETCH w.keywords WHERE w.id =:id")
     public Webtoon getWebtoon(@Param("id")Long id);
 
-    @Query(value = "SELECT w FROM Webtoon w ORDER BY w.subscription DESC LIMIT 3", nativeQuery = true)
+    @Query(value = "SELECT * FROM Webtoon ORDER BY subscription DESC LIMIT 3", nativeQuery = true)
     public List<Webtoon> getBestWebtoons();
 
 //    @Query("SELECT w FROM Webtoon w INNER JOIN FETCH w.webtoonState  LEFT JOIN FETCH w.keywords WHERE w.title = :title")

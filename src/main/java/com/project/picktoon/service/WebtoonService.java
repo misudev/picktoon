@@ -1,10 +1,7 @@
 package com.project.picktoon.service;
 
-import com.project.picktoon.domain.Keyword;
 import com.project.picktoon.domain.Webtoon;
-import com.project.picktoon.domain.WebtoonImage;
 import com.project.picktoon.dto.SearchKeyword;
-import com.querydsl.core.Tuple;
 
 import java.util.List;
 

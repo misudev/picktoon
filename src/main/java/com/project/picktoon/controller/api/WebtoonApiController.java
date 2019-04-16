@@ -38,6 +38,20 @@ public class WebtoonApiController {
         WebtoonDto webtoonDto = modelMapper.map(webtoon, WebtoonDto.class);
         return new ResponseEntity<>(webtoonDto, HttpStatus.OK);
     }
+
+    @GetMapping("/bestWebtoons")
+    public ResponseEntity<List<WebtoonDto>> getBestWebtoon(){
+        List<Webtoon> webtoonlist = webtoonService.getBestWebtoons();
+        List<WebtoonDto> webtoons = new ArrayList<>();
+
+        for(Webtoon webtoon : webtoonlist){
+            WebtoonDto webtoonDto = modelMapper.map(webtoon, WebtoonDto.class);
+            //TODO 이미지 추가하고 테스트하기
+            webtoons.add(webtoonDto);
+        }
+        return new ResponseEntity<>(webtoons, HttpStatus.OK);
+    }
+
     // 웹툰 추가하기
     @PostMapping
     public ResponseEntity<WebtoonDto> addWebtoon(@Valid @RequestBody WebtoonForm webtoonForm, BindingResult bindingResult){
