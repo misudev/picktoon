@@ -1,0 +1,56 @@
+
+element.style {
+}
+.form-group{
+    width : 100%;
+    text-align: center;
+    /*  border : 1px solid black; */
+
+}
+
+.btn-primary  {
+    border-radius: 10em;
+    margin : 3.5px;
+    background-color: lightblue;
+    border-color: lightblue;
+    color: #fff;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary {
+    color: #fff;
+    background-color: cadetblue ;
+    border-color: lightskyblue;
+}
+
+h1{
+    font-size : 200%;
+    text-align : center;
+    /*  border : 1px solid red; */
+    margin : 10px;
+    padding : 10px;
+}
+
+h3{
+    font-size : 130%;
+    text-align : center;
+    /*  border : 1px solid red; */
+    margin : 10px;
+    padding : 10px;
+}
+
+.btn-group-toggle{
+    width : 90%;
+    /*       border : 1px solid red; */
+    margin : 0 auto;
+}
+.btn-primary{
+    font-size: 10px;
+}
+
+div[id="webtoon-search"]{
+    margin-top : 50px;
+    margin-bottom : 50px;
+}
+.btn-info{
+    margin-left : 10px;
+}

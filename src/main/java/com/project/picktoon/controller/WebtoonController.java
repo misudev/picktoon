@@ -19,4 +19,7 @@ public class WebtoonController {
 
     @GetMapping("/mywebtoons")
     public String myWebtoon() { return "webtoons/mywebtoons";}
+
+    @GetMapping("/{webtoonId}")
+    public String webtoonDetails() { return "webtoons/details";}
 }
