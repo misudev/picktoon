@@ -43,8 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll().and()
                 .authorizeRequests() // 인가에 대한 설정
                 .antMatchers("/addwebtoon").permitAll()
-                .antMatchers("/webtoons/search").permitAll()
-                .antMatchers("/webtoons/searchform").permitAll()
+                .antMatchers("/webtoons/mywebtoons").hasAnyRole("USER","ADMIN")
+                .antMatchers("/webtoons/**").permitAll()
                 .antMatchers("/users/join").permitAll()
                 .antMatchers("/users/welcome").permitAll()
                 .antMatchers("/users/login").permitAll()
