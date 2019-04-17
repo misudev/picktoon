@@ -21,12 +21,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     // 아예 인가처리를 하지 않는 (무시하는 URL설정) - 이미지 or css, javascript
+    //"/static/**", "/js/**", "/css/**", "/img/**", "/json/**"
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                 .requestMatchers(new AntPathRequestMatcher("/**.html"))
-                .requestMatchers(new AntPathRequestMatcher("/static/**"));
+                .requestMatchers(new AntPathRequestMatcher("/static/**"))
+                .requestMatchers(new AntPathRequestMatcher("/icon/**"))
+                .requestMatchers(new AntPathRequestMatcher("/jquery/**"))
+                .requestMatchers(new AntPathRequestMatcher("/js/**"))
+                .requestMatchers(new AntPathRequestMatcher("/css/**"));
     }
 
     @Override
