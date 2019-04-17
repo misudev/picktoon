@@ -1,21 +1,14 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="/layout/default">
 	<head>
 		<title>JOIN</title>
-		<meta charset="utf-8">
+		<th:block layout:fragment="css">
 		<link href="/css/join.css" rel = "stylesheet" >
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
-
-
+		</th:block>
 	</head>
 	<body>
-		<header>
-			<div>
-				<h1>JOIN</h1>
-			</div>
-		</header>
-
 		<article>
 			<div class = "join_content">
 				<div class = "row_group">
@@ -69,9 +62,7 @@
 				</div>
 			</div>
 		</article>
-		<footer>
 
-		</footer>
 
 		<script type="text/javascript">
             var emailFlag = false;

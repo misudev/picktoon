@@ -1,18 +1,14 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="/layout/default">
 <head>
     <title>LOGIN</title>
+    <th:block layout:fragment="css">
     <link href="/css/login.css" rel = "stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
+    </th:block>
 </head>
 <body>
-<header>
-    <div>
-        <h1>LOGIN</h1>
-    </div>
-</header>
-
 <article >
     <!-- <form method = "post" action ="" > -->
     <form action="/users/login" method="post">
@@ -46,9 +42,7 @@
 
 
 </article>
-<footer >
 
-</footer>
 <script type="text/javascript">
 
     $("#btnLogin").on('click',function(){

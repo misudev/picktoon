@@ -1,17 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="/layout/default">
   <head>
-    <meta charset="utf-8">
-    <link href="/css/search-list.css" rel = "stylesheet">
-    <script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <th:block layout:fragment="css">
+      <link href="/css/search-list.css" rel = "stylesheet">
+    </th:block>
   </head>
   <body>
-    <header>
-      <div>
-          검색 결과
-      </div>
-    </header>
     <article>
       <ul id = "result-list">
         <!-- 웹툰 검색 결과 출력 -->

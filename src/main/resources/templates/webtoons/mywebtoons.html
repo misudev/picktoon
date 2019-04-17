@@ -1,19 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="/layout/default">
 <head>
-    <meta charset="utf-8">
-    <link href="/webjars/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/search-list.css" rel = "stylesheet">
-    <script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
-    <!--https://github.com/CodeSeven/toastr-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <th:block layout:fragment="css">
+        <link href="/css/search-list.css" rel = "stylesheet">
+    </th:block>
 </head>
 <body>
-<header>
-    <div>
-        my webtoon
-    </div>
-</header>
 <article>
     <div class="select-row">
         <div class="form-group">
@@ -115,10 +109,6 @@
         var order = $('#order-select option:selected').val();
         window.location.href = "/webtoons/mywebtoons?ordertype="+order;
     });
-
-
-
-
 
 
 </script>

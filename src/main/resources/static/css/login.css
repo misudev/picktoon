@@ -1,14 +1,11 @@
-body { height: 100vh;}
-header {
-    border-bottom: 1px solid gray;
-    padding : 0.7em;
-    text-align: center;
-    font-size: 3vw;
+.dropdown{
+    visibility: hidden;
 }
-
 .login_form{
     border : none;
     padding-top: 30%;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 .input_int{
@@ -22,7 +19,6 @@ header {
 
 .input_row {
     position: relative;
-    height: 29px;
     margin: 0 0 14px;
     padding: 10px 35px 10px 15px;
     border: solid 1px #dadada;

@@ -1,17 +1,12 @@
-body { height: 100vh;}
-header {
-    border-bottom: 1px solid gray;
-    padding : 0.7em;
-    text-align: center;
-    font-size: 3vw;
-    }
+.dropdown{
+    visibility: hidden;
+}
 .join_content{
-    padding: 0px 12px;
+    padding: 20px 10px;
 }
 
 .input_row {
     position: relative;
-    height: 29px;
     margin: 0 0 14px;
     padding: 10px 35px 10px 15px;
     border: solid 1px #dadada;
@@ -37,7 +32,6 @@ header {
 
 .join_input_row{
     position: relative;
-    height: 29px;
     margin: 0 0 9px;
     padding: 10px 35px 10px 15px;
     border: solid 1px #dadada;

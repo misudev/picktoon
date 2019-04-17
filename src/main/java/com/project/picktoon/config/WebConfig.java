@@ -36,6 +36,9 @@ public class WebConfig implements WebMvcConfigurer {
         registry
                 .addResourceHandler("/js/**")
                 .addResourceLocations("classpath:/static/js/");
+        registry
+                .addResourceHandler("/icon/**")
+                .addResourceLocations("classpath:/static/icon/");
     }
     @Bean
     public ModelMapper modelMapper() {
