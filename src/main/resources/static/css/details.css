@@ -1,0 +1,102 @@
+
+        element.style {
+        }
+/*        웹툰상세보기 css*/
+        h2{
+            font-size : 110%;
+            text-align: left;
+            margin: 2px;
+            padding-right: 10px;
+/*            border : 1px solid black; */
+            height: 20px;
+        }
+        h3{
+            font-size : 80%;
+            text-align: left;
+            margin: 4px;
+/*            border : 1px solid black; */
+            height: px;
+        }
+        p{
+            font-size: 13px;
+            line-height: 20px;
+            text-align: left;
+            color: #585858;
+            margin: 2px;
+/*            border : 1px solid black; */
+
+        }
+        .h3-p{
+            font-size: 13px;
+            line-height: 20px;
+            text-align: left;
+            margin-top: 1px;
+            margin-right: 4px;
+            color: #585858;
+/*            border : 1px solid black;*/
+        }
+        .flex-container {
+          display: flex;
+          padding-top: 10px;
+/*          border: solid 1px red;*/
+        }
+        .details-title{
+            display: flex;
+/*            border: solid 0.5px black;*/
+        }
+        .flex-container > div {
+/*          border: solid 1px red;*/
+          width: 100px;
+          margin: 10px;
+          text-align: center;
+          line-height: 100px;
+        }
+        .webtoon-details > hr{
+            margin: 5px;
+            padding: 0;
+            border: solid 0.5px black;
+        }
+        .icon{
+            margin-top: 2px;
+            width: 20px;
+            height: 20px;
+/*            border: solid 0.5px black;*/
+        }  
+/*        첫번째부분*/
+        section[id="details-first"]{
+            padding: 0;
+            padding-left: 10px;
+            margin: 0;
+            margin-top: 20px;
+/*            border: solid 0.5px red;*/
+        }
+        
+/*        두번째부분*/
+        section[id="details-second"]{
+            padding: 0 20px;
+            margin: 0;
+/*            border: solid 0.5px red;*/
+        }
+        
+/*        세번째부분*/
+        section[id="details-third"]{
+            padding: 0 20px;
+            margin-top: 10px;
+/*            border: solid 0.5px red;*/
+        }
+/*        버튼부분*/
+        section[id="details-buttons"]{
+            padding: 0;
+            width:100%;
+            margin-top: 10px;
+/*            border: solid 0.5px red;*/
+            display: inline-block;
+            text-align: center;
+        }
+        .btn-info{
+            margin: 0 auto;
+        }
+        .btn-link{
+            color: black;
+            text-decoration: none;
+        }

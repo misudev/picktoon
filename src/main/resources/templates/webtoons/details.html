@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PICKTOON</title>
+
+    <script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+
+    <link href="/css/details.css" rel = "stylesheet">
+</head>
+<body>
+
+<!--헤더부분-->
+
+<!--첫번째 section-->
+<!--TODO 이미지, 연재중 태그-->
+<section class="flex-container" id="details-first">
+    <div style="flex-grow: 1">
+        <img src="http://shrkss.com/app/dubu_board/docs/imgs/e/lg_e15277300888118_%EC%9D%B4%EB%AF%B8%EC%A7%80_%EC%A4%80%EB%B9%84%EC%A4%912.jpg" width="100" height="100">
+    </div>
+    <div style="flex-grow: 9" class="webtoon-details">
+        <div style="flex-grow: 1" class="details-title">
+            <h2 id="webtoon-title"> <!--웹툰제목--> </h2>
+            <img class="icon" src="/icon/heart_none_select.png">
+            <p id="webtoon-thumbs"> <!--구독자수--> </p>
+        </div>
+        <hr>
+        <div style="flex-grow: 1" class="details-title" id="webtoon-author-paltform">
+            <h3>작가</h3>
+            <div class="h3-p" id="webtoon-author"> <!--작가--> </div>
+            <h3>플랫폼</h3>
+            <div class="h3-p" id="webtoon-platform"> <!-- 플랫폼 --></div>
+        </div>
+        <div style="flex-grow: 1" class="details-title">
+            <h3>장르</h3>
+            <div class="h3-p" id="webtoon-genre"> <!-- 장르 --> </div>
+            <h3>연재요일</h3>
+            <div class="h3-p" id="webtoon-days"> <!--요일--> </div>
+        </div>
+        <div style="flex-grow: 1" class="details-title">
+            <h3>회차</h3>
+            <div class="h3-p" id="webtoon-totalCount"> <!--회차--> </div>
+        </div>
+    </div>
+</section>
+
+    <!--두번째 section-->
+    <!--TODO 키워드 아이콘 출력-->
+    <section class="flex-container " id="details-second">
+        <h3>키워드</h3>
+    </section>
+
+    <!--세번째 section-->
+    <section id="details-third">
+        <h3>줄거리</h3>
+        <p id="webtoon-description"><!--간략한 설명--></p>
+    </section>
+
+            <script>
+
+                // 파라미터 가져오기
+                var params = location.href.split("/");
+                console.log("param:"+params[4]);
+
+                $.ajax({
+                    url: '/api/webtoons/'+ params[4],
+                    method: 'GET',
+                    async: true,
+                    ContentType: "application/json",
+                    success: function (webtoondetail) {
+                        console.log("검색 성공");
+                        console.log(webtoondetail.keywords.length);
+
+                        //키워드 불러오는 함수
+                        function keyword(value) {
+
+                            var author = new Array();
+                            var keywords = new Array();
+                            var genre= new Array();
+                            var days = new Array();
+
+                            for(var i=0; i<webtoondetail.keywords.length; i++) {
+                                if (webtoondetail.keywords[i].keywordType === 1) {
+                                    days.push(webtoondetail.keywords[i].keywordValue);
+                                }
+                                else if (webtoondetail.keywords[i].keywordType === 2){
+                                    genre.push(webtoondetail.keywords[i].keywordValue);
+                                }
+                                else if (webtoondetail.keywords[i].keywordType === 3){
+                                    author.push(webtoondetail.keywords[i].keywordValue);
+                                }
+                                else{
+                                    keywords.push(webtoondetail.keywords[i].keywordValue);
+                                }
+                            }
+
+                            if(value===1) return days;
+                            else if(value===2) return genre;
+                            else if(value===3) return author;
+                            else return keywords;
+                        }
+
+                            $("#webtoon-title").append(webtoondetail.title);
+                            $("#webtoon-thumbs").append(webtoondetail.subscription);
+
+                        for(var i = 0; i < keyword(3).length; i++) {
+                            if(i===0) $("#webtoon-author").append(keyword(3)[i]);
+                            else $("#ebtoon-author").append(" "+ keyword(3)[i]);
+                        }
+                            $("#webtoon-platform").append(webtoondetail.platformName);
+
+                        for(var i = 0; i < keyword(4).length; i++) {
+                            if(i===0) $("#webtoon-genre").append(keyword(4)[i]);
+                            else $("#webtoon-genre").append(" "+ keyword(4)[i]);
+                        }
+
+                        for(var i = 0; i < keyword(1).length; i++) {
+                            if(i===0) $("#webtoon-days").append(keyword(1)[i]);
+                            else $("#webtoon-days").append(" "+ keyword(1)[i]);
+                        }
+
+                            $("#webtoon-totalCount").append(webtoondetail.totalCount);
+                            $("#webtoon-description").append(webtoondetail.description);
+
+                    },
+                    error: function (err) {
+                        console.log(err.toString());
+                    }
+                });
+            </script>
+
+<section id="details-buttons">
+    <button type="submit" class="btn btn-info btn-read">구독하기</button>
+    <a href="https://comic.naver.com/index.nhn"><button type="submit" class="btn btn-info btn-link">보러가기</button></a>
+</section>
+
+
+
+</body>
+</html>

@@ -9,142 +9,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="/css/index.css" rel = "stylesheet">
 
-    <style>
-        element.style {
-        }
-        .p-3 {
-            padding: 1rem!important;
-        }
-        .shadow-sm {
-            box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
-        }
-        .d-flex {
-            display: -ms-flexbox!important;
-            display: flex!important;
-        }
-        .border-bottom {
-            border-bottom: 1px solid #dee2e6!important;
-        }
-        .bg-white {
-            background-color: #fff!important;
-        }
-
-        .form-group{
-            width : 100%;
-            text-align: center;
-            /*  border : 1px solid black; */
-
-        }
-        a{
-            /*            text-decoration: none;*/
-            color:black;
-        }
-
-        .btn-primary  {
-            border-radius: 10em;
-            margin : 3.5px;
-            background-color: lightblue;
-            border-color: lightblue;
-            color: #fff;
-        }
-
-        .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary {
-            color: #fff;
-            background-color: cadetblue ;
-            border-color: lightskyblue;
-        }
-
-        h1{
-            font-size : 200%;
-            text-align : center;
-            /*  border : 1px solid red; */
-            margin : 10px;
-            padding : 10px;
-        }
-
-        h3{
-            font-size : 130%;
-            text-align : center;
-            /*            border : 1px solid black; */
-            margin : 10px;
-            padding : 10px;
-        }
-
-        .btn-group-toggle{
-            width : 90%;
-            /*       border : 1px solid red; */
-            margin : 0 auto;
-        }
-        .btn-primary{
-            font-size: 10px;
-        }
-
-        div[id="webtoon-search"]{
-            margin-top : 50px;
-            margin-bottom : 50px;
-        }
-        .btn-info{
-            margin-left : 10px;
-        }
-
-        .bnt-long{
-            width : 100%;
-            border-radius : .2rem;
-            text-align: center;
-            margin: 0px;
-            padding: 10px;
-            background-color: #17a2b8;
-            color: #fff;
-        }
-
-
-        hr{
-            margin-top: 0;
-            margin-bottom: 0;
-            border: 0;
-            border-top: 1px solid lightgray;
-        }
-
-
-        section{
-            /*            border: 1px solid red;*/
-        }
-        .main_webtoon{
-            margin: 0;
-            padding-top: 20px;
-            margin-bottom: 10px;
-        }
-        .new_webtoons{
-            background-color: rgba(143, 154, 168, 0.1);
-        }
-        .row{
-            margin: 0 auto;
-            /*            border: solid 1px blue;*/
-            padding: 0px;
-        }
-        li {
-            margin: 0 auto;
-            /*            border: solid 1px red;*/
-            list-style: none;
-        }
-        li > div {
-            border: solid 1px gray;
-        }
-        div.aspect_1_1 {
-            width: 80px;
-            height: 80px;
-        }
-        li > p{
-            text-align: center;
-            width: 80px;
-            height: auto;
-            /*            border: solid 1px red;*/
-            font-size: 12px;
-        }
-
-
-    </style>
     <script>
         window.onload = function() {
             var divs = document.querySelectorAll('li > div');
@@ -172,85 +38,87 @@
     </script>
 </head>
 <body>
-<header>
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm">
-        <h1 class="my-0 mr-md-auto font-weight-normal">MAIN</h1>
-    </div>
-</header>
 
-<a href="/webtoons/searchform"><button type="button" class="btn bnt-long">웹툰 검색</button></a>
+<!--헤더부분-->
 
-<section class="new_webtoons">
-    <h3 class="main_webtoon">NEW WEBTOONS</h3>
-    <ol class="row" id="newWebtoon_list">
-      <!--신간출력-->
-    </ol>
-</section>
+<article>
+    <a href="/webtoons/searchform"><button type="button" class="btn bnt-long">웹툰 검색</button></a>
 
-        <script>
-            $.ajax({
-                url:'/api/newwebtoons',
-                method:'GET',
-                async:true,
-                ContentType: "application/json",
-                success: function (newWebtoon) {
-                    console.log("검색 성공");
-                    for(var i = 0; i < 3; i++) {
-                        var newWebtoons = $('<li>' +
-                            '<div class="aspect_1_1">' +
-                            '<a href="#">' + <!--상세보기 링크로 연결-->
-                            '<img src="#"' + <!--이미지 가져오기-->
-                            '</a>'+
-                            '</div>'+
-                            '<p>'+
-                            '<a href="#">'+ newWebtoon[i].webtoonTitle+'</a>'+
-                            '</p>'+
-                            '</li>');
-                        newWebtoons.appendTo($('#newWebtoon_list'));
+    <!--신간출력 부분-->
+    <section class="new_webtoons">
+        <h3 class="main_webtoon">NEW WEBTOONS</h3>
+        <ol class="row" id="newWebtoon_list">
+          <!--신간출력-->
+        </ol>
+    </section>
+
+            <script>
+                $.ajax({
+                    url:'/api/newwebtoons',
+                    method:'GET',
+                    async:true,
+                    ContentType: "application/json",
+                    success: function (newWebtoon) {
+                        console.log("검색 성공");
+                        for(var i = 0; i < 3; i++) {
+                            var newWebtoons = $('<li>' +
+                                '<div class="aspect_1_1">' +
+                                '<a href="/webtoons/'+ newWebtoon[i].webtoonId + '">' +
+                                '<img src="http://shrkss.com/app/dubu_board/docs/imgs/e/lg_e15277300888118_%EC%9D%B4%EB%AF%B8%EC%A7%80_%EC%A4%80%EB%B9%84%EC%A4%912.jpg"' + <!--TODO 이미지 가져오기-->
+                                '</a>'+
+                                '</div>'+
+                                '<p>'+
+                                '<a href="/webtoons/'+ newWebtoon[i].webtoonId + '">'+ newWebtoon[i].webtoonTitle+'</a>'+
+                                '</p>'+
+                                '</li>');
+                            newWebtoons.appendTo($('#newWebtoon_list'));
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err.toString());
                     }
-                },
-                error: function (err) {
-                    console.log(err.toString());
+                });
+
+            </script>
+
+    <hr>
+
+    <!--인기웹툰 부분-->
+    <section class="best_webtoons">
+        <h3 class="main_webtoon">BEST WEBTOONS</h3>
+        <ol class="row" id="bestWebtoon_list">
+            <!--인기작 출력-->
+        </ol>
+    </section>
+
+    <script>
+        $.ajax({
+            url:'/api/webtoons/bestWebtoons',
+            method:'GET',
+            async:true,
+            ContentType: "application/json",
+            success: function (bestWebtoon) {
+                console.log("검색 성공");
+                for(var i = 0; i < 3; i++) {
+                    var bestWebtoons = $('<li>' +
+                        '<div class="aspect_1_1">' +
+                        '<a href="/webtoons/'+ bestWebtoon[i].id + '">' +
+                        '<img src="http://shrkss.com/app/dubu_board/docs/imgs/e/lg_e15277300888118_%EC%9D%B4%EB%AF%B8%EC%A7%80_%EC%A4%80%EB%B9%84%EC%A4%912.jpg"' +
+                        '</a>'+
+                        '</div>'+
+                        '<p>'+
+                        '<a href="/webtoons/'+ bestWebtoon[i].id + '">'+ bestWebtoon[i].title+'</a>'+
+                        '</p>'+
+                        '</li>');
+                    bestWebtoons.appendTo($('#bestWebtoon_list'));
                 }
-            });
-
-        </script>
-
-<hr>
-<section class="best_webtoons">
-    <h3 class="main_webtoon">BEST WEBTOONS</h3>
-    <ol class="row" id="bestWebtoon_list">
-        <!--인기작 출력-->
-    </ol>
-</section>
-
-<script>
-    $.ajax({
-        url:'/api/webtoons/bestWebtoons',
-        method:'GET',
-        async:true,
-        ContentType: "application/json",
-        success: function (bestWebtoon) {
-            console.log("검색 성공");
-            for(var i = 0; i < 3; i++) {
-                var bestWebtoons = $('<li>' +
-                    '<div class="aspect_1_1">' +
-                    '<a href="#">' +
-                    '<img src="#"' +
-                    '</a>'+
-                    '</div>'+
-                    '<p>'+
-                    '<a href="#">'+ bestWebtoon[i].title+'</a>'+
-                    '</p>'+
-                    '</li>');
-                bestWebtoons.appendTo($('#bestWebtoon_list'));
+            },
+            error: function (err) {
+                console.log(err.toString());
             }
-        },
-        error: function (err) {
-            console.log(err.toString());
-        }
-    });
+        });
 
-</script>
+    </script>
+</article>
 </body>
 </html>
