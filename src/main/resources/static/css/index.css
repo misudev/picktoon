@@ -69,8 +69,9 @@ li {
 }
 li > div {
     border: solid 1px gray;
+    margin-bottom: 10px;
 }
-div.aspect_1_1 {
+.aspect_1_1 {
     width: 80px;
     height: 80px;
 }
