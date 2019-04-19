@@ -1,10 +1,9 @@
 package com.project.picktoon.controller.api;
 
+import com.project.picktoon.domain.User;
 import com.project.picktoon.domain.Webtoon;
 import com.project.picktoon.dto.*;
-import com.project.picktoon.service.PlatformService;
-import com.project.picktoon.service.WebtoonImageService;
-import com.project.picktoon.service.WebtoonService;
+import com.project.picktoon.service.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.lang.reflect.Type;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,15 +27,24 @@ public class WebtoonApiController {
     private final WebtoonImageService webtoonImageService;
     private final PlatformService platformService;
     private final ModelMapper modelMapper;
+    private final MyWebtoonService myWebtoonService;
+    private final UserService userService;
 
     // 웹툰 id로 가져오기 (상세정보 포함)
     @GetMapping("/{webtoonId}")
-    public ResponseEntity<WebtoonDto> getWebtoon(@PathVariable Long webtoonId){
+    public ResponseEntity<WebtoonDto> getWebtoon(@PathVariable Long webtoonId, Principal principal){
         Webtoon webtoon = webtoonService.getWebtoonById(webtoonId);
         if(webtoon == null)
             return new ResponseEntity<WebtoonDto>(HttpStatus.NO_CONTENT);
 
         WebtoonDto webtoonDto = modelMapper.map(webtoon, WebtoonDto.class);
+        if(principal == null){
+            webtoonDto.setMyWebtoon(false);
+        }else{
+            String email = principal.getName();
+            User user = userService.getUserByEmail(email);
+            webtoonDto.setMyWebtoon(myWebtoonService.checkMyWebtoon(user.getId(), webtoonId));
+        }
         return new ResponseEntity<>(webtoonDto, HttpStatus.OK);
     }
 

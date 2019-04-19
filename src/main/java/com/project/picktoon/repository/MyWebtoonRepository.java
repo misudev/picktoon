@@ -33,4 +33,7 @@ public interface MyWebtoonRepository extends JpaRepository<MyWebtoon, Long> {
     @Query("DELETE FROM MyWebtoon m WHERE m.id = :id")
     public void deleteMyWebtoonById(@Param("id")Long id);
 
+    @Query("SELECT m FROM MyWebtoon m INNER JOIN FETCH m.webtoon INNER JOIN FETCH m.user  WHERE m.user.id =:userId AND m.webtoon.id =:webtoonId")
+    public MyWebtoon getMyWebtoonByUserAndWebtoon(@Param("userId") Long userId , @Param("webtoonId")Long webtoonId);
+
 }

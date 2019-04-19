@@ -10,4 +10,5 @@ public interface MyWebtoonService {
     public void changeAlarm(Long myWebtoonId);
     public List<MyWebtoon> getMyWebtoons(Long userId, int orderType);
     public MyWebtoon getMyWebtoonById(Long myWebtoonId);
+    public boolean checkMyWebtoon(Long userId, Long webtoonId);
 }

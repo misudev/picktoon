@@ -32,4 +32,6 @@ public class WebtoonDto {
 
     private List<KeywordDto> keywords;
 
+    private Boolean myWebtoon;
+
 }

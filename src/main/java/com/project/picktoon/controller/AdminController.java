@@ -174,6 +174,10 @@ public class AdminController {
             Elements titleEl = doc.select(".title");
             Elements authorEls = doc.select(".nm");
             Elements descriptionEl = doc.select(".info_cont");
+            Element updatedDateEl = doc.select(".if1").first();
+            Element countEl = doc.select(".toon_name").first();
+
+//            Elements updateChild = updateEl.children();
 
             // 원하는 부분은 Elements형태로 되어 있으므로 이를 String 형태로 바꾸어 준다.
             String title = titleEl.text();
@@ -187,6 +191,13 @@ public class AdminController {
             }
 
             System.out.println("상세설명 : " + descriptionEl.text());
+
+//            String count = updateEl.select(".toon_name").text();
+//            String updatedDate = updateEl.select(".toon_detail_info .if1").text();
+
+
+            System.out.println(updatedDateEl.text());
+            System.out.println(countEl.text());
 
 
 
