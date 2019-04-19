@@ -44,4 +44,10 @@ public class KeywordServiceImpl implements KeywordService {
     public List<Keyword> getBestKeywords(int type, Pageable pageable) {
         return keywordRepository.getBestKeywords(type, pageable);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Keyword getAuthorByName(String name) {
+        return keywordRepository.getAuthorByName(name);
+    }
 }

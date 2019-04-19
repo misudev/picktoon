@@ -24,7 +24,6 @@ public class WebtoonDto {
     private int subscription;
     private String description;
     private String platformName;
-    //private Long webtoonImageId;
 
     private Boolean updateState;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

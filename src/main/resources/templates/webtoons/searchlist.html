@@ -30,7 +30,7 @@
                     var webtoonRow = $('<li class="result-row">' +
                         '<img src="" alt="이미지" class="webtoon_image">' +
                         '<div class="webtoon-detail">' +
-                            '<p class="webtoon-title"><b>'+resp[i].title+'</b></p>'+
+                            '<p class="webtoon-title"><b><a href="/webtoons/'+resp[i].id+'">'+resp[i].title+'</a></b></p>'+
                             '<span class="webtoon-count">'+resp[i].totalCount+'</span>'+
                             '<span class="webtoon-date">'+resp[i].updatedDate+'</span>'+
                         '</div>'+'</li>');

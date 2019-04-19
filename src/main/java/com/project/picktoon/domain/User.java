@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,6 +27,8 @@ public class User {
     private String passwd;
     @Column(name="nickname", length = 45)
     private String nickName;
+    @Column(name = "created_date")
+    private Date createdDate;
 
     @ManyToMany
     @JoinTable(name = "user_role",
@@ -36,6 +39,7 @@ public class User {
 
     public User(){
         roles = new HashSet<>();
+        createdDate = new Date();
     }
 
     public void addRoles(Role role){

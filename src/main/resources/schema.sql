@@ -6,13 +6,12 @@ DROP TABLE IF EXISTS webtoon_day;
 DROP TABLE IF EXISTS webtoon_genre;
 DROP TABLE IF EXISTS webtoon_keyword;
 
-DROP TABLE IF EXISTS webtoon_state;
+DROP TABLE IF EXISTS webtoon_image;
 DROP TABLE IF EXISTS webtoon;
 
 DROP TABLE IF EXISTS keyword;
 DROP TABLE IF EXISTS genre;
 DROP TABLE IF EXISTS day;
-DROP TABLE IF EXISTS webtoon_image;
 DROP TABLE IF EXISTS platform;
 DROP TABLE IF EXISTS user;
 -- -----------------------------------------------------
@@ -23,6 +22,7 @@ CREATE TABLE IF NOT EXISTS user (
   email VARCHAR(255) NOT NULL UNIQUE,
   passwd VARCHAR(255) NOT NULL,
   nickname VARCHAR(45) NOT NULL,
+  created_date TIMESTAMP DEFAULT NOW(),
   PRIMARY KEY (id)
  );
 
@@ -44,16 +44,6 @@ CREATE TABLE IF NOT EXISTS platform (
   platform_name VARCHAR(45) NOT NULL,
   PRIMARY KEY (id));
 
--- -----------------------------------------------------
--- Table `webtoondb`.`webtoon_image`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS webtoon_image (
-  id BIGINT(20) NOT NULL AUTO_INCREMENT,
-  mime_type VARCHAR(45) NULL,
-  length BIGINT(20) NULL,
-  name VARCHAR(45) NULL,
-  save_file_name VARCHAR(255) NULL,
-  PRIMARY KEY (id));
 
 -- -----------------------------------------------------
 -- Table `webtoondb`.`webtoon`
@@ -67,23 +57,33 @@ CREATE TABLE IF NOT EXISTS webtoon (
   subscription INT NOT NULL DEFAULT 0,
   description LONGTEXT NULL,
   platform_id INT NOT NULL,
-  webtoon_image_id BIGINT(20) NULL,
   update_state TINYINT(1) NULL,
   updated_date DATETIME NULL,
   total_count VARCHAR(255) NULL,
+  created_date TIMESTAMP DEFAULT NOW(),
   PRIMARY KEY (id),
   CONSTRAINT fk_webtoon_platform
   FOREIGN KEY (platform_id)
   REFERENCES platform (id)
   ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-  CONSTRAINT fk_webtoon_webtoon_image
-  FOREIGN KEY (webtoon_image_id)
-  REFERENCES webtoon_image (id)
+  ON UPDATE NO ACTION );
+
+-- -----------------------------------------------------
+-- Table `webtoondb`.`webtoon_image`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS webtoon_image (
+  id BIGINT(20) NOT NULL AUTO_INCREMENT,
+  mime_type VARCHAR(45) NULL,
+  length BIGINT(20) NULL,
+  name VARCHAR(45) NULL,
+  save_file_name VARCHAR(255) NULL,
+  webtoon_id BIGINT(20) NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_webtoon_image_webtoon
+  FOREIGN KEY (webtoon_id)
+  REFERENCES webtoon (id)
   ON DELETE CASCADE
   ON UPDATE CASCADE);
-
-
 
 -- -----------------------------------------------------
 -- Table `webtoondb`.`new_webtoon`

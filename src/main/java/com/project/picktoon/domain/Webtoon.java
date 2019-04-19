@@ -1,7 +1,7 @@
 package com.project.picktoon.domain;
 
 import lombok.*;
-import org.hibernate.annotations.Cascade;
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -54,9 +54,11 @@ public class Webtoon {
     @JoinColumn(name = "platform_id")
     private Platform platform;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "webtoon_image_id")
-    private WebtoonImage webtoonImage;
+    @OneToMany(mappedBy = "webtoon", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    private List<WebtoonImage> webtoonImages;
+
+    @Column(name = "created_date")
+    private Date createdDate;
 
     @ManyToMany
     @JoinTable(
@@ -69,13 +71,23 @@ public class Webtoon {
 
     public Webtoon(){
         seeAge = "전체관람가";
+        state = "연재중";
         subscription = 0;
         keywords = new ArrayList<>();
+        webtoonImages = new ArrayList<>();
+        createdDate = new Date();
     }
 
 
     public void addKeyword(Keyword keyword){
         keywords.add(keyword);
+    }
+
+    public void addWebtoonImage(WebtoonImage webtoonImage) {
+        if(webtoonImages == null)
+            webtoonImages = new ArrayList<>();
+        webtoonImage.setWebtoon(this); // 쌍방향이기 때문에 this를 참조하도록 한다.
+        webtoonImages.add(webtoonImage);
     }
 }
 

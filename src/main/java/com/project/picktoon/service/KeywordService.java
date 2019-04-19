@@ -11,4 +11,5 @@ public interface KeywordService {
     public Keyword getKeywordById(Long keywordId);
     public List<Keyword> getKeywordsByType(int type);
     public List<Keyword> getBestKeywords (int type, Pageable pageable);
+    public Keyword getAuthorByName(String name);
 }

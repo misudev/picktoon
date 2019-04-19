@@ -28,4 +28,9 @@ public class WebtoonImage {
 
     @Column(length = 255)
     private String saveFileName;
+
+    @ManyToOne
+    @JoinColumn(name = "webtoon_id")
+    private Webtoon webtoon;
+
 }

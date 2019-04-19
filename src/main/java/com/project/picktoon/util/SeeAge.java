@@ -6,4 +6,6 @@ public final class SeeAge {
     public static final String SEEAGE_15 = "15세관람가";
     public static final String SEEAGE_19 = "19세관람가";
 
+    public static final String[] SEEAGES = {SEEAGE_ALL, SEEAGE_12, SEEAGE_15, SEEAGE_19};
+
 }

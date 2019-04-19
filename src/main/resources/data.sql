@@ -229,5 +229,7 @@ insert into my_webtoon(id, webtoon_id, alarm, user_id) values(1, 1, 0, 1);
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(2, 7, 1, 1);
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(3, 20, 1, 1);
 insert into my_webtoon(id, webtoon_id, alarm, user_id) values(4, 11, 1, 2);
-
-insert into my_webtoon(id, webtoon_id, alarm, user_id) values(5, 4, 0, 2);
+insert into my_webtoon(id, webtoon_id, alarm, user_id) values(5, 2, 0, 1);
+insert into my_webtoon(id, webtoon_id, alarm, user_id) values(6, 10, 1, 1);
+insert into my_webtoon(id, webtoon_id, alarm, user_id) values(7, 11, 0, 1);
+insert into my_webtoon(id, webtoon_id, alarm, user_id) values(8, 4, 0, 2);
