@@ -158,6 +158,7 @@ CREATE TABLE IF NOT EXISTS webtoon_keyword (
 CREATE TABLE IF NOT EXISTS user_role (
   user_id BIGINT(20) NOT NULL,
   role_id INT NOT NULL,
+  PRIMARY KEY (user_id, role_id),
   CONSTRAINT fk_user_role_user
   FOREIGN KEY (user_id)
   REFERENCES user (id)

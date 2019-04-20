@@ -1,5 +1,7 @@
-package com.project.picktoon.controller;
+package com.project.picktoon.controller.api;
 
+import com.project.picktoon.controller.AdminController;
+import com.project.picktoon.dto.LoadWebtoonLink;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +13,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class AdminCotrollerTest {
+public class AdminApiCotrollerTest {
     @Autowired
-    AdminController adminController;
+    AdminApiControllor adminApiController;
 
     @Test
     public void 크롤링테스트() throws Exception{
-        adminController.loadWebtoonNaver("https://m.comic.naver.com/webtoon/list.nhn?titleId=318995&week=fri");
+        LoadWebtoonLink loadWebtoonLink = new LoadWebtoonLink();
+        loadWebtoonLink.setLink("https://m.comic.naver.com/webtoon/list.nhn?titleId=318995&week=fri");
+        adminApiController.loadWebtoonNaver(loadWebtoonLink);
     }
 }

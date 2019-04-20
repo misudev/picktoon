@@ -11,11 +11,6 @@ import com.project.picktoon.service.WebtoonService;
 import com.project.picktoon.util.KeywordType;
 import com.project.picktoon.util.SeeAge;
 import lombok.RequiredArgsConstructor;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -24,9 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -54,6 +47,21 @@ public class AdminController {
         model.addAttribute("platforms", platforms);
 
         return "admin/regist";
+    }
+
+    @GetMapping("/regist2")
+    public String regist2(Model model){
+        List<Keyword> days = keywordService.getKeywordsByType(KeywordType.KEYWORD_DAY);
+        List<Keyword> genres = keywordService.getKeywordsByType(KeywordType.KEYWORD_GENRE);
+        List<Keyword> keywords = keywordService.getKeywordsByType(KeywordType.KEYWORD_KEYWORD);
+        List<Platform> platforms = platformService.getAllPlatforms();
+
+        model.addAttribute("days", days);
+        model.addAttribute("genres", genres);
+        model.addAttribute("keywords", keywords);
+        model.addAttribute("platforms", platforms);
+
+        return "admin/registcrawling";
     }
 
     @PostMapping("/regist")
@@ -165,46 +173,4 @@ public class AdminController {
         return result;
     }
 
-    public void loadWebtoonNaver(String url){
-        try {
-            //웹에서 내용을 가져온다.
-            Document doc = Jsoup.connect(url).timeout(5000).get();
-
-            //내용 중에서 원하는 부분을 가져온다.
-            Elements titleEl = doc.select(".title");
-            Elements authorEls = doc.select(".nm");
-            Elements descriptionEl = doc.select(".info_cont");
-            Element updatedDateEl = doc.select(".if1").first();
-            Element countEl = doc.select(".toon_name").first();
-
-//            Elements updateChild = updateEl.children();
-
-            // 원하는 부분은 Elements형태로 되어 있으므로 이를 String 형태로 바꾸어 준다.
-            String title = titleEl.text();
-            System.out.println("제목 : " + title);
-            for(Element a :authorEls){
-                String authorName = a.text();
-//                if(keywordService.getAuthorByName(authorName)==null){
-//
-//                }
-                System.out.println("작가명 : "+authorName);
-            }
-
-            System.out.println("상세설명 : " + descriptionEl.text());
-
-//            String count = updateEl.select(".toon_name").text();
-//            String updatedDate = updateEl.select(".toon_detail_info .if1").text();
-
-
-            System.out.println(updatedDateEl.text());
-            System.out.println(countEl.text());
-
-
-
-        } catch (IOException e) { //Jsoup의 connect 부분에서 IOException 오류가 날 수 있으므로 사용한다.
-
-            e.printStackTrace();
-
-        }
-    }
 }
