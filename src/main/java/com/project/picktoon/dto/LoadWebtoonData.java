@@ -15,6 +15,7 @@ public class LoadWebtoonData {
     private String link;
     private String updatedDate;
     private String count;
+    private String imgUrl;
 
     public LoadWebtoonData(){
         authors = new ArrayList<>();
@@ -22,5 +23,19 @@ public class LoadWebtoonData {
 
     public void addAuthor(String author){
         authors.add(author);
+    }
+
+
+    @Override
+    public String toString() {
+        return "LoadWebtoonData{" +
+                "title='" + title + '\'' +
+                ", authors=" + authors.get(0) +
+                ", description='" + description + '\'' +
+                ", link='" + link + '\'' +
+                ", updatedDate='" + updatedDate + '\'' +
+                ", count='" + count + '\'' +
+                ", imgUrl='" + imgUrl + "'"+
+                '}';
     }
 }

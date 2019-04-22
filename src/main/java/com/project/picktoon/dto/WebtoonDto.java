@@ -34,4 +34,6 @@ public class WebtoonDto {
 
     private Boolean myWebtoon;
 
+    private Long webtoonImageId = -1L;
+
 }

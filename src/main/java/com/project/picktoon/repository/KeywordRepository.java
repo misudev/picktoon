@@ -16,6 +16,6 @@ public interface KeywordRepository extends JpaRepository<Keyword, Long> {
     @Query("SELECT k FROM Keyword k WHERE k.keywordType =:type ORDER BY k.ordering DESC")
     public List<Keyword> getBestKeywords(@Param("type")int type, Pageable pageable);
 
-    @Query("SELECT k FROM Keyword k WHERE k.keywordType = 2 AND k.keywordValue =: value")
+    @Query("SELECT k FROM Keyword k WHERE k.keywordType = 2 AND k.keywordValue =:value")
     public Keyword getAuthorByName(@Param("value")String name);
 }

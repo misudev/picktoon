@@ -17,7 +17,7 @@
 <!--TODO 이미지조정하기-->
 <section class="flex-container" id="details-first">
     <div style="flex-grow: 1">
-        <img src="https://image-comic.pstatic.net/webtoon/720121/thumbnail/thumbnail_IMAG19_371ab98b-ede7-40e4-9918-5f64d47a1fad.jpg" width="110" height="110">
+        <img src="https://image-comic.pstatic.net/webtoon/720121/thumbnail/thumbnail_IMAG19_371ab98b-ede7-40e4-9918-5f64d47a1fad.jpg" width="110" height="110" id="webtoonImage">
     </div>
     <div style="flex-grow: 9" class="webtoon-details">
         <div style="flex-grow: 1" class="details-title">
@@ -136,7 +136,6 @@
                     }
                 }
 
-
             $("#webtoon-title").append(webtoondetail.title);
             $("#webtoon-subscription").append(webtoondetail.subscription);
 
@@ -165,6 +164,12 @@
 
             $("#webtoon-totalCount").append(webtoondetail.totalCount);
             $("#webtoon-description").append(webtoondetail.description);
+
+
+            if(webtoondetail.webtoonImageId != -1){
+                console.log("웹툰 이미지 아이디"+webtoondetail.webtoonImageId);
+                $("#webtoonImage").attr('src', '/webtoons/images/'+webtoondetail.webtoonImageId);
+            }
 
         },
         error: function (err) {

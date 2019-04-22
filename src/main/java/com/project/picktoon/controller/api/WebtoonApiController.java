@@ -38,6 +38,9 @@ public class WebtoonApiController {
             return new ResponseEntity<WebtoonDto>(HttpStatus.NO_CONTENT);
 
         WebtoonDto webtoonDto = modelMapper.map(webtoon, WebtoonDto.class);
+        // 웹툰 이미지
+        if(!webtoon.getWebtoonImages().isEmpty())
+            webtoonDto.setWebtoonImageId(webtoon.getWebtoonImages().get(0).getId());
         if(principal == null){
             webtoonDto.setMyWebtoon(false);
         }else{

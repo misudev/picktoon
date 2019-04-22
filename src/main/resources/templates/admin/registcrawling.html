@@ -99,6 +99,8 @@
                 <label for="image2">image2 (상세보기 이미지 ): </label><input type="file" name="image" id="image2">
             </div>
 
+            <input type="hidden" id="imgurl" name="imgurl">
+
             <input
                     type="hidden"
                     th:name="${_csrf.parameterName}"
@@ -137,6 +139,7 @@
                     $("#count").val(data.count);
                     $("#updatedDate").val(data.updatedDate);
                     $("#link").val(data.link);
+                    $("#imgurl").val(data.imgUrl);
                 }
             },
             error: function (err) {

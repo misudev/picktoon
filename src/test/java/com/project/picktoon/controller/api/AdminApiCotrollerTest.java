@@ -20,7 +20,8 @@ public class AdminApiCotrollerTest {
     @Test
     public void 크롤링테스트() throws Exception{
         LoadWebtoonLink loadWebtoonLink = new LoadWebtoonLink();
-        loadWebtoonLink.setLink("https://m.comic.naver.com/webtoon/list.nhn?titleId=318995&week=fri");
-        adminApiController.loadWebtoonNaver(loadWebtoonLink);
+        loadWebtoonLink.setLink("https://comic.naver.com/webtoon/list.nhn?titleId=318995&week=fri");
+        System.out.println(adminApiController.loadWebtoonNaver(loadWebtoonLink).toString());
+
     }
 }

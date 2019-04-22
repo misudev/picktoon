@@ -17,9 +17,12 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -76,7 +79,8 @@ public class AdminController {
             @RequestParam(name = "seeage") int seeage,
             @RequestParam(name = "platform") int platform,
             @RequestParam(name = "description") String description,
-            @RequestParam(name = "image") MultipartFile[] images
+            @RequestParam(name = "image") MultipartFile[] images,
+            @RequestParam(name = "imgurl", required = false)String imgUrl
     ){
         Assert.hasText(title, "제목을 입력하세요.");
         Assert.notEmpty(authors, "작가를 입력하세요.");
@@ -116,21 +120,30 @@ public class AdminController {
 
         webtoon.setKeywords(keywords);
 
-        if(images != null && images.length > 0) {
-            for (MultipartFile image : images) {
-                if(!image.isEmpty()) {
-                    WebtoonImage imageFile = new WebtoonImage();
-                    imageFile.setLength(image.getSize());
-                    imageFile.setMimeType(image.getContentType());
-                    imageFile.setName(image.getOriginalFilename());
-                    // 파일 저장
-                    // /tmp/2019/2/12/123421-12341234-12341234-123423142
-                    String saveFileName = saveFile(image);
+        if(imgUrl == null) {
+            if (images != null && images.length > 0) {
+                for (MultipartFile image : images) {
+                    if (!image.isEmpty()) {
+                        WebtoonImage imageFile = new WebtoonImage();
+                        imageFile.setLength(image.getSize());
+                        imageFile.setMimeType(image.getContentType());
+                        imageFile.setName(image.getOriginalFilename());
+                        // 파일 저장
+                        // /tmp/2019/2/12/123421-12341234-12341234-123423142
+                        String saveFileName = saveFile(image);
 
-                    imageFile.setSaveFileName(saveFileName); // save되는 파일명
-                    webtoon.addWebtoonImage(imageFile);
+                        imageFile.setSaveFileName(saveFileName); // save되는 파일명
+                        webtoon.addWebtoonImage(imageFile);
+                    }
                 }
             }
+        }else{
+            WebtoonImage imageFile = saveFileFromUrl(imgUrl);
+            imageFile.setName(title);
+            imageFile.setMimeType("image/jpeg");
+
+            webtoon.addWebtoonImage(imageFile);
+
         }
 
         webtoonService.addWebtoon(webtoon);
@@ -138,7 +151,7 @@ public class AdminController {
     }
 
     private String saveFile(MultipartFile image){
-        String dir = "/tmp/";
+        String dir = "imagefile/webtoon/";
         Calendar calendar = Calendar.getInstance();
         dir = dir + calendar.get(Calendar.YEAR);
         dir = dir + "/";
@@ -163,6 +176,35 @@ public class AdminController {
         }
 
         return dir;
+    }
+    // 크롤링한 이미지 저장.
+    private WebtoonImage saveFileFromUrl(String url){
+        String dir = "imagefile/webtoon/";
+        WebtoonImage webtoonImage = new WebtoonImage();
+        Calendar calendar = Calendar.getInstance();
+        dir = dir + calendar.get(Calendar.YEAR);
+        dir = dir + "/";
+        dir = dir + (calendar.get(Calendar.MONTH) + 1);
+        dir = dir + "/";
+        dir = dir + calendar.get(Calendar.DAY_OF_MONTH);
+        dir = dir + "/";
+        File dirFile = new File(dir);
+        dirFile.mkdirs(); // 디렉토리가 없을 경우 만든다. 퍼미션이 없으면 생성안될 수 있다.
+        dir = dir + UUID.randomUUID().toString();
+        try{
+            URL imgUrl = new URL(url);
+            BufferedImage jpg = ImageIO.read(imgUrl);
+            File file = new File(dir+".jpg");
+            ImageIO.write(jpg, "jpg", file);
+            System.out.println("file length : "+file.length());
+
+            webtoonImage.setSaveFileName(dir+".jpg");
+            webtoonImage.setLength(file.length());
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return webtoonImage;
     }
 
     private List<Keyword> returnKeywords(Long[] ids){
