@@ -14,8 +14,10 @@
             margin: auto;
         }
         .webtoon-load{
-            width: 80%;
             margin: auto;
+        }
+        #webtoon-link{
+            width: 200px;
         }
     </style>
 
@@ -26,7 +28,7 @@
         <div class="card-header bg-info text-center text-white"><h2>웹툰 등록 (크롤링 )</h2></div>
         <!-- 웹툰 url -->
         <div class="webtoon-load">
-            웹툰 주소 (네이버는 모바일로 쓰세요.) : <input type="text" name="webtoon-link" id="webtoon-link">
+            웹툰 주소 : <input type="text" name="webtoon-link" id="webtoon-link">
             <button id="link-submit" class="btn btn-primary" >웹툰 정보 로딩</button>
             <p style="display: none; color: #ff1616; font-size: 12px" id="load-error">로딩에 실패했습니다.</p>
         </div>

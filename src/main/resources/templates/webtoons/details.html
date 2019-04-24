@@ -25,7 +25,7 @@
             <span class="badge badge-pill badge-made">UP</span>
         </div>
         <div style="flex-grow: 1" class="details-title">
-            <img class="icon" src="/icon/heart_none_select.png">
+            <img class="icon" id="heart-icon" src="/icon/heart_none_select.png">
             <p id="webtoon-subscription"><!--웹툰 구독자수--></p>
         </div>
         <div style="flex-grow: 1" class="details-title">
@@ -90,7 +90,7 @@
 </section>
 
 <section id="details-buttons">
-    <button type="submit" class="btn btn-primary btn-read" onclick="button1_click();">구독하기</button>
+    <button type="submit" class="btn btn-primary btn-read" onclick="subscription();">구독하기</button>
     <button type="submit" class="btn btn-link bnt-made">보러가기</button>
 </section>
 
@@ -113,8 +113,6 @@
         ContentType: "application/json",
         success: function (webtoondetail) {
             console.log("검색 성공");
-            console.log(webtoondetail.keywords.length);
-
 
                 var author = new Array();
                 var keywords = new Array();
@@ -135,6 +133,11 @@
                         keywords.push(webtoondetail.keywords[i].keywordValue);
                     }
                 }
+
+
+            if(webtoondetail.myWebtoon) {
+                $("#heart-icon").attr('src','/icon/heart_select.png');
+            }
 
             $("#webtoon-title").append(webtoondetail.title);
             $("#webtoon-subscription").append(webtoondetail.subscription);
@@ -176,6 +179,30 @@
             console.log(err.toString());
         }
     });
+
+    // 수정 필요.. 새로고침해야 구독자수가 바뀌고 하트아이콘이 안바뀜..
+    function subscription() {
+        var id = params[4];
+        var subscription_count = Number($("#webtoon-subscription").textContent);
+        var JSONObject = {'webtoonId': id};
+
+        $.ajax({
+            url: '/api/mywebtoons',
+            method: 'post',
+            async: true,
+            data: JSON.stringify(JSONObject),
+            contentType: "application/json",
+            success: function (resp) {
+                console.log("구독 성공");
+
+                $("#heart-icon").attr('src','/icon/heart_select.png');
+                $("#webtoon-subscription").val(subscription_count + 1);
+            },
+            error: function (err) {
+                console.log(err.toString());
+            }
+        });
+    }
 </script>
 
 </body>
