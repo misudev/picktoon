@@ -76,6 +76,7 @@ public class Webtoon {
         keywords = new ArrayList<>();
         webtoonImages = new ArrayList<>();
         createdDate = new Date();
+        updateState = false;
     }
 
 

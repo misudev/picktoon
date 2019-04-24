@@ -8,13 +8,13 @@ insert into user_role (user_id, role_id) values (1, 1);
 insert into user_role (user_id, role_id) values (1, 2);
 insert into user_role (user_id, role_id) values (2, 1);
 
-insert into keyword (id, keyword_type, keyword_value, ordering) values (1, 1, '월', 0);
-insert into keyword (id, keyword_type, keyword_value, ordering) values (2, 1, '화', 0);
-insert into keyword (id, keyword_type, keyword_value, ordering) values (3, 1, '수', 0);
-insert into keyword (id, keyword_type, keyword_value, ordering) values (4, 1, '목', 0);
-insert into keyword (id, keyword_type, keyword_value, ordering) values (5, 1, '금', 0);
-insert into keyword (id, keyword_type, keyword_value, ordering) values (6, 1, '토', 0);
-insert into keyword (id, keyword_type, keyword_value, ordering) values (7, 1, '일', 0);
+insert into keyword (id, keyword_type, keyword_value, ordering) values (1, 1, '일', 0);
+insert into keyword (id, keyword_type, keyword_value, ordering) values (2, 1, '월', 0);
+insert into keyword (id, keyword_type, keyword_value, ordering) values (3, 1, '화', 0);
+insert into keyword (id, keyword_type, keyword_value, ordering) values (4, 1, '수', 0);
+insert into keyword (id, keyword_type, keyword_value, ordering) values (5, 1, '목', 0);
+insert into keyword (id, keyword_type, keyword_value, ordering) values (6, 1, '금', 0);
+insert into keyword (id, keyword_type, keyword_value, ordering) values (7, 1, '토', 0);
 
 insert into keyword (id, keyword_type, keyword_value, ordering) values (8, 2, '드라마', 0);
 insert into keyword (id, keyword_type, keyword_value, ordering) values (9, 2, '순정', 0);

@@ -7,6 +7,7 @@ import com.project.picktoon.dto.ChangeAlarm;
 import com.project.picktoon.dto.MywebtoonDto;
 import com.project.picktoon.service.MyWebtoonService;
 import com.project.picktoon.service.UserService;
+import com.project.picktoon.service.WebtoonService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -24,6 +25,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MyWebtoonApiController {
     private final MyWebtoonService myWebtoonService;
+    private final WebtoonService webtoonService;
     private final UserService userService;
     private final ModelMapper modelMapper;
 
@@ -38,6 +40,10 @@ public class MyWebtoonApiController {
 
         Type listType = new TypeToken<List<MywebtoonDto>>(){}.getType();
         List<MywebtoonDto> myWebtoons = modelMapper.map(myWebtoonslist, listType);
+        for(MywebtoonDto mywebtoonDto : myWebtoons){
+            // ToDo 수정...
+            mywebtoonDto.setWebtoonImageId(webtoonService.getWebtoonById(mywebtoonDto.getWebtoonId()).getWebtoonImages().get(0).getId());
+        }
 
         return new ResponseEntity<List<MywebtoonDto>>(myWebtoons, HttpStatus.OK);
     }

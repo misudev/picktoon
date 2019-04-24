@@ -13,5 +13,6 @@ public interface WebtoonService {
     public void updateWebtoon(Webtoon webtoon);
     public void deleteWebtoon(Long id);
     public boolean existWebtoonById(Long id);
+    public List<Webtoon> getUpdateCheckWebtoon(Long keywordId);
 
 }

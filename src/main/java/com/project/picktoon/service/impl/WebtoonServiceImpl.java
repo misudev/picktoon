@@ -62,4 +62,10 @@ public class WebtoonServiceImpl implements WebtoonService {
     public boolean existWebtoonById(Long id) {
         return webtoonRepository.existsById(id);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Webtoon> getUpdateCheckWebtoon(Long keywordId) {
+        return webtoonRepository.getWebtoonsByKeywordAndUpdate(keywordId);
+    }
 }

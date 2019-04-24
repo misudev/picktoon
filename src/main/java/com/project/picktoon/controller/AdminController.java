@@ -23,10 +23,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -37,22 +35,22 @@ public class AdminController {
     private final WebtoonImageService webtoonImageService;
     private final WebtoonService webtoonService;
 
+//    @GetMapping("/regist")
+//    public String regist(Model model){
+//        List<Keyword> days = keywordService.getKeywordsByType(KeywordType.KEYWORD_DAY);
+//        List<Keyword> genres = keywordService.getKeywordsByType(KeywordType.KEYWORD_GENRE);
+//        List<Keyword> keywords = keywordService.getKeywordsByType(KeywordType.KEYWORD_KEYWORD);
+//        List<Platform> platforms = platformService.getAllPlatforms();
+//
+//        model.addAttribute("days", days);
+//        model.addAttribute("genres", genres);
+//        model.addAttribute("keywords", keywords);
+//        model.addAttribute("platforms", platforms);
+//
+//        return "admin/regist";
+//    }
+
     @GetMapping("/regist")
-    public String regist(Model model){
-        List<Keyword> days = keywordService.getKeywordsByType(KeywordType.KEYWORD_DAY);
-        List<Keyword> genres = keywordService.getKeywordsByType(KeywordType.KEYWORD_GENRE);
-        List<Keyword> keywords = keywordService.getKeywordsByType(KeywordType.KEYWORD_KEYWORD);
-        List<Platform> platforms = platformService.getAllPlatforms();
-
-        model.addAttribute("days", days);
-        model.addAttribute("genres", genres);
-        model.addAttribute("keywords", keywords);
-        model.addAttribute("platforms", platforms);
-
-        return "admin/regist";
-    }
-
-    @GetMapping("/regist2")
     public String regist2(Model model){
         List<Keyword> days = keywordService.getKeywordsByType(KeywordType.KEYWORD_DAY);
         List<Keyword> genres = keywordService.getKeywordsByType(KeywordType.KEYWORD_GENRE);
@@ -80,7 +78,8 @@ public class AdminController {
             @RequestParam(name = "platform") int platform,
             @RequestParam(name = "description") String description,
             @RequestParam(name = "image") MultipartFile[] images,
-            @RequestParam(name = "imgurl", required = false)String imgUrl
+            @RequestParam(name = "imgurl", required = false)String imgUrl,
+            @RequestParam(name = "updatedDate")String updatedDateStr
     ){
         Assert.hasText(title, "제목을 입력하세요.");
         Assert.notEmpty(authors, "작가를 입력하세요.");
@@ -98,6 +97,8 @@ public class AdminController {
 
         // 작가
         for(String a : authors){
+            if(a.length() == 0) // 작가 2가 없는 경우..
+                continue;
             Keyword existAuthor = keywordService.getAuthorByName(a);
             if(existAuthor == null){
                 Keyword author = new Keyword();
@@ -145,7 +146,15 @@ public class AdminController {
             webtoon.addWebtoonImage(imageFile);
 
         }
-
+        // 업데이트 날짜
+        SimpleDateFormat transFormat = new SimpleDateFormat("yyyy.MM.dd");
+        try {
+            System.out.println(updatedDateStr);
+            Date updateDate = transFormat.parse(updatedDateStr);
+            webtoon.setUpdatedDate(updateDate);
+        }catch (java.text.ParseException ex){
+            ex.printStackTrace();
+        }
         webtoonService.addWebtoon(webtoon);
         return "redirect:/main";
     }
