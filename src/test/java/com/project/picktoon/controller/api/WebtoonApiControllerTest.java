@@ -9,6 +9,7 @@ import com.project.picktoon.domain.Webtoon;
 import com.project.picktoon.dto.KeywordDto;
 import com.project.picktoon.dto.WebtoonForm;
 import com.project.picktoon.service.*;
+import com.project.picktoon.util.PlatformType;
 import com.project.picktoon.util.SeeAge;
 import org.junit.Before;
 import org.junit.Test;
@@ -78,7 +79,7 @@ public class WebtoonApiControllerTest {
         keywords1.add(keyword1);
         keywords1.add(keyword2);
 
-        Platform platform = Platform.builder().id(1).platformName("네이버").build();
+        Platform platform = Platform.builder().id(1).platformName(PlatformType.naver).build();
 
         WebtoonForm webtoonForm = WebtoonForm.builder()
                                             .title("웹툰 제목")
@@ -132,7 +133,7 @@ public class WebtoonApiControllerTest {
 
     @Test
     public void 웹툰_조회() throws Exception{
-        Platform platform = Platform.builder().id(1).platformName("네이버").build();
+        Platform platform = Platform.builder().id(1).platformName(PlatformType.naver).build();
         Keyword keyword1 = Keyword.builder().id(1L).keywordType(1)
                 .keywordValue("월").ordering(1).build();
         Keyword keyword2 = Keyword.builder().id(3L).keywordType(1)

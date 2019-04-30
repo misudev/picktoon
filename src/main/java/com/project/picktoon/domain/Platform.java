@@ -1,5 +1,6 @@
 package com.project.picktoon.domain;
 
+import com.project.picktoon.util.PlatformType;
 import lombok.*;
 
 import javax.persistence.*;

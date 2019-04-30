@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS webtoon (
   state VARCHAR(45) NOT NULL,
   see_age VARCHAR(45) NOT NULL DEFAULT '전체관람가',
   link VARCHAR(255) NOT NULL,
+  crawling_link VARCHAR(255) NOT NULL,
   subscription INT NOT NULL DEFAULT 0,
   description LONGTEXT NULL,
   platform_id INT NOT NULL,

@@ -1,4 +1,4 @@
-package com.project.picktoon.controller;
+package com.project.picktoon.crawling;
 
 import com.project.picktoon.domain.Webtoon;
 import com.project.picktoon.service.WebtoonService;
@@ -18,7 +18,9 @@ import java.util.*;
 public class WebtoonTaskScheduler {
     private final WebtoonService webtoonService;
 
-    private Map<Long, Webtoon> targetWebtoons = new HashMap<>();
+    private Map<Long, Webtoon> targetWebtoonsNaver = new HashMap<>();
+    private Map<Long, Webtoon> targetWebtoonsDaum = new HashMap<>();
+
     private Map<Long, Webtoon> remainWebtoons = new HashMap<>();
 
     @Scheduled(cron= "0 45 23 * * *")
@@ -26,32 +28,32 @@ public class WebtoonTaskScheduler {
         Calendar calendar = Calendar.getInstance();
         long nowDate = (long)calendar.get(Calendar.DAY_OF_WEEK);
 
-        remainWebtoons.putAll(targetWebtoons);
-        targetWebtoons = new HashMap<>();
+        remainWebtoons.putAll(targetWebtoonsNaver);
+        targetWebtoonsNaver = new HashMap<>();
 
         //다음날 연재일인 웹툰을 가져온다...
         log.info("now date : "+nowDate);
         List<Webtoon> webtoons = webtoonService.getUpdateCheckWebtoon(nowDate);
         for(Webtoon w : webtoons){
-            targetWebtoons.put(w.getId() , w);
+            targetWebtoonsNaver.put(w.getId() , w);
         }
         //targetWebtoons.addAll(webtoonService.getUpdateCheckWebtoon(nowDate)); // 1(월) ~ 7(일)
-        log.info("targetWebtoons : " + targetWebtoons.size());
+        log.info("targetWebtoons : " + targetWebtoonsNaver.size());
 
-        for(Long key : targetWebtoons.keySet())
-            log.info("webtoon title : "+ targetWebtoons.get(key).getTitle());
+        for(Long key : targetWebtoonsNaver.keySet())
+            log.info("webtoon title : "+ targetWebtoonsNaver.get(key).getTitle());
 
     }
 
     // 10분 마다 체크 !!
     @Scheduled(cron= "0 0/10 * * * *" )
-    public void checkUpdate() {
-       Iterator<Long> it =  targetWebtoons.keySet().iterator();
+    public void checkUpdateNaver() {
+       Iterator<Long> it =  targetWebtoonsNaver.keySet().iterator();
 
        while(it.hasNext()){
            try {
                Long id = it.next();
-               Webtoon webtoon = targetWebtoons.get(id);
+               Webtoon webtoon = targetWebtoonsNaver.get(id);
                //웹에서 내용을 가져온다.
                Document doc = Jsoup.connect(webtoon.getLink()).timeout(5000).get();
 

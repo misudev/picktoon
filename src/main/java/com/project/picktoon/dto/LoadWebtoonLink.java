@@ -7,4 +7,5 @@ import lombok.Setter;
 @Setter
 public class LoadWebtoonLink {
     private String link;
+    private Long updateDate;
 }

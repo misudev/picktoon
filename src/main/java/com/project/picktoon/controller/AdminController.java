@@ -4,6 +4,9 @@ import com.project.picktoon.domain.Keyword;
 import com.project.picktoon.domain.Platform;
 import com.project.picktoon.domain.Webtoon;
 import com.project.picktoon.domain.WebtoonImage;
+import com.project.picktoon.dto.DaumWebtoonDto.DaumWebtoonInfo;
+import com.project.picktoon.dto.DaumWebtoonDto.DaumWebtoonList;
+import com.project.picktoon.dto.LoadWebtoonLink;
 import com.project.picktoon.service.KeywordService;
 import com.project.picktoon.service.PlatformService;
 import com.project.picktoon.service.WebtoonImageService;
@@ -11,11 +14,14 @@ import com.project.picktoon.service.WebtoonService;
 import com.project.picktoon.util.KeywordType;
 import com.project.picktoon.util.SeeAge;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.imgscalr.Scalr;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -27,6 +33,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@Log
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin")
@@ -35,6 +42,9 @@ public class AdminController {
     private final PlatformService platformService;
     private final WebtoonImageService webtoonImageService;
     private final WebtoonService webtoonService;
+
+
+
 
 //    @GetMapping("/regist")
 //    public String regist(Model model){
@@ -52,7 +62,7 @@ public class AdminController {
 //    }
 
     @GetMapping("/regist")
-    public String regist2(Model model){
+    public String regist(Model model){
         List<Keyword> days = keywordService.getKeywordsByType(KeywordType.KEYWORD_DAY);
         List<Keyword> genres = keywordService.getKeywordsByType(KeywordType.KEYWORD_GENRE);
         List<Keyword> keywords = keywordService.getKeywordsByType(KeywordType.KEYWORD_KEYWORD);
@@ -89,6 +99,8 @@ public class AdminController {
         Webtoon webtoon = new Webtoon();
         webtoon.setTitle(title);
         webtoon.setLink(link);
+        // 네이버는 링크와 크롤링링크가 같다.
+        webtoon.setCrawlingLink(link);
         webtoon.setTotalCount(count);
         webtoon.setSeeAge(SeeAge.SEEAGES[seeage]);
         webtoon.setPlatform(platformService.getPlatformById(platform));
@@ -158,6 +170,24 @@ public class AdminController {
         webtoonService.addWebtoon(webtoon);
         return "redirect:/main";
     }
+
+//    @PostMapping("/regist/daum")
+//    public String registDaumWebtoon(@RequestBody LoadWebtoonLink loadWebtoonLink){
+//        //http://webtoon.daum.net/data/pc/webtoon/view/homemaker
+//        RestTemplate restTemplate = new RestTemplate();
+//        DaumWebtoonList result = restTemplate.getForObject(loadWebtoonLink.getLink() , DaumWebtoonList.class);
+//        log.info("size : "+result.getData().size());
+//        List<DaumWebtoonInfo> webtoonInfos = result.getData();
+//
+//        return "redirect:/main";
+//    }
+    @GetMapping("/regist/daum")
+    public String registDaumWebtoons(Model model){
+        List<Keyword> days = keywordService.getKeywordsByType(KeywordType.KEYWORD_DAY);
+        model.addAttribute("days", days);
+        return "admin/registDaum";
+    }
+
 
     private String saveFile(MultipartFile image){
         String dir = "imagefile/webtoon/";
@@ -252,6 +282,7 @@ public class AdminController {
         File thumbFile = new File(thumbName);
         ImageIO.write(destImg, fileExt.toUpperCase(), thumbFile);
     }
+
 
 
 }

@@ -39,6 +39,6 @@ insert into keyword (id, keyword_type, keyword_value, ordering) values (26, 4, '
 insert into keyword (id, keyword_type, keyword_value, ordering) values (27, 4, '범죄', 0);
 insert into keyword (id, keyword_type, keyword_value, ordering) values (28, 4, '귀신', 0);
 
-insert into platform (id, platform_name) values (1, '네이버');
-insert into platform (id, platform_name) values (2, '다음');
-insert into platform (id, platform_name) values (3, '레진코믹스');
+insert into platform (id, platform_name) values (1, 'Naver');
+insert into platform (id, platform_name) values (2, 'Daum');
+insert into platform (id, platform_name) values (3, 'Lezhin');

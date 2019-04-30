@@ -14,5 +14,7 @@ public interface WebtoonService {
     public void deleteWebtoon(Long id);
     public boolean existWebtoonById(Long id);
     public List<Webtoon> getUpdateCheckWebtoon(Long keywordId);
+    public Webtoon getWebtoonByTitleAndPlatform(String title, String platform);
+    public long getCountByPlatformAndKeyword(String platform, Long keywordId);
 
 }

@@ -15,9 +15,10 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DaumWebtoonInfo {
-    private String nickname;    // url에 들어갈 웹툰이름
-    private String title;       // 웹툰 이름 (제목)
-    private String introduction;    // 웹툰 설명
+    private String nickname;        // url에 들어갈 웹툰이름
+    private String title;           // 웹툰 이름 (제목)
+    @JsonProperty("introduction")
+    private String description;    // 웹툰 설명
 
     private String pcThumbnailImageUrl;
 
@@ -29,6 +30,7 @@ public class DaumWebtoonInfo {
 
     private List<String> genres = new ArrayList<>();
     private List<String> keywords = new ArrayList<>();
+    private List<String> weekDays = new ArrayList<>();
 
 
     // json 중첩된 속성 가져오기..
@@ -66,6 +68,17 @@ public class DaumWebtoonInfo {
                 if(category.get("categoryType").equals("keyword"))
                     this.keywords.add(category.get("name"));
         }
+
+    }
+
+    @SuppressWarnings("unchecked")
+    @JsonProperty("webtoonWeeks")
+    private void findWebtoonWeekdays(List<Map<String, String>> webtoonWeeks){
+        //연재 요일 추가
+        for(Map<String, String> weekDay : webtoonWeeks){
+            weekDays.add(weekDay.get("weekDay"));
+        }
+
 
     }
 }

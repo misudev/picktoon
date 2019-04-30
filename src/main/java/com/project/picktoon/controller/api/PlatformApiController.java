@@ -2,6 +2,7 @@ package com.project.picktoon.controller.api;
 
 import com.project.picktoon.domain.Platform;
 import com.project.picktoon.service.PlatformService;
+import com.project.picktoon.util.PlatformType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

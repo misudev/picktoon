@@ -50,4 +50,12 @@ public class KeywordServiceImpl implements KeywordService {
     public Keyword getAuthorByName(String name) {
         return keywordRepository.getAuthorByName(name);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Keyword getKeywordByValue(String value){ return keywordRepository.getKeywordByValue(value);}
+
+    @Override
+    @Transactional(readOnly = true)
+    public Keyword getKeywordByTypeAndValue(int type, String value){ return keywordRepository.getKeywordByTypeAndValue(type,value);}
 }

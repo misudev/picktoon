@@ -18,4 +18,10 @@ public interface KeywordRepository extends JpaRepository<Keyword, Long> {
 
     @Query("SELECT k FROM Keyword k WHERE k.keywordType = 2 AND k.keywordValue =:value")
     public Keyword getAuthorByName(@Param("value")String name);
+
+    @Query("SELECT k FROM Keyword k WHERE k.keywordType = 4 AND k.keywordValue =:value")
+    public Keyword getKeywordByValue(@Param("value")String value);
+
+    @Query("SELECT k FROM Keyword k WHERE k.keywordType =:type AND k.keywordValue =:value")
+    public Keyword getKeywordByTypeAndValue(@Param("type")int type, @Param("value")String value);
 }

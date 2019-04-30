@@ -36,6 +36,9 @@ public class Webtoon {
     private String link;
 
     @Column(nullable = false)
+    private String crawlingLink;
+
+    @Column(nullable = false)
     private int subscription;
 
     @Column
