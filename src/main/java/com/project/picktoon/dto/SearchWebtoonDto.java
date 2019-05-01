@@ -13,7 +13,7 @@ public class SearchWebtoonDto {
     private Long id;
     private String title;
     private String seeAge;
-    private Long webtoonImageId;
+    private List<WebtoonImageDto> webtoonImages;
     private List<KeywordDto> keywords;
 
     private Boolean updateState;

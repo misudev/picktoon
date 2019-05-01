@@ -30,7 +30,6 @@ public class WebtoonController {
     public String webtoonDetails() { return "webtoons/details";}
 
 
-
 //    @RequestMapping("/images/{webtoonId}")
 //    public void downloadBoardFile(@RequestParam int index, @PathVariable("webtoonId") long webtoonId, HttpServletResponse response) throws Exception{
 //        BoardFileDto boardFile = boardService.selectBoardFileInformation(idx, boardIdx);
@@ -61,7 +60,7 @@ public class WebtoonController {
         try(FileInputStream fis = new FileInputStream(imageFile.getSaveFileName());
             OutputStream out = response.getOutputStream()
         ){
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[2048];
             int readCount = 0;
 
             while((readCount = fis.read(buffer)) != -1){

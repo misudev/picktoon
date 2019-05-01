@@ -36,6 +36,9 @@ public class Webtoon {
     private String link;
 
     @Column(nullable = false)
+    private String crawlingLink;
+
+    @Column(nullable = false)
     private int subscription;
 
     @Column
@@ -76,6 +79,7 @@ public class Webtoon {
         keywords = new ArrayList<>();
         webtoonImages = new ArrayList<>();
         createdDate = new Date();
+        updateState = false;
     }
 
 
