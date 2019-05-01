@@ -1,15 +1,17 @@
 package com.project.picktoon.crawling;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.picktoon.domain.Webtoon;
 import com.project.picktoon.service.WebtoonService;
+import com.project.picktoon.util.PlatformType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import java.text.SimpleDateFormat;
+import org.springframework.web.client.RestTemplate;
 import java.util.*;
 
 @Component
@@ -23,7 +25,10 @@ public class WebtoonTaskScheduler {
 
     private Map<Long, Webtoon> remainWebtoons = new HashMap<>();
 
-    @Scheduled(cron= "0 45 23 * * *")
+    private RestTemplate restTemplate = new RestTemplate();
+    private ObjectMapper mapper = new ObjectMapper();
+
+    @Scheduled(cron= "0 5 23 * * *")
     public void renewTargetWebtoons(){
         Calendar calendar = Calendar.getInstance();
         long nowDate = (long)calendar.get(Calendar.DAY_OF_WEEK);
@@ -33,23 +38,25 @@ public class WebtoonTaskScheduler {
 
         //다음날 연재일인 웹툰을 가져온다...
         log.info("now date : "+nowDate);
-        List<Webtoon> webtoons = webtoonService.getUpdateCheckWebtoon(nowDate);
+        List<Webtoon> webtoons = webtoonService.getUpdateCheckWebtoon(nowDate + 1);
         for(Webtoon w : webtoons){
-            targetWebtoonsNaver.put(w.getId() , w);
+            if(w.getPlatform().getPlatformName().equals(PlatformType.naver))
+                targetWebtoonsNaver.put(w.getId() , w);
+            if(w.getPlatform().getPlatformName().equals(PlatformType.daum))
+                targetWebtoonsDaum.put(w.getId(), w);
         }
         //targetWebtoons.addAll(webtoonService.getUpdateCheckWebtoon(nowDate)); // 1(월) ~ 7(일)
-        log.info("targetWebtoons : " + targetWebtoonsNaver.size());
+        log.info("targetWebtoons(네이버) : " + targetWebtoonsNaver.size());
+        log.info("targetWebtoons(다음) : " + targetWebtoonsDaum.size());
 
-        for(Long key : targetWebtoonsNaver.keySet())
-            log.info("webtoon title : "+ targetWebtoonsNaver.get(key).getTitle());
 
     }
 
-    // 10분 마다 체크 !!
+    // 네이버 업데이트 : 10분 마다 체크 !!
     @Scheduled(cron= "0 0/10 * * * *" )
     public void checkUpdateNaver() {
        Iterator<Long> it =  targetWebtoonsNaver.keySet().iterator();
-
+       log.info("네이버 웹툰 업데이트 시작.");
        while(it.hasNext()){
            try {
                Long id = it.next();
@@ -77,7 +84,46 @@ public class WebtoonTaskScheduler {
            }catch (Exception ex){
                ex.printStackTrace();
            }
-       }
 
+
+       }
+    }
+
+    // 다음 업데이트 : 10분 마다 체크!
+    @Scheduled(cron= "0 0/10 * * * *")
+    public void checkUpdateDaum(){
+        Iterator<Long> it =  targetWebtoonsDaum.keySet().iterator();
+        log.info("다음 웹툰 업데이트 시작.");
+        while(it.hasNext()){
+            try{
+                Long id = it.next();
+                Webtoon webtoon = targetWebtoonsDaum.get(id);
+                String url = webtoon.getCrawlingLink();
+                // json 데이터 가져오기..
+                String jsonData = restTemplate.getForObject(url, String.class);
+                JsonNode root = mapper.readTree(jsonData);
+                // 최신 업데이트 정보 가져오기..
+                JsonNode latestWebtoon = root.path("data").path("webtoon").path("latestWebtoonEpisode");
+                log.info("checkwebtoon title : "+ webtoon.getTitle());
+                if(!latestWebtoon.isMissingNode()){
+                    String newCount = latestWebtoon.path("title").asText();
+                    if(!newCount.equals(webtoon.getTotalCount())){
+                        // 총 화수 변경
+                        webtoon.setTotalCount(newCount);
+                        // 업데이트 날짜 변경
+                        webtoon.setUpdatedDate(new Date());
+                        // 업데이트 상태 변경
+                        webtoon.setUpdateState(true);
+                        // 저장한 후 삭제..
+                        webtoonService.updateWebtoon(webtoon);
+                        it.remove();
+                        log.info("웹툰 업데이트 완료 : "+ webtoon.getTitle());
+                    }
+                }
+
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
+        }
     }
 }

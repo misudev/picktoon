@@ -39,8 +39,8 @@ public interface WebtoonRepository extends JpaRepository<Webtoon, Long>, Webtoon
     public List<Webtoon> getWebtoonsByKeywordAndUpdate(@Param("keywordId")Long keywordId);
 
     @Query("SELECT w FROM Webtoon w INNER JOIN FETCH w.platform p LEFT JOIN FETCH  w.keywords k WHERE p.platformName =:platform AND w.title =:title")
-    public Webtoon getWebtoonByTitleAndAndPlatform( @Param("platform")String platform, @Param("title")String title);
+    public Webtoon getWebtoonByTitleAndAndPlatform(@Param("title")String title, @Param("platform")String platform);
 
     @Query("SELECT w FROM Webtoon w INNER JOIN FETCH w.platform p LEFT JOIN FETCH w.keywords k WHERE p.platformName =:platform AND k.id =:keywordId")
-    public List<Webtoon> getWebtoonIdsByPlatformAndKeyword(@Param("platform")String platform , @Param("keywordId")Long keywordId);
+    public List<Webtoon> getWebtoonsByPlatformAndKeyword(@Param("platform")String platform , @Param("keywordId")Long keywordId);
 }

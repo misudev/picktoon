@@ -108,8 +108,11 @@ public class AdminApiControllor {
         int addWebtoonCount = 0;
 
         for(DaumWebtoonInfo webtoonInfo : webtoonInfos){
-            if(webtoonService.getWebtoonByTitleAndPlatform(webtoonInfo.getTitle(),PlatformType.daum) != null)
+            Webtoon existWebtoon = webtoonService.getWebtoonByTitleAndPlatform(webtoonInfo.getTitle(), PlatformType.daum);
+            if(existWebtoon != null){
+                log.info("겹치는 웹툰 : " + existWebtoon.getTitle());
                 continue;
+            }
 
             log.info("웹툰 정보 저장 시작");
             Webtoon webtoon = new Webtoon();
