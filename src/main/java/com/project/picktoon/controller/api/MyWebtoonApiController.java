@@ -2,9 +2,7 @@ package com.project.picktoon.controller.api;
 
 import com.project.picktoon.domain.MyWebtoon;
 import com.project.picktoon.domain.User;
-import com.project.picktoon.dto.AddMyWebtoonDto;
-import com.project.picktoon.dto.ChangeAlarm;
-import com.project.picktoon.dto.MywebtoonDto;
+import com.project.picktoon.dto.*;
 import com.project.picktoon.service.MyWebtoonService;
 import com.project.picktoon.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +31,7 @@ public class MyWebtoonApiController {
     public ResponseEntity<List<MywebtoonDto>> getMyWebtoons(@RequestParam(name = "ordertype", required = false, defaultValue = "1") int ordertype, Principal principal) {
         String email = principal.getName();
         User user = userService.getUserByEmail(email);
-        System.out.println(ordertype);
+//        System.out.println(ordertype);
         List<MyWebtoon> myWebtoonslist = myWebtoonService.getMyWebtoons(user.getId(), ordertype);
 
         Type listType = new TypeToken<List<MywebtoonDto>>(){}.getType();
@@ -51,17 +49,27 @@ public class MyWebtoonApiController {
 
     //마이웹툰에서 삭제하기
     @DeleteMapping("/{mywebtoonid}")
-    public ResponseEntity deleteMyWebtoon(@PathVariable Long mywebtoonid){
+    public ResponseEntity<DeleteMyWebtoonDto> deleteMyWebtoon(@PathVariable Long mywebtoonid){
         myWebtoonService.deleteMyWebtoon(mywebtoonid);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     //마이웹툰 추가
     @PostMapping
-    public ResponseEntity addMyWebtoon(@RequestBody AddMyWebtoonDto addMyWebtoonDto, Principal principal){
-        String email = principal.getName();
-        User user = userService.getUserByEmail(email);
-        myWebtoonService.addMyWebtoon(user.getId(), addMyWebtoonDto.getWebtoonId());
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<DeleteMyWebtoonDto> addMyWebtoon(@RequestBody AddMyWebtoonDto addMyWebtoonDto, Principal principal){
+        DeleteMyWebtoonDto deleteMyWebtoonDto = new DeleteMyWebtoonDto();
+
+        if(principal==null) {
+            deleteMyWebtoonDto.setResult("Need Login");
+            deleteMyWebtoonDto.setMyWebtoonId(-1L);
+        }else {
+            String email = principal.getName();
+            User user = userService.getUserByEmail(email);
+            myWebtoonService.addMyWebtoon(user.getId(), addMyWebtoonDto.getWebtoonId());
+            deleteMyWebtoonDto.setResult("Loging");
+            deleteMyWebtoonDto.setMyWebtoonId(myWebtoonService.getMyWebtoon(user.getId(), addMyWebtoonDto.getWebtoonId()));
+        }
+        return new ResponseEntity<>(deleteMyWebtoonDto, HttpStatus.OK);
     }
+
 }

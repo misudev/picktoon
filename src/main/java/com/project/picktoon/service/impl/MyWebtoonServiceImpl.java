@@ -80,6 +80,14 @@ public class MyWebtoonServiceImpl implements MyWebtoonService {
     }
 
     @Override
+    public Long getMyWebtoon(Long userId, Long webtoonId) {
+        MyWebtoon checkMyWebtoon = myWebtoonRepository.findByUserAndWebtoon(userId,webtoonId);
+        if(checkMyWebtoon != null)
+            return checkMyWebtoon.getId();
+        else return null;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public MyWebtoon getMyWebtoonById(Long myWebtoonId) {
         return myWebtoonRepository.findById(myWebtoonId).orElse(null);

@@ -28,7 +28,7 @@
                 console.log("검색 성공");
                 for(var i = 0; i < resp.length; i++) {
                     var webtoonRow = $('<li class="result-row">' +
-                        '<img src="" alt="이미지" class="webtoon_image">' +
+                        '<img src="/webtoons/images/' + resp[i].id +'" alt="이미지" class="webtoon_image">' +
                         '<div class="webtoon-detail">' +
                             '<p class="webtoon-title"><b><a href="/webtoons/'+resp[i].id+'">'+resp[i].title+'</a></b></p>'+
                             '<span class="webtoon-count">'+resp[i].totalCount+'</span>'+

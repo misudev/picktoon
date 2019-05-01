@@ -127,6 +127,7 @@ section[id="details-buttons"]{
 }
 .btn-primary{
     margin: 0 auto;
+    margin-right: 3px;
 }
 .btn-link{
     color: black;
@@ -144,4 +145,7 @@ section[id="details-buttons"]{
 .bnt-made{
     border: solid 0.5px blue;
     color: black;
+}
+.btn-read{
+    margin-right: 3px;
 }

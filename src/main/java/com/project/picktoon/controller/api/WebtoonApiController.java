@@ -32,23 +32,26 @@ public class WebtoonApiController {
 
     // 웹툰 id로 가져오기 (상세정보 포함)
     @GetMapping("/{webtoonId}")
-    public ResponseEntity<WebtoonDto> getWebtoon(@PathVariable Long webtoonId, Principal principal){
+    public ResponseEntity<WebtoonDetailDto> getWebtoon(@PathVariable Long webtoonId, Principal principal){
         Webtoon webtoon = webtoonService.getWebtoonById(webtoonId);
         if(webtoon == null)
-            return new ResponseEntity<WebtoonDto>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<WebtoonDetailDto>(HttpStatus.NO_CONTENT);
 
-        WebtoonDto webtoonDto = modelMapper.map(webtoon, WebtoonDto.class);
+        WebtoonDetailDto webtoonDetailDto = modelMapper.map(webtoon, WebtoonDetailDto.class);
         // 웹툰 이미지
         if(!webtoon.getWebtoonImages().isEmpty())
-            webtoonDto.setWebtoonImageId(webtoon.getWebtoonImages().get(0).getId());
-        if(principal == null){
-            webtoonDto.setMyWebtoon(false);
+            webtoonDetailDto.setWebtoonImageId(webtoon.getWebtoonImages().get(0).getId());
+        if(principal == null){  //비회원..
+            webtoonDetailDto.setUserId(-1L);
+            webtoonDetailDto.setMyWebtoon(false);
         }else{
             String email = principal.getName();
             User user = userService.getUserByEmail(email);
-            webtoonDto.setMyWebtoon(myWebtoonService.checkMyWebtoon(user.getId(), webtoonId));
+            webtoonDetailDto.setUserId(user.getId());
+            webtoonDetailDto.setMywebtoonId(myWebtoonService.getMyWebtoon(user.getId(), webtoonId));
+            webtoonDetailDto.setMyWebtoon(myWebtoonService.checkMyWebtoon(user.getId(), webtoonId));
         }
-        return new ResponseEntity<>(webtoonDto, HttpStatus.OK);
+        return new ResponseEntity<>(webtoonDetailDto, HttpStatus.OK);
     }
 
     @GetMapping("/bestWebtoons")

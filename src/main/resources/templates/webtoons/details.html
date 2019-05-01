@@ -14,10 +14,10 @@
 <!--헤더부분-->
 
 <!--첫번째 section-->
-<!--TODO 이미지조정하기-->
+<!--TODO 상태, UP고치기-->
 <section class="flex-container" id="details-first">
     <div style="flex-grow: 1">
-        <img src="https://image-comic.pstatic.net/webtoon/720121/thumbnail/thumbnail_IMAG19_371ab98b-ede7-40e4-9918-5f64d47a1fad.jpg" width="110" height="110" id="webtoonImage">
+        <img src="" width="110" height="110" id="webtoonImage">
     </div>
     <div style="flex-grow: 9" class="webtoon-details">
         <div style="flex-grow: 1" class="details-title">
@@ -50,7 +50,6 @@
     </div>
     <div style="flex-grow: 1" class="details-author">
         <div class="h3-p" id="webtoon-totalCount"><!-- 회차 --></div>
-
     </div>
 </section>
 <hr>
@@ -90,21 +89,16 @@
 </section>
 
 <section id="details-buttons">
-    <button type="submit" class="btn btn-primary btn-read" onclick="subscription();">구독하기</button>
-    <button type="submit" class="btn btn-link bnt-made">보러가기</button>
+    <!--구독상태-->
 </section>
 
-<script>
-    function button1_click() {
-
-    }
-</script>
 
 <!--ajax-->
 <script>
     // 파라미터 가져오기
     var params = location.href.split("/");
     console.log("param:"+params[4]);
+    var myWebtoonId;
 
     $.ajax({
         url: '/api/webtoons/'+ params[4],
@@ -113,6 +107,9 @@
         ContentType: "application/json",
         success: function (webtoondetail) {
             console.log("검색 성공");
+            console.log("UserId: " + webtoondetail.userId);
+            // console.log(webtoondetail.mywebtoonId);
+            myWebtoonId = webtoondetail.mywebtoonId;
 
                 var author = new Array();
                 var keywords = new Array();
@@ -137,6 +134,8 @@
 
             if(webtoondetail.myWebtoon) {
                 $("#heart-icon").attr('src','/icon/heart_select.png');
+            }else{
+                $("#heart-icon").attr('src','/icon/heart_none_select.png');
             }
 
             $("#webtoon-title").append(webtoondetail.title);
@@ -174,16 +173,31 @@
                 $("#webtoonImage").attr('src', '/webtoons/images/'+webtoondetail.webtoonImageId);
             }
 
+            if(webtoondetail.myWebtoon) {
+                var notread = $('<button type="submit" class="btn btn-primary btn-read" onclick="not_subscription();" id="webtoon-read">'
+                    + '구독취소' + '</button>');
+                notread.appendTo($('#details-buttons'));
+            }else{
+                var read = $('<button type="submit" class="btn btn-primary btn-read" onclick="subscription();" id="webtoon-read">'
+                    + '구독하기' + '</button>');
+                read.appendTo($('#details-buttons'));
+            }
+
+            var links = $('<button type="button" class="btn btn-link bnt-made" onclick="location.href=\''+ webtoondetail.link +'\'">'
+                + '보러가기  </button>');
+            links.appendTo($('#details-buttons'));
+            // console.log(webtoondetail.link);
+
         },
         error: function (err) {
             console.log(err.toString());
         }
     });
 
-    // 수정 필요.. 새로고침해야 구독자수가 바뀌고 하트아이콘이 안바뀜..
+   //구독하기
     function subscription() {
         var id = params[4];
-        var subscription_count = Number($("#webtoon-subscription").textContent);
+        var subscription_count = Number($("#webtoon-subscription").text());
         var JSONObject = {'webtoonId': id};
 
         $.ajax({
@@ -193,16 +207,48 @@
             data: JSON.stringify(JSONObject),
             contentType: "application/json",
             success: function (resp) {
-                console.log("구독 성공");
-
-                $("#heart-icon").attr('src','/icon/heart_select.png');
-                $("#webtoon-subscription").val(subscription_count + 1);
+                console.log(resp);
+                if(resp.result === "Need Login"){
+                    alert("로그인이 필요한 기능입니다.");
+                }else {
+                    console.log("구독 성공");
+                    myWebtoonId = resp.myWebtoonId;
+                    $("#heart-icon").attr('src', '/icon/heart_select.png');
+                    $("#webtoon-subscription").text(subscription_count + 1);
+                    $("#webtoon-read").text("구독취소");
+                    $("#webtoon-read").removeAttr("onclick");
+                    $("#webtoon-read").attr("onclick", "not_subscription()");
+                }
             },
             error: function (err) {
                 console.log(err.toString());
             }
         });
     }
+
+    //구독 취소하기
+    function not_subscription() {
+        var subscription_count = Number($("#webtoon-subscription").text());
+
+        $.ajax({
+            url: '/api/mywebtoons/'+myWebtoonId,
+            method: 'delete',
+            async: true,
+            contentType: "application/json",
+            success: function (resp) {
+                    console.log("구독 취소");
+                    $("#heart-icon").attr('src', '/icon/heart_none_select.png');
+                    $("#webtoon-subscription").text(subscription_count - 1);
+                    $("#webtoon-read").text("구독하기");
+                    $("#webtoon-read").removeAttr("onclick");
+                    $("#webtoon-read").attr("onclick", "subscription()");
+            },
+            error: function (err) {
+                console.log(err.toString());
+            }
+        });
+    }
+
 </script>
 
 </body>
