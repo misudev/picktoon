@@ -15,17 +15,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Log
 public class DaumWebtoonCrawlerTest {
-    @Autowired
-    DaumWebtoonCrawler daumWebtoonCrawler;
     RestTemplate restTemplate;
 
     @Before
@@ -33,11 +34,6 @@ public class DaumWebtoonCrawlerTest {
         restTemplate = new RestTemplate();
     }
 
-    @Test
-    public void getWebtoonList() {
-        log.info("다음 웹툰 크롤링 테스트 시작 !");
-        daumWebtoonCrawler.getWebtoonList();
-    }
 
     @Test
     public void restTemplateTest(){
@@ -51,7 +47,6 @@ public class DaumWebtoonCrawlerTest {
     @Test
     public void 월요일_연재_웹툰_리스트_가져오기(){
         String url = "http://webtoon.daum.net/data/pc/webtoon/list_serialized/mon?timeStamp=1556525714828";
-
         DaumWebtoonList result = restTemplate.getForObject(url , DaumWebtoonList.class);
         log.info("size : "+result.getData().size());
         List<DaumWebtoonInfo> webtoonInfos = result.getData();
