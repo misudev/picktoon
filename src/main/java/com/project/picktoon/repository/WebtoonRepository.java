@@ -35,6 +35,13 @@ public interface WebtoonRepository extends JpaRepository<Webtoon, Long>, Webtoon
 
     public boolean existsById(Long id);
 
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE Webtoon w SET w.updateState = 0 WHERE w.id = :id")
+    public void updateWebtoonUpdateState(@Param("id") Long id);
+
+    @Query("SELECT w FROM Webtoon w LEFT JOIN FETCH w.keywords k WHERE k.id =:keywordId")
+    public List<Webtoon> getWebtoonsByKeyword(@Param("keywordId")Long keywordId);
+
     @Query("SELECT w FROM Webtoon w INNER JOIN FETCH w.platform  LEFT JOIN FETCH w.keywords k WHERE k.id =:keywordId AND w.updateState = 0")
     public List<Webtoon> getWebtoonsByKeywordAndUpdate(@Param("keywordId")Long keywordId);
 
