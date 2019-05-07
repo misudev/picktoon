@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -36,7 +37,12 @@ public class SeleniumCrawlingTest {
         ChromeDriverService.Builder bldr = (new ChromeDriverService.Builder())
                 .usingDriverExecutable(file)
                 .usingAnyFreePort();
-        driver = new ChromeDriver(bldr.build());
+
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("headless");
+        options.addArguments("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
+
+        driver = new ChromeDriver(bldr.build(), options);
     }
 
     @After
@@ -48,23 +54,23 @@ public class SeleniumCrawlingTest {
 
     @Test
     public void 크롤링테스트() {
-        driver.get("https://www.lezhin.com/ko/comic/wind");
+        driver.get("https://www.lezhin.com/ko/comic/sparrow");
         //List<WebElement> episodeSeq = driver.findElements(By.className("episode-seq"));
         String title = driver.findElement(By.className("title")).getText();
-        String artist = driver.findElement(By.className("artist")).getText().substring(4);
-        String genre = driver.findElement(By.className("genre")).getText().substring(4);
-
+        List<WebElement> authors = driver.findElement(By.className("artist")).findElements(By.tagName("a"));
+        String[] genres = driver.findElement(By.className("genre")).getText().substring(4).split("/");
+        String description = driver.findElement(By.id("product-synopsis")).getText().substring(3);
+        String imageUrl = driver.findElement(By.className("thumbnail")).getAttribute("src");
         log.info("title : "+ title);
-        log.info("artist : "+ artist);
-        log.info("genre : "+ genre);
+        log.info("설명 : " + description);
+        log.info("이미지 주소 : " + imageUrl);
+        for(WebElement a : authors)
+            log.info("author : " + a.getText());
+        for(String g : genres)
+            log.info("genre : " + g);
 
         WebElement element = driver.findElement(By.id("comic-episode-list"));
         List<WebElement> li  = element.findElements(By.tagName("li"));
-//      List<WebElement> li = driver.findElements(By.xpath("//ul[@id='comic-episode-list']/li[@class='is-hide']"));
-//      List<WebElement> li = driver.findElements(By.className("is-hide"));
-//      로그인 버튼 클릭
-//      webElement = driver.findElement(By.id("loginSubmit"));
-//      webElement.submit();
 
         log.info("list 사이즈 : "+ li.size());
         SimpleDateFormat format = new SimpleDateFormat("yy.MM.dd");
@@ -81,7 +87,6 @@ public class SeleniumCrawlingTest {
                 ex.printStackTrace();
             }
             if(day.after(now)){
-                // 0인 경우.. 예외처리.
                 webElement = li.get(i-1);
                 index = i-1;
                 break;
@@ -93,10 +98,5 @@ public class SeleniumCrawlingTest {
         log.info("updatedDate " + updatedDate);
         log.info("count "+count);
 
-//        for(WebElement w : episodeSeq){
-//            String episodeName = w.findElement(By.className("episode-name")).getText();
-//            String episodeDate = w.findElement(By.className("free-date")).getText();
-//            log.info("몇화? : "+ episodeName + "  업데이트 날짜? : " + episodeDate);
-//        }
     }
 }
