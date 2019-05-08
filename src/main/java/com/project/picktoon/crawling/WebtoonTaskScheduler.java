@@ -107,7 +107,7 @@ public class WebtoonTaskScheduler {
         log.info("레진 웹툰 업데이트 시작.");
         while(it.hasNext()){
             Long id = it.next();
-            Webtoon webtoon = webtoonService.getWebtoonById(id);
+            Webtoon webtoon = targetWebtoonsLezhin.get(id);
             if(updateLezhin(webtoon, driver)){
                 it.remove();
             }
@@ -121,7 +121,7 @@ public class WebtoonTaskScheduler {
         log.info("남은 웹툰 업데이트 검사 시작");
         while(it.hasNext()){
             Long id = it.next();
-            Webtoon webtoon = webtoonService.getWebtoonById(id);
+            Webtoon webtoon = remainWebtoons.get(id);
             Platform platform = webtoon.getPlatform();
             switch (platform.getPlatformName()){
                 case Naver:
