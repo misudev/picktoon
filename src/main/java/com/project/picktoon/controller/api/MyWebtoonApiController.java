@@ -40,6 +40,7 @@ public class MyWebtoonApiController {
         List<MywebtoonDto> myWebtoons = modelMapper.map(myWebtoonslist, listType);
         for(MywebtoonDto mywebtoonDto : myWebtoons){
             // ToDo 수정...
+            // exception 발생 가능...
             mywebtoonDto.setWebtoonImageId(webtoonService.getWebtoonById(mywebtoonDto.getWebtoonId()).getWebtoonImages().get(0).getId());
         }
 

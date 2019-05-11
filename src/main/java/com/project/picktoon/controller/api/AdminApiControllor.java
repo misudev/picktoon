@@ -3,8 +3,8 @@ package com.project.picktoon.controller.api;
 import com.project.picktoon.domain.Keyword;
 import com.project.picktoon.domain.Webtoon;
 import com.project.picktoon.domain.WebtoonImage;
-import com.project.picktoon.dto.DaumWebtoonDto.DaumWebtoonInfo;
-import com.project.picktoon.dto.DaumWebtoonDto.DaumWebtoonList;
+import com.project.picktoon.dto.daumWebtoonDto.DaumWebtoonInfo;
+import com.project.picktoon.dto.daumWebtoonDto.DaumWebtoonList;
 import com.project.picktoon.dto.LoadWebtoonData;
 import com.project.picktoon.dto.LoadWebtoonLink;
 import com.project.picktoon.dto.Result;
@@ -192,7 +192,7 @@ public class AdminApiControllor {
             }
             webtoon.setKeywords(keywords);
             // 이미지 저장 및 웹툰에 추가.
-            webtoon.addWebtoonImage(saveFileFromUrl(webtoonInfo.getPcThumbnailImageUrl(), webtoonInfo.getTitle(),PlatformType.Daum.toString()));
+            webtoon.addWebtoonImage(new WebtoonImage(webtoonInfo.getPcThumbnailImageUrl(), webtoonInfo.getTitle(),PlatformType.Daum.toString()));
             // 웹툰 저장
             webtoonService.addWebtoon(webtoon);
             addWebtoonCount++;
@@ -311,34 +311,4 @@ public class AdminApiControllor {
         return id;
     }
 
-    // 크롤링한 이미지 저장.
-    private WebtoonImage saveFileFromUrl(String url, String title, String platform){
-        String dir = "imagefile/webtoon/";
-        WebtoonImage webtoonImage = new WebtoonImage();
-        Calendar calendar = Calendar.getInstance();
-        dir = dir + calendar.get(Calendar.YEAR);
-        dir = dir + "/";
-        dir = dir + (calendar.get(Calendar.MONTH) + 1);
-        dir = dir + "/";
-        dir = dir + calendar.get(Calendar.DAY_OF_MONTH);
-        dir = dir + "/";
-        dir = dir + platform + "/"; // 플랫폼 디렉토리..
-        File dirFile = new File(dir);
-        dirFile.mkdirs(); // 디렉토리가 없을 경우 만든다. 퍼미션이 없으면 생성안될 수 있다.
-        dir = dir + title;
-        try{
-            URL imgUrl = new URL(url);
-            BufferedImage jpg = ImageIO.read(imgUrl);
-            File file = new File(dir+".jpg");
-            ImageIO.write(jpg, "jpg", file);
-            System.out.println("file length : "+file.length());
-
-            webtoonImage.setSaveFileName(dir+".jpg");
-            webtoonImage.setLength(file.length());
-
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-        return webtoonImage;
-    }
 }

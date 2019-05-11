@@ -4,9 +4,6 @@ import com.project.picktoon.domain.Keyword;
 import com.project.picktoon.domain.Platform;
 import com.project.picktoon.domain.Webtoon;
 import com.project.picktoon.domain.WebtoonImage;
-import com.project.picktoon.dto.DaumWebtoonDto.DaumWebtoonInfo;
-import com.project.picktoon.dto.DaumWebtoonDto.DaumWebtoonList;
-import com.project.picktoon.dto.LoadWebtoonLink;
 import com.project.picktoon.service.KeywordService;
 import com.project.picktoon.service.PlatformService;
 import com.project.picktoon.service.WebtoonImageService;
@@ -16,12 +13,10 @@ import com.project.picktoon.util.SeeAge;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.imgscalr.Scalr;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -136,9 +131,10 @@ public class AdminController {
                 }
             }
         }else{
-            WebtoonImage imageFile = saveFileFromUrl(imgUrl, title, platformService.getPlatformById(platform).getPlatformName().toString());
-            imageFile.setName(title);
-            imageFile.setMimeType("image/jpeg");
+//            WebtoonImage imageFile = saveFileFromUrl(imgUrl, title, platformService.getPlatformById(platform).getPlatformName().toString());
+//            imageFile.setName(title);
+//            imageFile.setMimeType("image/jpeg");
+            WebtoonImage imageFile = new WebtoonImage(imgUrl, title, platformService.getPlatformById(platform).getPlatformName().toString());
 
             webtoon.addWebtoonImage(imageFile);
         }
@@ -192,36 +188,6 @@ public class AdminController {
         return dir;
     }
 
-    // url로 이미지 저장..
-    private WebtoonImage saveFileFromUrl(String url, String title, String platform){
-        String dir = "imagefile/webtoon/";
-        WebtoonImage webtoonImage = new WebtoonImage();
-        Calendar calendar = Calendar.getInstance();
-        dir = dir + calendar.get(Calendar.YEAR);
-        dir = dir + "/";
-        dir = dir + (calendar.get(Calendar.MONTH) + 1);
-        dir = dir + "/";
-        dir = dir + calendar.get(Calendar.DAY_OF_MONTH);
-        dir = dir + "/";
-        dir = dir + platform + "/"; // 플랫폼 디렉토리..
-        File dirFile = new File(dir);
-        dirFile.mkdirs(); // 디렉토리가 없을 경우 만든다. 퍼미션이 없으면 생성안될 수 있다.
-        dir = dir + title;
-        try{
-            URL imgUrl = new URL(url);
-            BufferedImage jpg = ImageIO.read(imgUrl);
-            File file = new File(dir+".jpg");
-            ImageIO.write(jpg, "jpg", file);
-            System.out.println("file length : "+file.length());
-
-            webtoonImage.setSaveFileName(dir+".jpg");
-            webtoonImage.setLength(file.length());
-
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-        return webtoonImage;
-    }
 
     private List<Keyword> returnKeywords(Long[] ids){
         List<Keyword> result = new ArrayList<>();
