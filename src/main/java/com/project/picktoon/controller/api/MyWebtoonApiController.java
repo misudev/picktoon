@@ -33,7 +33,6 @@ public class MyWebtoonApiController {
     public ResponseEntity<List<MywebtoonDto>> getMyWebtoons(@RequestParam(name = "ordertype", required = false, defaultValue = "1") int ordertype, Principal principal) {
         String email = principal.getName();
         User user = userService.getUserByEmail(email);
-//        System.out.println(ordertype);
         List<MyWebtoon> myWebtoonslist = myWebtoonService.getMyWebtoons(user.getId(), ordertype);
 
         Type listType = new TypeToken<List<MywebtoonDto>>(){}.getType();
@@ -79,4 +78,6 @@ public class MyWebtoonApiController {
         return new ResponseEntity<>(deleteMyWebtoonDto, HttpStatus.OK);
     }
 
+//    @GetMapping("/updatedcount")
+//    public ResponseEntity<>
 }
