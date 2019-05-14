@@ -29,18 +29,12 @@ public class WebDriverConfig {
     @Bean
     @Scope("prototype")
     public WebDriver webDriver(){
-        String classpathRelativeLocation = "driver/chromedriver";
-        URL url = this.getClass().getClassLoader().getResource(classpathRelativeLocation);
-        File file = new File(url.getFile());
-        ChromeDriverService.Builder bldr = (new ChromeDriverService.Builder())
-                .usingDriverExecutable(file)
-                .usingAnyFreePort();
-
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/driver/chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("headless");
         options.addArguments("window-size=1920x1080");
         options.addArguments("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
-        return new ChromeDriver(bldr.build(), options);
+        return new ChromeDriver(options);
     }
 
 //    @Bean(name = "poolTargetSourceWebDriver", initMethod = "initializeObjects")
