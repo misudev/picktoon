@@ -34,7 +34,7 @@ public class WebDriverConfig {
         System.setProperty("webdriver.chrome.driver",
                 "/home/ubuntu/driver/chromedriver");
         ChromeOptions options = new ChromeOptions();
-        options.setBinary("/usr/bin/google-chrome-stable");
+//        options.setBinary("/usr/bin/google-chrome-stable");
         options.addArguments("--headless");
         options.addArguments("--disable-gpu");
         options.addArguments("--remote-debugging-port=9222");
