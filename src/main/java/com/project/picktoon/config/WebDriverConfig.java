@@ -29,8 +29,10 @@ public class WebDriverConfig {
     @Bean
     @Scope("prototype")
     public WebDriver webDriver(){
+//        System.setProperty("webdriver.chrome.driver",
+//                "/Users/jungmisu/driver/chromedriver");
         System.setProperty("webdriver.chrome.driver",
-                "/Users/jungmisu/driver/chromedriver");
+                "/home/driver/chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("headless");
         options.addArguments("window-size=1920x1080");
