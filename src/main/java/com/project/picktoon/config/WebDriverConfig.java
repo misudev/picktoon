@@ -32,7 +32,7 @@ public class WebDriverConfig {
 //        System.setProperty("webdriver.chrome.driver",
 //                "/Users/jungmisu/driver/chromedriver");
         System.setProperty("webdriver.chrome.driver",
-                "/home/driver/chromedriver");
+                "/home/ubuntu/driver/chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("headless");
         options.addArguments("window-size=1920x1080");
