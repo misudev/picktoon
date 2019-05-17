@@ -38,8 +38,9 @@ public class WebtoonTaskScheduler {
     private boolean flagRemains;
 
     // 23:05 에 크롤링 대상을 다음날 연재되는 웹툰들로 바꿔준다.
-    @Scheduled(cron= "0 35 23 ? * *")
+    @Scheduled(cron= "0 45 23 * * ?")
     public void renewTargetWebtoons(){
+        log.info("웹툰 검사...");
         Calendar calendar = Calendar.getInstance();
         long nowDate = (long)calendar.get(Calendar.DAY_OF_WEEK); // 1(월) ~ 7(일)
 
