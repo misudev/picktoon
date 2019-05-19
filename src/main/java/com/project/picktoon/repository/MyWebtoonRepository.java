@@ -36,6 +36,6 @@ public interface MyWebtoonRepository extends JpaRepository<MyWebtoon, Long> {
     @Query("SELECT m FROM MyWebtoon m INNER JOIN FETCH m.webtoon INNER JOIN FETCH m.user  WHERE m.user.id =:userId AND m.webtoon.id =:webtoonId")
     public MyWebtoon getMyWebtoonByUserAndWebtoon(@Param("userId") Long userId , @Param("webtoonId")Long webtoonId);
 
-    @Query("SELECT m FROM MyWebtoon m INNER JOIN FETCH m.webtoon INNER JOIN FETCH m.user WHERE m.user.id =:userId AND m.webtoon.updateState = 1")
+    @Query("SELECT m FROM MyWebtoon m INNER JOIN FETCH m.webtoon INNER JOIN FETCH m.user WHERE m.user.id =:userId AND m.webtoon.updateState = 1 AND m.alarm = 1")
     public List<MyWebtoon> getMyWebtoonByUpdateState(@Param("userId") Long userId);
 }
