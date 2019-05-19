@@ -78,6 +78,26 @@ public class MyWebtoonApiController {
         return new ResponseEntity<>(deleteMyWebtoonDto, HttpStatus.OK);
     }
 
-//    @GetMapping("/updatedcount")
-//    public ResponseEntity<>
+    @GetMapping("/alarms")
+    public ResponseEntity<UpdateAlarmDto> getAlarm(Principal principal){
+        if(principal == null){
+            return new ResponseEntity<>(new UpdateAlarmDto(0,""), HttpStatus.NO_CONTENT);
+        }else{
+            String email = principal.getName();
+            User user = userService.getUserByEmail(email);
+            List<MyWebtoon> list = myWebtoonService.getMyWebtoonsByUpdateState(user.getId());
+            UpdateAlarmDto updateAlarmDto = new UpdateAlarmDto();
+            if(!list.isEmpty()){
+                updateAlarmDto.setTitle(list.get(0).getWebtoon().getTitle());
+                updateAlarmDto.setCount(list.size());
+            }else {
+                updateAlarmDto.setCount(0);
+                updateAlarmDto.setTitle("");
+                return new ResponseEntity<>(updateAlarmDto, HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(updateAlarmDto, HttpStatus.OK);
+
+        }
+
+    }
 }

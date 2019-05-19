@@ -12,4 +12,5 @@ public interface MyWebtoonService {
     public Long getMyWebtoon(Long userId, Long webtoonId);
     public MyWebtoon getMyWebtoonById(Long myWebtoonId);
     public boolean checkMyWebtoon(Long userId, Long webtoonId);
+    public List<MyWebtoon> getMyWebtoonsByUpdateState(Long userId);
 }

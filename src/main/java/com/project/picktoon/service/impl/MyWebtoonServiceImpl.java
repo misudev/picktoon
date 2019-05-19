@@ -80,6 +80,7 @@ public class MyWebtoonServiceImpl implements MyWebtoonService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Long getMyWebtoon(Long userId, Long webtoonId) {
         MyWebtoon checkMyWebtoon = myWebtoonRepository.findByUserAndWebtoon(userId,webtoonId);
         if(checkMyWebtoon != null)
@@ -97,5 +98,11 @@ public class MyWebtoonServiceImpl implements MyWebtoonService {
     @Transactional(readOnly = true)
     public boolean checkMyWebtoon(Long userId, Long webtoonId) {
         return (myWebtoonRepository.getMyWebtoonByUserAndWebtoon(userId, webtoonId) == null)? false : true;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<MyWebtoon> getMyWebtoonsByUpdateState(Long userId) {
+        return myWebtoonRepository.getMyWebtoonByUpdateState(userId);
     }
 }
