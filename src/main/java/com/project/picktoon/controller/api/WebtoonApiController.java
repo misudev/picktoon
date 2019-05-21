@@ -57,13 +57,13 @@ public class WebtoonApiController {
     @GetMapping("/bestWebtoons")
     public ResponseEntity<List<WebtoonDto>> getBestWebtoon(){
         List<Webtoon> webtoonlist = webtoonService.getBestWebtoons();
-        List<WebtoonDto> webtoons = new ArrayList<>();
-
-        for(Webtoon webtoon : webtoonlist){
-            WebtoonDto webtoonDto = modelMapper.map(webtoon, WebtoonDto.class);
-            //TODO 이미지 추가하고 테스트하기
-            webtoons.add(webtoonDto);
-        }
+//        for(Webtoon webtoon : webtoonlist){
+//            WebtoonDto webtoonDto = modelMapper.map(webtoon, WebtoonDto.class);
+//            //TODO 이미지 추가하고 테스트하기
+//            webtoons.add(webtoonDto);
+//        }
+        Type listType = new TypeToken<List<WebtoonDto>>(){}.getType();
+        List<WebtoonDto> webtoons = modelMapper.map(webtoonlist, listType);
         return new ResponseEntity<>(webtoons, HttpStatus.OK);
     }
 
@@ -131,6 +131,17 @@ public class WebtoonApiController {
         List<SearchWebtoonDto> results = modelMapper.map(webtoons, listType);
         return new ResponseEntity<>(results, HttpStatus.OK);
     }
+
+    //플랫폼으로 웹툰 가져오기
+    //TODO url 다시 정하기
+    @GetMapping("/platform/{platformId}")
+    public ResponseEntity<List<WebtoonDto>> getWebtoonsByPlatform(@PathVariable int platformId){
+        List<Webtoon> webtoonlist = webtoonService.getWebtoonsByPlatfrom(platformId);
+        Type listType = new TypeToken<List<WebtoonDto>>(){}.getType();
+        List<WebtoonDto> results = modelMapper.map(webtoonlist, listType);
+        return new ResponseEntity<>(results, HttpStatus.OK);
+    }
+
 
     private List<SearchKeyword> convertToSearchKeyword(int keywordType, String[] keywords){
         List<SearchKeyword> result = new ArrayList<>();

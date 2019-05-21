@@ -13,4 +13,11 @@ public class ParseData {
         }
         return null;
     }
+
+    // check same date??
+    public static boolean checkToDay(Date date){
+        Date today = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        return sdf.format(date).equals(sdf.format(today));
+    }
 }

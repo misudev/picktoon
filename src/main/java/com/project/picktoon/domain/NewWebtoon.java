@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 public class NewWebtoon {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column

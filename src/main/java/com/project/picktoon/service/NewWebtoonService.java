@@ -8,5 +8,6 @@ import java.util.List;
 public interface NewWebtoonService {
     public NewWebtoon getNewWebtoonById(int id);
     public List<NewWebtoon> getNewWebtoons();
-    public NewWebtoon updateNewWebtoon(int id, Long webtoonId, int ordering);
+    public void updateNewWebtoon(NewWebtoon newWebtoon);
+   // public NewWebtoon updateNewWebtoon(int id, Long webtoonId, int ordering);
 }

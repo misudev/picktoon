@@ -4,14 +4,17 @@ import com.project.picktoon.domain.Keyword;
 import com.project.picktoon.domain.Platform;
 import com.project.picktoon.domain.Webtoon;
 import com.project.picktoon.domain.WebtoonImage;
+import com.project.picktoon.dto.WebtoonDto;
 import com.project.picktoon.service.KeywordService;
 import com.project.picktoon.service.PlatformService;
 import com.project.picktoon.service.WebtoonImageService;
 import com.project.picktoon.service.WebtoonService;
 import com.project.picktoon.util.KeywordType;
+import com.project.picktoon.util.ParseData;
 import com.project.picktoon.util.SeeAge;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -143,6 +146,10 @@ public class AdminController {
             System.out.println(updatedDateStr);
             Date updateDate = transFormat.parse(updatedDateStr);
             webtoon.setUpdatedDate(updateDate);
+            if (ParseData.checkToDay(updateDate)){
+                webtoon.setUpdateState(true);
+            }
+
         }catch (java.text.ParseException ex){
             ex.printStackTrace();
         }
@@ -158,6 +165,21 @@ public class AdminController {
         return "admin/registDaum";
     }
 
+    //관리자웹툰 검색하기
+    @GetMapping("/search")
+    public String adminListwebtoon(Model model) {
+        List<Platform> platforms = platformService.getAllPlatforms();
+        model.addAttribute("platforms", platforms);
+        return "admin/adminSearch";
+    }
+
+    //관리자웹툰 검색하기 결과
+    @GetMapping("/searchlist")
+    public String searchWebtoon() { return "admin/adminSearchlist";}
+
+    //NewWebtoon등록하기
+    @GetMapping("/newWebtoon")
+    public String registNewWebtoon() {return "admin/registNewWebtoon";}
 
     private String saveFile(MultipartFile image){
         String dir = "imagefile/webtoon/";

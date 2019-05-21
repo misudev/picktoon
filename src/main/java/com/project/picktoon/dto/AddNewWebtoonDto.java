@@ -8,15 +8,11 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-public class NewWebtoonDto {
+public class AddNewWebtoonDto {
     @NotNull
     private int id;
     private int ordering;
     @NotNull
-    private Long webtoonId;
-    @NotNull
     @Size(min=1, max=45)
     private String webtoonTitle;
-    @NotNull
-    private Long webtoonImageId = -1L;
 }

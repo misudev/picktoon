@@ -32,9 +32,9 @@ public class NewWebtoonServiceTest {
         System.out.println(newWebtoon);
     }
 
-    @Test
-    public void 뉴웹툰_새로운뉴웹툰(){
-        NewWebtoon newWebtoon1 = newWebtoonService.updateNewWebtoon(3,18L, 3);
-        System.out.println(newWebtoon1);
-    }
+//    @Test
+//    public void 뉴웹툰_새로운뉴웹툰(){
+//        NewWebtoon newWebtoon1 = newWebtoonService.updateNewWebtoon(3,18L, 3);
+//        System.out.println(newWebtoon1);
+//    }
 }

@@ -3,6 +3,7 @@ package com.project.picktoon.controller.api;
 import com.project.picktoon.domain.Keyword;
 import com.project.picktoon.domain.Webtoon;
 import com.project.picktoon.domain.WebtoonImage;
+import com.project.picktoon.dto.WebtoonDto;
 import com.project.picktoon.dto.daumWebtoonDto.DaumWebtoonInfo;
 import com.project.picktoon.dto.daumWebtoonDto.DaumWebtoonList;
 import com.project.picktoon.dto.LoadWebtoonData;
@@ -24,10 +25,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -124,7 +122,12 @@ public class AdminApiControllor {
             String updatedDateStr = webtoonInfo.getUpdatedDate();
             updatedDateStr = updatedDateStr.substring(0 , 8);
             log.info("최신 업데이트 날짜 : "+updatedDateStr);
+
             Date updatedDate = ParseData.parseDate(updatedDateStr,new SimpleDateFormat("yyyyMMdd") );
+            // 업데이트 날짜가 오늘이면??
+            if (ParseData.checkToDay(updatedDate)){
+                webtoon.setUpdateState(true);
+            }
             webtoon.setUpdatedDate(updatedDate);
 
             webtoon.setTotalCount(webtoonInfo.getCount());
@@ -179,6 +182,7 @@ public class AdminApiControllor {
             }
             //연재일
             for(String w : webtoonInfo.getWeekDays()){
+                log.info("~~~~~~ weekday : " + w);
                 Long keywordId = parseWeekday(w);
                 if(keywordId == -1L){
                     continue;
@@ -272,15 +276,6 @@ public class AdminApiControllor {
     }
 
 
-//    public Date parseDate(String dateStr){
-//        try{
-//            Date date = new SimpleDateFormat("yyyyMMdd").parse(dateStr);
-//            return date;
-//        }catch (Exception ex){
-//            ex.printStackTrace();
-//        }
-//        return null;
-//    }
 
     public Long parseWeekday(String weekdayStr){
         Long id = -1L;
@@ -288,7 +283,7 @@ public class AdminApiControllor {
             case "mon":
                 id = 2L;
                 break;
-            case "the":
+            case "tue":
                 id = 3L;
                 break;
             case "wed":
