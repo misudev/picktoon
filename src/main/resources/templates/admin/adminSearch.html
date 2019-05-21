@@ -110,7 +110,7 @@
             $('#admin_webtoonlist *').remove();
 
             $.ajax({
-                url: 'webtoons/platform/'+(i+1),
+                url: '/api/webtoons/platform/'+(i+1),
                 method: 'GET',
                 async: true,
                 ContentType: "application/json",
