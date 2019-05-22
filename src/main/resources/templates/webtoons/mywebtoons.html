@@ -42,11 +42,15 @@
         success: function (resp) {
             console.log("마이 웹툰 조회 성공");
             for(var i = 0; i < resp.length; i++) {
-                var webtoonRow = $('<li class="result-row mywebtoon-row">' +
+                var updateState = "hide-badge";
+                if(resp[i].webtoonUpdateState)
+                    updateState = "";
 
+                var webtoonRow = $('<li class="result-row mywebtoon-row">' +
                 '<img src= "/webtoons/images/'+resp[i].webtoonImageId +'" alt="이미지" class="webtoon_image">' +
                 '<div class="webtoon-detail">' +
-                '<p class="webtoon-title"><b><a href = "/webtoons/'+resp[i].webtoonId+'">'+resp[i].webtoonTitle+'</a></b></p>'+
+                '<p class="webtoon-title"><b><a href = "/webtoons/'+resp[i].webtoonId+'">'+resp[i].webtoonTitle+'</a></b>'+'&nbsp;'+
+                '<span class="badge badge-pill badge-made badge-update-state '+updateState+'">UP</span></p> '+
                 '<span class="webtoon-count">'+resp[i].webtoonTotalCount+'</span>'+
                 '<span class="webtoon-date">'+resp[i].webtoonUpdatedDate+'</span>'+
                 '</div>'+
@@ -60,6 +64,13 @@
             console.log(err.toString());
         }
     });
+
+    function updateState(state) {
+        if(state == true) {
+            return '<span class="badge badge-pill badge-made badge-update-state">UP</span>';
+        }
+
+    }
 
     function alarmcheck(alarm) {
         if (alarm == false) {

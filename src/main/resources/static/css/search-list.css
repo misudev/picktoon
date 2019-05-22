@@ -80,3 +80,24 @@
     box-shadow: 0px 0px 24px -1px rgba(63, 127, 191, 1);
 }
 
+.badge-pill{
+    margin-right: 5px;
+    height: 16px;
+}
+.badge-made{
+    background-color: skyblue;
+    color: white;
+}
+.bnt-made{
+    border: solid 0.5px blue;
+    color: black;
+}
+.btn-read{
+    margin-right: 3px;
+}
+.badge-search{
+    border: none;
+}
+.hide-badge{
+    display : none;
+}
