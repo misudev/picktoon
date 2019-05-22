@@ -38,7 +38,7 @@ public class WebtoonTaskScheduler {
     private boolean flagRemains;
 
     // 23:05 에 크롤링 대상을 다음날 연재되는 웹툰들로 바꿔준다.
-    @Scheduled(cron= "0 5 23 * * *")
+    @Scheduled(cron= "0 55 23 * * *")
     public void renewTargetWebtoons(){
         log.info("웹툰 검사...");
         Calendar calendar = Calendar.getInstance();
@@ -192,7 +192,7 @@ public class WebtoonTaskScheduler {
             String jsonData = restTemplate.getForObject(url , String.class);
             JsonNode root = mapper.readTree(jsonData);
             // 최신 업데이트 정보 가져오기..
-            JsonNode latestWebtoon = root.path("data").path("webtoon").path("latestWe btoonEpisode");
+            JsonNode latestWebtoon = root.path("data").path("webtoon").path("latestWebtoonEpisode");
             if (!latestWebtoon.isMissingNode()) {
                 String newCount = latestWebtoon.path("title").asText();
                 if (!newCount.equals(webtoon.getTotalCount())) {
