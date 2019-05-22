@@ -57,4 +57,8 @@ public interface WebtoonRepository extends JpaRepository<Webtoon, Long>, Webtoon
 
     @Query("SELECT w FROM Webtoon w WHERE w.title = :title")
     public Webtoon getWebtoonByTitle(@Param("title")String title);
+
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE Webtoon w SET w.updateState = 0")
+    public void updateWebtoonUpdateStateFalse();
 }

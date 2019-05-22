@@ -20,5 +20,6 @@ public interface WebtoonService {
     public void updateWebtoonUpdateState(Long keywordId);
     public List<Webtoon> getWebtoonsByPlatfrom(int platformId);
     public Webtoon getWebtoonByTitle(String title);
+    public void updateWebtoonUpdateStateToFalse();
 
 }

@@ -101,4 +101,10 @@ public class WebtoonServiceImpl implements WebtoonService {
     public Webtoon getWebtoonByTitle(String title) {
         return webtoonRepository.getWebtoonByTitle(title);
     }
+
+    @Override
+    @Transactional
+    public void updateWebtoonUpdateStateToFalse() {
+        webtoonRepository.updateWebtoonUpdateStateFalse();
+    }
 }

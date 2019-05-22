@@ -46,8 +46,8 @@ public class WebtoonTaskScheduler {
 
         remainWebtoons.putAll(targetWebtoonsNaver);
         targetWebtoonsNaver = new HashMap<>();
-        //오늘 연재일인 웹툰의 업데이트 상태를 false로 변경한다.
-        webtoonService.updateWebtoonUpdateState(nowDate);
+        //모든 웹툰의 업데이트 상태를 false로 변경한다.
+        webtoonService.updateWebtoonUpdateStateToFalse();
         log.info("nowDate {}", nowDate);
         //다음날 연재일인 웹툰을 가져온다...
 
@@ -189,10 +189,10 @@ public class WebtoonTaskScheduler {
 
             String url = webtoon.getCrawlingLink();
             // json 데이터 가져오기..
-            String jsonData = restTemplate.getForObject(url , String.class); //com.fasterxml.jackson.core.JsonParseException
+            String jsonData = restTemplate.getForObject(url , String.class);
             JsonNode root = mapper.readTree(jsonData);
             // 최신 업데이트 정보 가져오기..
-            JsonNode latestWebtoon = root.path("data").path("webtoon").path("latestWebtoonEpisode");
+            JsonNode latestWebtoon = root.path("data").path("webtoon").path("latestWe btoonEpisode");
             if (!latestWebtoon.isMissingNode()) {
                 String newCount = latestWebtoon.path("title").asText();
                 if (!newCount.equals(webtoon.getTotalCount())) {
@@ -219,7 +219,6 @@ public class WebtoonTaskScheduler {
             log.info("checkwebtoon title (L) : {}" , webtoon.getTitle());
 
             driver.get(webtoon.getCrawlingLink());
-//            WebElement element = driver.findElement(By.id("comic-episode-list22")); //org.openqa.selenium.NoSuchElementException
             WebElement element = driver.findElement(By.id("comic-episode-list"));
             List<WebElement> li = element.findElements(By.tagName("li"));
             SimpleDateFormat format = new SimpleDateFormat("yy.MM.dd");
