@@ -26,4 +26,4 @@
 - Crawling
 
 #### 미리보기
-![픽툰-1](https://user-images.githubusercontent.com/45555378/59058448-99220300-88d7-11e9-8ce8-3451ff7581f5.png)
+![픽툰-1](https://user-images.githubusercontent.com/45555378/59058654-151c4b00-88d8-11e9-9a2f-400fa4790420.png)
